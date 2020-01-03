@@ -26,25 +26,28 @@ public class PlayerHandler extends Thread {
             printStream = new PrintStream(socket.getOutputStream());
             String json = dataInputStream.readLine();
             JsonObject jsonObject = Utils.toJson(json);
+            JsonObject response = null;
             if(Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString())==Constant.SIGN_UP){
-                JsonObject response = DBQueries.signUp(json);
-                if(Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_SUCCESSED)
-                {
-                    printStream.println(response.toString());
-                    id = Integer.parseInt(response.get(Constant.PLAYER_DATA).getAsJsonObject().get(Tables.player.ID).toString());
-                    System.out.println(response.toString());
-                    this.start();
-                    Server.addOnlinePlayer(this);
+                response = DBQueries.signUp(json);
 
-                } else if(Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_FAILED)
-                {
-                    printStream.println(response.toString());
-                    this.socket.close();
-                    this.stop();
-
-                }
 
             } else if(Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString())==Constant.LOGIN){
+                response = DBQueries.login(json);
+            }
+
+            if(Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_SUCCESSED)
+            {
+                printStream.println(response.toString());
+                id = Integer.parseInt(response.get(Constant.PLAYER_DATA_KEY).getAsJsonObject().get(Tables.player.ID).toString());
+                System.out.println(response.toString());
+                this.start();
+                Server.addOnlinePlayer(this);
+
+            } else if(Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_FAILED)
+            {
+                printStream.println(response.toString());
+                this.socket.close();
+                this.stop();
 
             }
         } catch (IOException e) {

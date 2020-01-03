@@ -19,11 +19,11 @@ public class Main {
     public static void main(String [] args){
         HashMap<String,Object> map = new HashMap<>();
 
-        map.put(Constant.REQUEST_TYPE,Constant.SIGN_UP);
-        map.put("first_name","ALi");
-        map.put("last_name","Islam");
-        map.put("user_name","QQQ");
-        map.put("password","1425");
+        map.put(Constant.REQUEST_TYPE,Constant.LOGIN);
+        //map.put("first_name","ALi");
+        //map.put("last_name","Islam");
+        map.put("user_name","AAA");
+        map.put("password","14255");
 
         try {
             Socket socket = new Socket("127.0.0.1",5000);
