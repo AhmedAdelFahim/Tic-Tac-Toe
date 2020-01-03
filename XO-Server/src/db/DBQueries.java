@@ -86,5 +86,26 @@ public class DBQueries {
     }
 
 
+    public static JsonObject logout(String json){
+        HashMap<String,Object> res = new HashMap<>();
+        try {
+            JsonObject jsonObject = Utils.toJson(json);
+            PreparedStatement preparedStatement = DBConnection.getInstance().prepareStatement("UPDATE player SET "+Tables.player.STATUE+" = ? WHERE "+Tables.player.USER_NAME +" = ?");
+            preparedStatement.setInt(1,Constant.OFFLINE_STATUS);
+            preparedStatement.setString(2,jsonObject.get(Tables.player.USER_NAME).toString());
+            int isUpdated = preparedStatement.executeUpdate();
+
+            if(isUpdated == 1){
+                res.put(Constant.STATUS_CODE_KEY,Constant.STATUS_CODE_SUCCESSED);
+            } else {
+                res.put(Constant.STATUS_CODE_KEY,Constant.STATUS_CODE_FAILED);
+            }
+
+        } catch (SQLException e) {
+            res.put(Constant.STATUS_CODE_KEY,Constant.STATUS_CODE_FAILED);
+            e.printStackTrace();
+        }
+        return Utils.toJson(res);
+    }
 
 }

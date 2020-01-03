@@ -29,5 +29,11 @@ public class Server {
 
     public static void addOnlinePlayer(PlayerHandler player){
         onlinePlayers.add(player);
+        System.out.println("Onlines " +onlinePlayers.size());
+    }
+
+    public static void removeOnlinePlayer(PlayerHandler player){
+        onlinePlayers.remove(player);
+        System.out.println("Onlines " +onlinePlayers.size());
     }
 }
