@@ -18,8 +18,8 @@ public class DBQueries {
     *
     * input params first name , last name , password , user name as string in json format
     *
-    * output params if sign up Successed return res_status = 200 and player data
-    *               else return res_status = 400
+    * output params if sign up Successed return status_code = 200 and player data
+    *               else return status_code = 400
     *
     *  Note : output as Json Object
     */
@@ -85,6 +85,14 @@ public class DBQueries {
         return player.toString();
     }
 
+    /*
+    *
+    * Input params : user_name  as string in json format
+    *
+    * Output params : if logout Successed return status_code = 200
+    *                   else return status_code = 400
+    * Note : output as Json Object
+    */
 
     public static JsonObject logout(String json){
         HashMap<String,Object> res = new HashMap<>();
