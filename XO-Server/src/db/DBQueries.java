@@ -20,6 +20,8 @@ public class DBQueries {
     *
     * output params if sign up Successed return res_status = 200 and player data
     *               else return res_status = 400
+    *
+    *  Note : output as Json Object
     */
     public static JsonObject signUp(String json){
         HashMap<String,Object> res = new HashMap<>();
