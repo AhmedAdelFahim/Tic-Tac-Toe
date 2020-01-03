@@ -20,10 +20,10 @@ public class Main {
         HashMap<String,Object> map = new HashMap<>();
 
         map.put(Constant.REQUEST_TYPE,Constant.SIGN_UP);
-        map.put("first_name","Ahmed");
-        map.put("last_name","Adel");
-        map.put("user_name","ahmed_adel");
-        map.put("password","1234");
+        map.put("first_name","ALi");
+        map.put("last_name","Islam");
+        map.put("user_name","QQQ");
+        map.put("password","1425");
 
         try {
             Socket socket = new Socket("127.0.0.1",5000);
@@ -32,6 +32,14 @@ public class Main {
             printStream.println(Utils.toString(map));
             System.out.println(dataInputStream.readLine());
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Thread.sleep(60000);
+            map.put(Constant.REQUEST_TYPE,Constant.LOGOUT);
+            printStream.println(Utils.toString(map));
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 //        JsonObject jsonObject = new JsonParser().parse(DBQueries.signUp(map.toString())).getAsJsonObject().toString();
