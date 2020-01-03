@@ -11,7 +11,7 @@ public class Constant {
     public static final String STATUS_CODE_KEY = "status_code";
     public static final int STATUS_CODE_SUCCESSED = 200;
     public static final int STATUS_CODE_FAILED = 400;
-    public static final String PLAYER_DATA = "player_data";
+    public static final String PLAYER_DATA_KEY = "player_data";
 
 
 }

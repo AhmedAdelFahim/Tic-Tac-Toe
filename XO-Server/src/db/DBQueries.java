@@ -97,11 +97,7 @@ public class DBQueries {
     public static JsonObject logout(String json){
         HashMap<String,Object> res = new HashMap<>();
         try {
-            JsonObject jsonObject = Utils.toJson(json);
-            PreparedStatement preparedStatement = DBConnection.getInstance().prepareStatement("UPDATE player SET "+Tables.player.STATUE+" = ? WHERE "+Tables.player.USER_NAME +" = ?");
-            preparedStatement.setInt(1,Constant.OFFLINE_STATUS);
-            preparedStatement.setString(2,jsonObject.get(Tables.player.USER_NAME).toString());
-            int isUpdated = preparedStatement.executeUpdate();
+            int isUpdated = updatePlayerStatus(json,Constant.OFFLINE_STATUS);
 
             if(isUpdated == 1){
                 res.put(Constant.STATUS_CODE_KEY,Constant.STATUS_CODE_SUCCESSED);
@@ -116,4 +112,49 @@ public class DBQueries {
         return Utils.toJson(res);
     }
 
+    private static int updatePlayerStatus(String json,int status) throws SQLException {
+        JsonObject jsonObject = Utils.toJson(json);
+        PreparedStatement preparedStatement = DBConnection.getInstance().prepareStatement("UPDATE player SET "+ Tables.player.STATUE+" = ? WHERE "+Tables.player.USER_NAME +" = ?");
+        preparedStatement.setInt(1, status);
+        preparedStatement.setString(2,jsonObject.get(Tables.player.USER_NAME).toString());
+        return preparedStatement.executeUpdate();
+    }
+
+    public static JsonObject login(String json){
+        HashMap<String,Object> res = new HashMap<>();
+        JsonObject jsonObject = Utils.toJson(json);
+        String userName = jsonObject.get(Tables.player.USER_NAME).toString();
+        String password = jsonObject.get(Tables.player.PASSWORD).toString();
+        Player player = null;
+        try {
+            PreparedStatement selectPlayer = DBConnection.getInstance().prepareStatement("SELECT * FROM player WHERE user_name = ?");
+            selectPlayer.setString(1,userName);
+            ResultSet resultSet = selectPlayer.executeQuery();
+            resultSet.next();
+            if(password.equals(resultSet.getString(Tables.player.PASSWORD))){
+                int id = resultSet.getInt(Tables.player.ID);
+                int score = resultSet.getInt(Tables.player.SCORE);
+                String fName = resultSet.getString(Tables.player.FIRST_NAME);
+                String lName = resultSet.getString(Tables.player.LAST_NAME);
+                String imageURL = resultSet.getString(Tables.player.IMAGE_URL);
+                player = new Player(id,fName,lName,userName,imageURL,score);
+                player.setStatus(Constant.ONLINE_STATUS);
+
+                int isUpdated = updatePlayerStatus(json,Constant.ONLINE_STATUS);
+
+                if(isUpdated == 1){
+                    res.put(Constant.STATUS_CODE_KEY,Constant.STATUS_CODE_SUCCESSED);
+                    res.put(Constant.PLAYER_DATA_KEY,player);
+                } else {
+                    res.put(Constant.STATUS_CODE_KEY,Constant.STATUS_CODE_FAILED);
+                }
+
+            }else {
+                res.put(Constant.STATUS_CODE_KEY,Constant.STATUS_CODE_FAILED);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Utils.toJson(res);
+    }
 }
