@@ -38,14 +38,14 @@ public class FXMLDocumentController implements Initializable {
         System.out.println("You clicked me!");
         label1.setText("Hello World!");
     }
-    Hyperlink link = new Hyperlink();
-link.setText("http://example.com");
-link.setOnAction(new EventHandler<ActionEvent>() {
-    @Override
-    public void handle(ActionEvent e) {
-        System.out.println("This link is clicked");
-    }
-});
+//    Hyperlink link = new Hyperlink();
+//link.setText("http://example.com");
+//link.setOnAction(new EventHandler<ActionEvent>() {
+//    @Override
+//    public void handle(ActionEvent e) {
+//        System.out.println("This link is clicked");
+//    }
+//});
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
