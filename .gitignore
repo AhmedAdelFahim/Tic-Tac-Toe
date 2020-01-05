@@ -1,2 +1,6 @@
 XO-Server/.idea
 XO-Server/out
+XO-Client/build
+XO-Client/dist
+XO-Client/nbproject
+XO-Client/test
