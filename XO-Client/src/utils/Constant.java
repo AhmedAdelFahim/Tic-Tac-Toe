@@ -1,0 +1,26 @@
+package utils;
+
+public class Constant {
+    public static final String REQUEST_TYPE = "request_type";
+    public static final int LOGIN = 1;
+    public static final int LOGOUT = -1;
+    public static final int SIGN_UP = 2;
+    public static final int ONLINE_STATUS = 1;
+    public static final int BUSY_STATUS = 0;
+    public static final int OFFLINE_STATUS = -1;
+    public static final String STATUS_CODE_KEY = "status_code";
+    public static final int STATUS_CODE_SUCCESSED = 200;
+    public static final int STATUS_CODE_FAILED = 400;
+    public static final String PLAYER_DATA_KEY = "player_data";
+
+    public static final String ID_KEY = "id";
+    public static final String FIRST_NAME_KEY ="first_name";
+    public static final String LAST_NAME_KEY = "last_name";
+    public static final String USER_NAME_KEY = "user_name";
+    public static final String IMAGE_URL_KEY = "image_url";
+    public static final String SCORE_KEY = "score";
+    public static final String STATUE_KEY = "status";
+    public static final String PASSWORD_KEY = "password";
+
+
+}

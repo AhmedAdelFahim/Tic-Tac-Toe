@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="456.0" prefWidth="279.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pro1.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="456.0" prefWidth="279.0" style="-fx-background-color: black;" xmlns:fx="http://javafx.com/fxml" fx:controller="ui.SignUpView">
     <children>
         <Button fx:id="registerButton" layoutX="49.0" layoutY="326.0" onAction="#handleRegisterButton0Action" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: green;" text="Register" textFill="#eee8e8" />
         <Label alignment="CENTER" layoutX="34.0" minHeight="16" minWidth="69" prefHeight="53.0" prefWidth="206.0" text="Tic Tac Toe" textFill="#eee7e7">
