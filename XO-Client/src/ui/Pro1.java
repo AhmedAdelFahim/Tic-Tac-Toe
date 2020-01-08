@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pro1;
+package ui;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -24,7 +24,7 @@ public class Pro1 extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("SignUpView.fxml"));
 
        
 //        root.setStyle("-fx-fill: activeborder;-fx-border:green;-fx-font:15px sans-serif;-fx-background-color: darkslategrey;");

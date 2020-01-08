@@ -4,4 +4,6 @@ XO-Client/build
 XO-Client/dist
 XO-Client/nbproject
 XO-Client/test
-
+XO-Client/out
+XO-Client/.idea
+XO-Client/XO-Client.iml

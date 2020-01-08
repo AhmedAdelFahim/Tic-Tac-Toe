@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pro1;
+package ui;
 
 import java.net.URL;
 import java.util.HashMap;
@@ -18,6 +18,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import utils.Constant;
+import viewmodel.SignUpViewModel;
+
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -27,10 +30,9 @@ import java.net.Socket;
  *
  * @author eg
  */
-public class FXMLDocumentController implements Initializable {
+public class SignUpView implements Initializable {
 
-    public static DataInputStream dataInputStream;
-    public static PrintStream printStream;
+
     @FXML
     private TextField firstName;
     @FXML
@@ -47,15 +49,21 @@ public class FXMLDocumentController implements Initializable {
     private Label message;
     @FXML
     private Button haveAccountButton;
-    @FXML
-    private Label label1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        SignUpViewModel.toPlayScreenFlagProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue){
+                System.out.println("SSS");
+            } else {
+
+                System.out.println("FFF");
+            }
+        });
     }
 
-    public void connectClient(JsonObject jsonObject) {
+   /* public void connectClient(JsonObject jsonObject) {
         try {
             Socket socket = new Socket("127.0.0.1", 5200);
             dataInputStream = new DataInputStream(socket.getInputStream());
@@ -66,7 +74,7 @@ public class FXMLDocumentController implements Initializable {
             e.printStackTrace();
         }
 
-    }
+    }*/
 
     @FXML
     private void handleRegisterButton0Action(ActionEvent event) {
@@ -77,10 +85,9 @@ public class FXMLDocumentController implements Initializable {
                 || (confirmPassword.getText().isEmpty())) {
             message.setText("Input is required");
         } else {
-
 ////            //fetch
             HashMap<String, Object> map = new HashMap<>();
-//            map.put(Constant.REQUEST_TYPE, Constant.SIGN_UP);
+/*//            map.put(Constant.REQUEST_TYPE, Constant.SIGN_UP);
 //            map.put("first_name", firstName.getText());
 //            map.put("last_name", lastName.getText());
 //            map.put("username", userName.getText());
@@ -93,12 +100,19 @@ public class FXMLDocumentController implements Initializable {
             jsonsend.addProperty("username", userName.getText());
             jsonsend.addProperty("password", password.getText());
             map.put("userdata", jsonsend);
-            System.out.println(map);
+            System.out.println(map);*/
             message.setText("");
+
+            map.put(Constant.REQUEST_TYPE,Constant.SIGN_UP);
+            map.put(Constant.USER_NAME_KEY,userName.getText());
+            map.put(Constant.FIRST_NAME_KEY,firstName.getText());
+            map.put(Constant.LAST_NAME_KEY,lastName.getText());
+            map.put(Constant.PASSWORD_KEY,password.getText());
+            SignUpViewModel.signUp(map);
 //call function to open connection
-            connectClient(jsonsend);
+//            connectClient(jsonsend);
 ////            //goto play mode or login page
-////    
+////
         }
         System.out.println("You clicked register!");
 
