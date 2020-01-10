@@ -3,10 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pro1;
+package ui;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,11 +17,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import static javafx.scene.input.KeyCode.S;
 import static javafx.scene.input.KeyCode.T;
 import javafx.scene.input.MouseEvent;
+import model.Player;
+import viewmodel.PlayModeViewModel;
 
 /**
  *
@@ -29,17 +36,25 @@ public class PlayModeController implements Initializable {
     @FXML
     private ImageView computer;
     @FXML
-    private TableView<?> tableOnlinePlayer;
+    private TableView onlinePlayerTable;
     @FXML
-    private TableColumn<?, ?> online;
+    private TableColumn playerNameCol;
     @FXML
-    private TableColumn<?, ?> ranks;
+    private TableColumn playerScoreCol;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        
-        //table elements 
+        playerNameCol.setCellValueFactory(new PropertyValueFactory("userName"));
+        playerScoreCol.setCellValueFactory(new PropertyValueFactory("score"));
+        onlinePlayerTable.setItems(PlayModeViewModel.getOnlinePlayers());
+
+        onlinePlayerTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                System.out.println(((Player)newValue).getUserName());
+
+            }
+        });
     }
 
     @FXML
