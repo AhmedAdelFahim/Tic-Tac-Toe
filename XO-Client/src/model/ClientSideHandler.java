@@ -1,8 +1,11 @@
 package model;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import javafx.application.Platform;
 import utils.Constant;
 import utils.Utils;
+import viewmodel.PlayModeViewModel;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -24,14 +27,6 @@ public class ClientSideHandler {
     }
     public boolean signUp(String json)
     {
-        /*HashMap<String,Object> map = new HashMap<>();
-
-        map.put(Constant.REQUEST_TYPE,Constant.LOGIN);
-        //map.put("first_name","ALi");
-        //map.put("last_name","Islam");
-        map.put("user_name","AAA");
-        map.put("password","14255");
-*/
         try {
             socket = new Socket("127.0.0.1",5000);
             dataInputStream = new DataInputStream(socket.getInputStream());
@@ -40,6 +35,7 @@ public class ClientSideHandler {
             JsonObject jsonObject = Utils.toJson(dataInputStream.readLine());
             if(jsonObject.has(Constant.STATUS_CODE_KEY)&&Integer.parseInt(jsonObject.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_SUCCESSED)
             {
+                handler();
                 return true;
             }
 
@@ -50,14 +46,29 @@ public class ClientSideHandler {
         return false;
     }
 
+
+
     private void handler(){
         handler = new Thread(new Runnable() {
             @Override
             public void run() {
-                
+                while (true) {
+                    try {
+                        String json = dataInputStream.readLine();
+                        JsonObject jsonObject = Utils.toJson(json);
+                        //System.out.println(json);
+                        if (jsonObject.has(Constant.REQUEST_TYPE) && Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.ONLINE_PLAYERS_DATA) {
+                            JsonArray onlinePlayers = jsonObject.getAsJsonArray(Constant.ONLINE_PLAYER_DATA_KEY);
+                            PlayModeViewModel.addOnlinePlayer(onlinePlayers);
+                        }
+                        System.out.println();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
 
-
+        handler.start();
     }
 }

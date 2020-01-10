@@ -10,7 +10,10 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.Label;
@@ -18,6 +21,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import javafx.stage.Stage;
 import utils.Constant;
 import viewmodel.SignUpViewModel;
 
@@ -55,7 +59,17 @@ public class SignUpView implements Initializable {
         // TODO
         SignUpViewModel.toPlayScreenFlagProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue){
-                System.out.println("SSS");
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayMode.fxml"));
+                try {
+                    Parent root = fxmlLoader.load();
+                    Scene scene = new Scene(root,800,500);
+                    Stage stage = (Stage) firstName.getScene().getWindow();
+                    stage.setScene(scene);
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
 
                 System.out.println("FFF");
@@ -63,18 +77,6 @@ public class SignUpView implements Initializable {
         });
     }
 
-   /* public void connectClient(JsonObject jsonObject) {
-        try {
-            Socket socket = new Socket("127.0.0.1", 5200);
-            dataInputStream = new DataInputStream(socket.getInputStream());
-            printStream = new PrintStream(socket.getOutputStream());
-            printStream.println(jsonObject);
-            System.out.println(dataInputStream.readLine());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }*/
 
     @FXML
     private void handleRegisterButton0Action(ActionEvent event) {
@@ -85,22 +87,7 @@ public class SignUpView implements Initializable {
                 || (confirmPassword.getText().isEmpty())) {
             message.setText("Input is required");
         } else {
-////            //fetch
             HashMap<String, Object> map = new HashMap<>();
-/*//            map.put(Constant.REQUEST_TYPE, Constant.SIGN_UP);
-//            map.put("first_name", firstName.getText());
-//            map.put("last_name", lastName.getText());
-//            map.put("username", userName.getText());
-//            map.put("password", password.getText());
-//            System.out.println(map);
-            JsonObject jsonsend = new JsonObject();
-            jsonsend.addProperty("request_Type", "2");
-            jsonsend.addProperty("firstname", firstName.getText());
-            jsonsend.addProperty("lasttname", lastName.getText());
-            jsonsend.addProperty("username", userName.getText());
-            jsonsend.addProperty("password", password.getText());
-            map.put("userdata", jsonsend);
-            System.out.println(map);*/
             message.setText("");
 
             map.put(Constant.REQUEST_TYPE,Constant.SIGN_UP);
@@ -109,10 +96,6 @@ public class SignUpView implements Initializable {
             map.put(Constant.LAST_NAME_KEY,lastName.getText());
             map.put(Constant.PASSWORD_KEY,password.getText());
             SignUpViewModel.signUp(map);
-//call function to open connection
-//            connectClient(jsonsend);
-////            //goto play mode or login page
-////
         }
         System.out.println("You clicked register!");
 

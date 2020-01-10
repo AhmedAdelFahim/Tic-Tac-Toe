@@ -2,13 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/viewmodel/SignUpViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/manifest.mf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FXMLDocument.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/SignUpView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FXMLDocumentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/SignUpView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pro1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/Pro1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/ClientSideHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/ClientSideHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/Computer.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/PlayMode.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/PlayMode.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/PlayModeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/PlayModeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/SignUpView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/SignUpView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Constant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../XO-Server/src/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/../XO-Server/src/model/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../XO-Server/src/server/PlayerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../XO-Server/src/server/PlayerHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../XO-Server/src/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/../XO-Server/src/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../XO-Server/src/test/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../XO-Server/src/test/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../XO-Server/src/utils/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/../XO-Server/src/utils/Constant.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -74,6 +79,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="UPDATE_TYPE" value="MERGE" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectId" id="1W7Z8qsaoyU0T3T814aYBvhDn70" />
@@ -96,7 +102,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../XO-Server" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -105,6 +111,12 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="model" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/res" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -154,10 +166,9 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Pro1" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="Pro1" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ui.Pro1" />
       <module name="XO-Client" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="ui.*" />
@@ -226,7 +237,11 @@
       <option name="presentableId" value="Default" />
       <updated>1359379246138</updated>
       <workItem from="1359379250712" duration="1302000" />
-      <workItem from="1578502442869" duration="4567000" />
+      <workItem from="1578502442869" duration="7101000" />
+      <workItem from="1578574520406" duration="1335000" />
+      <workItem from="1578645132227" duration="625000" />
+      <workItem from="1578654352332" duration="3850000" />
+      <workItem from="1578681889503" duration="6159000" />
     </task>
     <servers />
   </component>
@@ -238,7 +253,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

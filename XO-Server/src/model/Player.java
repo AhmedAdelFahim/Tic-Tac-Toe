@@ -104,7 +104,7 @@ public class Player {
                 " , " + player.STATUE + " = " + status +
                 " , " + player.ID + " = " + id +
                 " , " + player.IMAGE_URL + " = " + imageURL +
-                " , " + player.USER_NAME + " = " + userName +
-                " , " + player.PASSWORD + " = " + password+"}";
+                " , " + player.SCORE + " = " + score +
+                " , " + player.USER_NAME + " = " + userName + "}";
     }
 }

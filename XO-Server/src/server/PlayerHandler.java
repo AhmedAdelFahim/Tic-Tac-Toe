@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import db.DBQueries;
 import db.Tables;
+import model.Player;
 import utils.Constant;
 import utils.Utils;
 
@@ -11,6 +12,8 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
+
+import static db.Tables.player.SCORE;
 
 public class PlayerHandler extends Thread {
 
@@ -25,8 +28,10 @@ public class PlayerHandler extends Thread {
             dataInputStream = new DataInputStream(socket.getInputStream());
             printStream = new PrintStream(socket.getOutputStream());
             String json = dataInputStream.readLine();
+            System.out.println(json);
             JsonObject jsonObject = Utils.toJson(json);
             JsonObject response = null;
+
             if(Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString())==Constant.SIGN_UP){
                 response = DBQueries.signUp(json);
 
@@ -38,10 +43,13 @@ public class PlayerHandler extends Thread {
             if(Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_SUCCESSED)
             {
                 printStream.println(response.toString());
-                id = Integer.parseInt(response.get(Constant.PLAYER_DATA_KEY).getAsJsonObject().get(Tables.player.ID).toString());
+                JsonObject playerDataJsonObject = response.get(Constant.PLAYER_DATA_KEY).getAsJsonObject();
+                Player playerData = preparePlayerData(playerDataJsonObject);
+                Server.addOnlinePlayersData(playerData);
                 System.out.println(response.toString());
                 this.start();
-                Server.addOnlinePlayer(this);
+                Server.addOnlinePlayerHandler(this);
+                Server.broadcastOnlinePlayers();
 
             } else if(Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_FAILED)
             {
@@ -55,6 +63,29 @@ public class PlayerHandler extends Thread {
         }
     }
 
+    private Player preparePlayerData(JsonObject playerDataJsonObject){
+        System.out.println(playerDataJsonObject);
+        id = Integer.parseInt(playerDataJsonObject.get(Tables.player.ID).toString());
+        int score = Integer.parseInt(playerDataJsonObject.get(SCORE).toString());
+        String fName = playerDataJsonObject.get(Tables.player.FIRST_NAME).toString();
+        String lName = playerDataJsonObject.get(Tables.player.LAST_NAME).toString();
+        String imageURL = playerDataJsonObject.get(Tables.player.IMAGE_URL).toString();
+        String userName = playerDataJsonObject.get(Tables.player.USER_NAME).toString();
+        Player player = new Player(id,fName,lName,userName,imageURL,score);
+        player.setStatus(Constant.ONLINE_STATUS);
+
+        return player;
+    }
+
+    public  void sendOnlinePlayers(String json){
+        //System.out.println("sendOnlinePlayers#"+id+" : "+json);
+        printStream.println(json);
+    }
+
+    public int getPlayerId() {
+        return id;
+    }
+
     @Override
     public void run() {
         while (true){
@@ -65,8 +96,9 @@ public class PlayerHandler extends Thread {
                     JsonObject response = DBQueries.logout(json);
                     if(Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_SUCCESSED) {
                         printStream.println(response.toString());
-                        System.out.println(response.toString());
-                        Server.removeOnlinePlayer(this);
+                        //System.out.println(response.toString());
+                        Server.removeOnlinePlayersData(id);
+                        Server.removeOnlinePlayerHandler(this);
                         socket.close();
                         this.stop();
 
