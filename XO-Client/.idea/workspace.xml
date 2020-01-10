@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/ClientSideHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/ClientSideHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/Computer.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/PlayMode.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/PlayMode.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/PlayModeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/PlayModeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/SignUpView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/SignUpView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Constant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XO-Server/src/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/../XO-Server/src/model/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XO-Server/src/server/PlayerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../XO-Server/src/server/PlayerHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XO-Server/src/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/../XO-Server/src/server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XO-Server/src/test/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../XO-Server/src/test/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XO-Server/src/utils/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/../XO-Server/src/utils/Constant.java" afterDir="false" />
-    </list>
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -242,6 +229,7 @@
       <workItem from="1578645132227" duration="625000" />
       <workItem from="1578654352332" duration="3850000" />
       <workItem from="1578681889503" duration="6378000" />
+      <workItem from="1578688526430" duration="184000" />
     </task>
     <servers />
   </component>
