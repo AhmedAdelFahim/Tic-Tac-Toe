@@ -105,6 +105,17 @@ public class SignUpView implements Initializable {
     private void handlehaveAccountButtonAction(ActionEvent event) {
         System.out.println("You clicked haveaccount!");
         message.setText("");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
+        try {
+            Parent root = fxmlLoader.load();
+            Scene scene = new Scene(root,800,500);
+            Stage stage = (Stage) firstName.getScene().getWindow();
+            stage.setScene(scene);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         //go to login page
 
     }
