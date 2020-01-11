@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.concurrent.DelayQueue;
+import java.util.function.BiConsumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -25,6 +26,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import model.Player;
 import server.PlayerHandler;
 import server.Server;
 
@@ -72,7 +74,7 @@ public class AdminDashboardController implements Initializable {
         serverThread.setDaemon(true);
         serverThread.start();
         updateOnline();
-        serverMessage.setText("Server is Running");
+        serverMessage.setText("  Server is Running");
         serverMessage.setStyle("-fx-background-color: lightgreen;");
         
         TurnOnServer.setDisable(true);
@@ -131,7 +133,24 @@ public class AdminDashboardController implements Initializable {
                         public void run() {
                             flowpaneLeft.getChildren().clear();
                             flowpaneRight.getChildren().clear();
-                            for (String onlineTest1 : server.onlineTest) {
+
+                            Server.onlinePlayersData.forEach(new BiConsumer<Integer, Player>() {
+                                @Override
+                                public void accept(Integer integer, Player player) {
+                                    Label onlineTst = new Label(player.getUserName());
+                                    onlineTst.prefWidth(150);
+                                    onlineTst.setTextFill(Color.web("#D4AF37"));
+                                    onlineTst.setFont(Font.font("times-new-roman", FontWeight.EXTRA_BOLD, 30));
+
+                                    Label onlineTst1 = new Label(Integer.toString(player.getScore()));
+                                    onlineTst1.prefWidth(150);
+                                    onlineTst1.setTextFill(Color.web("#FFDF00"));
+                                    onlineTst1.setFont(Font.font("times-new-roman", FontWeight.EXTRA_BOLD, 30));
+                                    flowpaneLeft.getChildren().add(onlineTst);
+                                    flowpaneRight.getChildren().add(onlineTst1);
+                                }
+                            });
+                            /*for (String onlineTest1 : server.onlineTest) {
                                 Label onlineTst = new Label(onlineTest1);
                                 onlineTst.prefWidth(150);
                                 onlineTst.setTextFill(Color.web("#D4AF37"));
@@ -144,7 +163,7 @@ public class AdminDashboardController implements Initializable {
                                 flowpaneLeft.getChildren().add(onlineTst);
                                 flowpaneRight.getChildren().add(onlineTst1);
 
-                            }
+                            }*/
                         }
                     });
                     try {

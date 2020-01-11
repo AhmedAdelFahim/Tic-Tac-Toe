@@ -16,7 +16,8 @@ public class Server {
 
     private ServerSocket serverSocket;
     private static Hashtable<Integer,PlayerHandler> onlinePlayersHandler;
-    private static Hashtable<Integer,Player> onlinePlayersData;
+    public static Hashtable<Integer,Player> onlinePlayersData;
+    public ArrayList<String> onlineTest ;
     /*public Server() {
         try {
             serverSocket = new ServerSocket(5000);
@@ -35,7 +36,10 @@ public class Server {
     public  void startServer() {
         try {
             serverSocket = new ServerSocket(5010);
-            onlinePlayers = new ArrayList<>();
+           // onlinePlayers = new ArrayList<>();
+            onlineTest = new ArrayList<>();
+            onlinePlayersHandler = new Hashtable<>();
+            onlinePlayersData = new Hashtable<>();
             onlineTest= new ArrayList<>();
             onlineTest.add("this");
             onlineTest.add("array");
