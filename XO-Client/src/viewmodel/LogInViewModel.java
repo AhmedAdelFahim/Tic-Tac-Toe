@@ -1,3 +1,11 @@
+package viewmodel;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import model.ClientSideHandler;
+import utils.Utils;
+
+import java.util.HashMap;
+
 public class LogInViewModel {
     private static final BooleanProperty toPlayScreenFlag = new SimpleBooleanProperty();
     public static void logIn(HashMap<String,Object> map){
