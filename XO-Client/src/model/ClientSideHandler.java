@@ -47,6 +47,27 @@ public class ClientSideHandler {
     }
 
 
+public boolean logIn(String json)
+    {
+        try {
+            socket = new Socket("127.0.0.1",5000);
+            dataInputStream = new DataInputStream(socket.getInputStream());
+            printStream = new PrintStream(socket.getOutputStream());
+            printStream.println(json);
+            JsonObject jsonObject = Utils.toJson(dataInputStream.readLine());
+            if(jsonObject.has(Constant.STATUS_CODE_KEY)&&Integer.parseInt(jsonObject.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_SUCCESSED)
+            {
+                handler();
+                return true;
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 
     private void handler(){
         handler = new Thread(new Runnable() {
