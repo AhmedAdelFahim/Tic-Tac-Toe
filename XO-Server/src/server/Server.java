@@ -17,7 +17,7 @@ public class Server {
     private ServerSocket serverSocket;
     private static Hashtable<Integer,PlayerHandler> onlinePlayersHandler;
     private static Hashtable<Integer,Player> onlinePlayersData;
-    public Server() {
+    /*public Server() {
         try {
             serverSocket = new ServerSocket(5000);
             onlinePlayersHandler = new Hashtable<>();
@@ -30,8 +30,32 @@ public class Server {
             e.printStackTrace();
         }
 
+    }*/
+
+    public  void startServer() {
+        try {
+            serverSocket = new ServerSocket(5010);
+            onlinePlayers = new ArrayList<>();
+            onlineTest= new ArrayList<>();
+            onlineTest.add("this");
+            onlineTest.add("array");
+            onlineTest.add("is");
+            onlineTest.add("from");
+            onlineTest.add("the");
+            onlineTest.add("server");
+            while (true) {
+                Socket socket = serverSocket.accept();
+                new PlayerHandler(socket);
+            }
+        } catch (IOException e) {
+//            e.printStackTrace();
+        }
     }
 
+    public  void closeServer() throws IOException {
+        serverSocket.close();
+    }
+    
     public static void main(String [] args){
         new Server();
     }

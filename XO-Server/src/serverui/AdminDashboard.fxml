@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="800.0" stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="serverui.AdminDashboardController">
+    <children>
+        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+      <Label prefHeight="33.0" prefWidth="184.0" text="TIC TAC TOE" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="30.0" />
+         </font>
+      </Label>
+      <Button fx:id="TurnOffServer" layoutX="272.0" layoutY="318.0" mnemonicParsing="false" onAction="#stopConnection" prefHeight="110.0" prefWidth="145.0" text="Turn Off" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="23.0" />
+         </font>
+      </Button>
+      <Button fx:id="TurnOnServer" layoutX="54.0" layoutY="318.0" mnemonicParsing="false" onAction="#startConnection" prefHeight="110.0" prefWidth="145.0" text="Turn On" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="23.0" />
+         </font>
+      </Button>
+      <ScrollPane fx:id="scrollPane" layoutX="497.0" layoutY="100.0" prefHeight="392.0" prefWidth="268.0">
+         <content>
+          <AnchorPane fx:id="scrollAnchor" minHeight="0.0" minWidth="0.0" prefHeight="392.0" prefWidth="272.0">
+               <children>
+                  <Button fx:id="score" layoutX="131.0" mnemonicParsing="false" onAction="#highScores" prefHeight="77.0" prefWidth="137.0" text="Score" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold Italic" size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </Button>
+                  <Button fx:id="online" mnemonicParsing="false" onAction="#onlinePlayers" prefHeight="77.0" prefWidth="131.0" text="Online" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold Italic" size="20.0" />
+                     </font>
+                  </Button>
+                  <FlowPane fx:id="flowpaneLeft" layoutX="14.0" layoutY="88.0" prefHeight="285.0" prefWidth="116.0" />
+                  <FlowPane fx:id="flowpaneRight" layoutX="130.0" layoutY="88.0" prefHeight="285.0" prefWidth="116.0" />
+               </children></AnchorPane>
+         </content>
+      </ScrollPane>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="212.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@XOIcon.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="serverMessage" cacheHint="QUALITY" depthTest="DISABLE" layoutX="20.0" layoutY="214.0" prefHeight="36.0" prefWidth="378.0" text="  Label" textFill="#f2eeee">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>
