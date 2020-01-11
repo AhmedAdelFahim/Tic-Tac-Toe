@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ui;
+package pro1;
 
 import java.net.URL;
 import java.util.HashMap;
@@ -18,13 +18,16 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import utils.Constant;
-import viewmodel.SignUpViewModel;
-
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  *
@@ -32,7 +35,8 @@ import java.net.Socket;
  */
 public class SignUpView implements Initializable {
 
-
+    public static DataInputStream dataInputStream;
+    public static PrintStream printStream;
     @FXML
     private TextField firstName;
     @FXML
@@ -49,81 +53,102 @@ public class SignUpView implements Initializable {
     private Label message;
     @FXML
     private Button haveAccountButton;
+    @FXML
+    private Label label1;
+    @FXML
+    private Label TicTacToe;
 
+//    String welcome = new String(userName.getText());
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        SignUpViewModel.toPlayScreenFlagProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue){
-                System.out.println("SSS");
-            } else {
-
-                System.out.println("FFF");
-            }
-        });
     }
 
-   /* public void connectClient(JsonObject jsonObject) {
-        try {
-            Socket socket = new Socket("127.0.0.1", 5200);
-            dataInputStream = new DataInputStream(socket.getInputStream());
-            printStream = new PrintStream(socket.getOutputStream());
-            printStream.println(jsonObject);
-            System.out.println(dataInputStream.readLine());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }*/
+//    public void connectClient(JsonObject jsonObject) {
+//        try {
+//            Socket socket = new Socket("127.0.0.1", 5200);
+//            dataInputStream = new DataInputStream(socket.getInputStream());
+//            printStream = new PrintStream(socket.getOutputStream());
+//            printStream.println(jsonObject);
+//            System.out.println(dataInputStream.readLine());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
+    ;
+//     public String sendUserName() {
+//        return welcome;
+//    }
 
     @FXML
     private void handleRegisterButton0Action(ActionEvent event) {
+        System.out.println("You clicked register!");
         if ((firstName.getText().isEmpty())
                 || (lastName.getText().isEmpty())
                 || (userName.getText().isEmpty())
                 || (password.getText().isEmpty())
                 || (confirmPassword.getText().isEmpty())) {
             message.setText("Input is required");
-        } else {
-////            //fetch
-            HashMap<String, Object> map = new HashMap<>();
-/*//            map.put(Constant.REQUEST_TYPE, Constant.SIGN_UP);
+
+        } 
+        else if ((confirmPassword.getText().equals(password.getText()))
+                && (firstName.getText().matches("(?i)(^[a-z]+)[a-z .,-]((?! .,-)$){1,20}$"))
+                && (lastName.getText().matches("(?i)(^[a-z]+)[a-z .,-]((?! .,-)$){1,25}$"))
+                && (userName.getText().matches("\\w+"))
+                ) {
+            try {
+                ////            //fetch
+                HashMap<String, Object> map = new HashMap<>();
+//            map.put(Constant.REQUEST_TYPE, Constant.SIGN_UP);
 //            map.put("first_name", firstName.getText());
 //            map.put("last_name", lastName.getText());
 //            map.put("username", userName.getText());
 //            map.put("password", password.getText());
 //            System.out.println(map);
-            JsonObject jsonsend = new JsonObject();
-            jsonsend.addProperty("request_Type", "2");
-            jsonsend.addProperty("firstname", firstName.getText());
-            jsonsend.addProperty("lasttname", lastName.getText());
-            jsonsend.addProperty("username", userName.getText());
-            jsonsend.addProperty("password", password.getText());
-            map.put("userdata", jsonsend);
-            System.out.println(map);*/
-            message.setText("");
 
-            map.put(Constant.REQUEST_TYPE,Constant.SIGN_UP);
-            map.put(Constant.USER_NAME_KEY,userName.getText());
-            map.put(Constant.FIRST_NAME_KEY,firstName.getText());
-            map.put(Constant.LAST_NAME_KEY,lastName.getText());
-            map.put(Constant.PASSWORD_KEY,password.getText());
-            SignUpViewModel.signUp(map);
-//call function to open connection
-//            connectClient(jsonsend);
+                message.setText("");
+
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayMode.fxml"));
+                Parent root = (Parent) fxmlLoader.load();
+                Scene sceneDashboard = new Scene(root);
+                Stage stage = (Stage) firstName.getScene().getWindow();
+                stage.setScene(sceneDashboard);
+                stage.setTitle("Select Play Mode Tic Tac Toe");
+                stage.show();
+
+//              call function to open connection
+//              connectClient(jsonsend);
 ////            //goto play mode or login page
-////
+////    
+            } catch (IOException ex) {
+                Logger.getLogger(SignUpView.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        System.out.println("You clicked register!");
-
+//                else if(!(firstName.getText().matches("(?i)(^[a-z]+)[a-z .,-]((?! .,-)$){1,20}$")))
+//                {
+//                     message.setText("Invalid firstname char small/capital");
+//                }
+//                else if(!(lastName.getText().matches("(?i)(^[a-z]+)[a-z .,-]((?! .,-)$){1,25}$")))
+//                        {
+//                            message.setText("Invalid lastname char small/capital");
+//                        }
+//                else if(!(userName.getText().matches("\\w+"))) {
+//                   
+//                     message.setText("Invalid username user123");
+//                     
+//                }
+        else {
+            message.setText("Invalid input");
+            System.out.println("You clicked register!");
+        }
     }
 
     @FXML
-    private void handlehaveAccountButtonAction(ActionEvent event) {
-        System.out.println("You clicked haveaccount!");
-        message.setText("");
-        //go to login page
+    private void handlehaveAccountButtonAction(ActionEvent event) throws IOException {
+//         System.out.println("Have Account");
 
+        //go to login page
     }
 
 }
