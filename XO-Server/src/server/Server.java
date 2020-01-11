@@ -35,7 +35,7 @@ public class Server {
 
     public  void startServer() {
         try {
-            serverSocket = new ServerSocket(5010);
+            serverSocket = new ServerSocket(5000);
            // onlinePlayers = new ArrayList<>();
             onlineTest = new ArrayList<>();
             onlinePlayersHandler = new Hashtable<>();

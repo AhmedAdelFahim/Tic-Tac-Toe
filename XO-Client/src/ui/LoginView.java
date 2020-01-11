@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package login;
+package ui;
 
 import com.google.gson.JsonObject;
 import java.io.DataInputStream;
@@ -20,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -27,14 +28,14 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import login.Test;
+import utils.Constant;
+import viewmodel.LogInViewModel;
 
 /**
  *
  * @author islam salah
  */
-public class FXMLDocumentController implements Initializable {
-    ClientHndeller clientHandeller = new ClientHndeller();
+public class LoginView implements Initializable {
 
     String userName = new String("");
     String passWord = new String("");
@@ -55,12 +56,13 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         LogInViewModel.toPlayScreenFlagProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println(newValue);
             if(newValue){
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayMode.fxml"));
                 try {
                     Parent root = fxmlLoader.load();
                     Scene scene = new Scene(root,800,500);
-                    Stage stage = (Stage) firstName.getScene().getWindow();
+                    Stage stage = (Stage) signUpButton.getScene().getWindow();
                     stage.setScene(scene);
 
 
@@ -85,7 +87,7 @@ public class FXMLDocumentController implements Initializable {
             stage.setScene(scene);
             System.out.println("Logged In Successfully");
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -113,8 +115,9 @@ public class FXMLDocumentController implements Initializable {
             if (logInStatus == 1) {
                 HashMap<String, Object> map = new HashMap<>();
                map.put(Constant.REQUEST_TYPE,Constant.LOGIN);
-                map.put(Constant.USER_NAME_KEY,userName.getText());
-                map.put(Constant.PASSWORD_KEY,password.getText());
+                map.put(Constant.USER_NAME_KEY,userName);
+                map.put(Constant.PASSWORD_KEY,passWord);
+                System.out.println(map.toString());
                 LogInViewModel.logIn(map);
             }
         } catch (Exception e) {

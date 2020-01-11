@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package homeplay;
+package ui;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.net.URL;
@@ -19,7 +19,7 @@ import javafx.scene.input.MouseEvent;
  *
  * @author islam salah
  */
-public class PlayScreenFXMLDocumentController implements Initializable {
+public class PlayScreenView implements Initializable {
 
     @FXML
     private Label label;
