@@ -60,7 +60,24 @@ public class PlayModeController implements Initializable {
     @FXML
     private void handleComputerButton(MouseEvent event) {
         System.out.println("clicked");
-        //go to playgame with computer and one player
+         PlayModeViewModel.toPlayScreenFlagProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue){
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("playScreen.fxml"));
+                try {
+                    Parent root = fxmlLoader.load();
+                    Scene scene = new Scene(root,800,500);
+                    Stage stage = (Stage) firstName.getScene().getWindow();
+                    stage.setScene(scene);
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+
+                System.out.println("FFF");
+            }
+        });
     }
 
 
