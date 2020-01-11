@@ -40,6 +40,12 @@ public class PlayModeController implements Initializable {
     private Button backButton;
     @FXML
     private Label user;
+    @FXML
+    private TableView<?> playerTable;
+    @FXML
+    private TableColumn<?, ?> Online;
+    @FXML
+    private TableColumn<?, ?> Ranks;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
