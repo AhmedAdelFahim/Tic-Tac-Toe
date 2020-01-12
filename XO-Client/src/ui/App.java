@@ -24,7 +24,7 @@ public class App extends Application {
        
 //        root.setStyle("-fx-fill: activeborder;-fx-border:green;-fx-font:15px sans-serif;-fx-background-color: darkslategrey;");
 
-        Scene scene = new Scene(root,400,500);
+        Scene scene = new Scene(root);
 
         stage.setScene(scene);
         stage.sizeToScene();

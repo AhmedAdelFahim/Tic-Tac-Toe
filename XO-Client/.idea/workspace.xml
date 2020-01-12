@@ -3,7 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="9b9db6a1-96c0-4a5a-90c8-d040483635ca" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XO-Server/XO-Server.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/Level.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/Level.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/LevelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/LevelController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/PlayMode.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/PlayMode.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/PlayModeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/PlayModeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/SignUpView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/SignUpView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/SignUpView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/SignUpView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../XO-Server/XO-Server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../XO-Server/XO-Server.iml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,7 +31,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
@@ -76,6 +83,8 @@
       <option name="presentableId" value="Default" />
       <updated>1578766753188</updated>
       <workItem from="1578766756696" duration="172000" />
+      <workItem from="1578843556494" duration="1872000" />
+      <workItem from="1578846131060" duration="1763000" />
     </task>
     <servers />
   </component>
@@ -87,7 +96,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

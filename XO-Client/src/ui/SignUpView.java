@@ -62,7 +62,7 @@ public class SignUpView implements Initializable {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayMode.fxml"));
                 try {
                     Parent root = fxmlLoader.load();
-                    Scene scene = new Scene(root,800,500);
+                    Scene scene = new Scene(root);
                     Stage stage = (Stage) firstName.getScene().getWindow();
                     stage.setScene(scene);
 
@@ -100,7 +100,8 @@ public class SignUpView implements Initializable {
             map.put(Constant.LAST_NAME_KEY,lastName.getText());
             map.put(Constant.PASSWORD_KEY,password.getText());
             SignUpViewModel.signUp(map);
-          
+
+            try {
 
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayMode.fxml"));
                 Parent root = (Parent) fxmlLoader.load();
@@ -109,6 +110,10 @@ public class SignUpView implements Initializable {
                 stage.setScene(sceneDashboard);
                 stage.setTitle("Select Play Mode Tic Tac Toe");
                 stage.show();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
         }
          else {
             message.setText("Invalid input");
@@ -125,7 +130,7 @@ public class SignUpView implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
         try {
             Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root,800,500);
+            Scene scene = new Scene(root);
             Stage stage = (Stage) firstName.getScene().getWindow();
             stage.setScene(scene);
 
