@@ -53,6 +53,8 @@ public class PlayModeController implements Initializable {
     @FXML
     private Button backButton;
     @FXML
+    private Button handleLogoutAction;
+    @FXML
     private Label user;
     @FXML
     private TableView playerTable;
@@ -61,6 +63,8 @@ public class PlayModeController implements Initializable {
     @FXML
     private TableColumn Ranks;
 
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Online.setCellValueFactory(new PropertyValueFactory("userName"));
@@ -81,7 +85,7 @@ public class PlayModeController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Level.fxml"));
         try {
             Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root,800,500);
+            Scene scene = new Scene(root);
             Stage stage = (Stage) playerTable.getScene().getWindow();
             stage.setTitle("Select Level Tic Tac Toe");
             stage.setScene(scene);
@@ -105,10 +109,12 @@ public class PlayModeController implements Initializable {
             stage.setTitle("Select Play Mode Tic Tac Toe");
             stage.show();
         } catch (IOException ex) {
-            Logger.getLogger(pro1.PlayModeController.class.getName()).log(Level.SEVERE, null, ex);
+           /// Logger.getLogger(pro1.PlayModeController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
 
 
+    public void handleLogoutAction(ActionEvent actionEvent) {
+    }
 }
