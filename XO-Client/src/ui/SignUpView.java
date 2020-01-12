@@ -86,7 +86,11 @@ public class SignUpView implements Initializable {
                 || (password.getText().isEmpty())
                 || (confirmPassword.getText().isEmpty())) {
             message.setText("Input is required");
-        } else {
+        } else if ((confirmPassword.getText().equals(password.getText()))
+                && (firstName.getText().matches("(?i)(^[a-z]+)[a-z .,-]((?! .,-)$){1,20}$"))
+                && (lastName.getText().matches("(?i)(^[a-z]+)[a-z .,-]((?! .,-)$){1,25}$"))
+                && (userName.getText().matches("\\w+"))
+                ) {
             HashMap<String, Object> map = new HashMap<>();
             message.setText("");
 
@@ -96,8 +100,21 @@ public class SignUpView implements Initializable {
             map.put(Constant.LAST_NAME_KEY,lastName.getText());
             map.put(Constant.PASSWORD_KEY,password.getText());
             SignUpViewModel.signUp(map);
+          
+
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayMode.fxml"));
+                Parent root = (Parent) fxmlLoader.load();
+                Scene sceneDashboard = new Scene(root);
+                Stage stage = (Stage) firstName.getScene().getWindow();
+                stage.setScene(sceneDashboard);
+                stage.setTitle("Select Play Mode Tic Tac Toe");
+                stage.show();
         }
-        System.out.println("You clicked register!");
+         else {
+            message.setText("Invalid input");
+            System.out.println("You clicked register!");
+        }
+       
 
     }
 
