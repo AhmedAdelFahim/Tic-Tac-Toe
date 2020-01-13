@@ -7,13 +7,21 @@ package ui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,8 +39,14 @@ import javafx.scene.image.ImageView;
 import static javafx.scene.input.KeyCode.S;
 import static javafx.scene.input.KeyCode.T;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import model.ClientSideHandler;
 import model.Player;
+import utils.Constant;
+import viewmodel.LogInViewModel;
 import viewmodel.PlayModeViewModel;
 
 /**
@@ -40,7 +54,8 @@ import viewmodel.PlayModeViewModel;
  * @author eg
  */
 public class PlayModeController implements Initializable {
-
+    Thread playersThread;
+    public Player currentPlayer;
     @FXML
     private ImageView computer;
 //    @FXML
@@ -67,14 +82,29 @@ public class PlayModeController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        currentPlayer = ClientSideHandler.getInstance().getCurrentPlayer();
         Online.setCellValueFactory(new PropertyValueFactory("userName"));
         Ranks.setCellValueFactory(new PropertyValueFactory("score"));
         playerTable.setItems(PlayModeViewModel.getOnlinePlayers());
-
+     
         playerTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                System.out.println(((Player)newValue).getUserName());
+               //get  id of logged in user
+                int invitedPlayerId = ((Player)newValue).getId();
+                int snderPlayerId = currentPlayer.getId();
+                
+                System.out.println(invitedPlayerId);
+                System.out.println(snderPlayerId);
+                
+                HashMap<String, Object> map = new HashMap<>();
+                map.put(Constant.REQUEST_TYPE,Constant.INVITE);
+                map.put(Constant.SENDER_ID_KEY,snderPlayerId);
+                map.put(Constant.RECIEVER_ID_KEY,invitedPlayerId);
+                map.put(Constant.USER_NAME_KEY,currentPlayer.getUserName());
+                PlayModeViewModel.sendInvitation(map);
+                // Alert Waiting for otherplayer
+                
 
             }
         });
@@ -116,5 +146,15 @@ public class PlayModeController implements Initializable {
 
 
     public void handleLogoutAction(ActionEvent actionEvent) {
+        System.out.println("Dending Invetstion..");
+
+        
+        
+        
+        
     }
+    
+    
+    
+
 }

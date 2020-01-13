@@ -7,15 +7,19 @@ public class Constant {
     public static final int SIGN_UP = 2;
     public static final int ONLINE_PLAYERS_DATA = 3;
     public static final int ONLINE_STATUS = 1;
-    public static final int UPDATE_SCORE = 5;
     public static final int BUSY_STATUS = 0;
     public static final int OFFLINE_STATUS = -1;
+    public static final int INVITE = 5;
+     public static final int ACCEPT_INVITATION = 6;
+    public static final int DECLINE_INVITATION = 7;
+    public static final String SENDER_ID_KEY = "senderID";
+    public static final String RECIEVER_ID_KEY = "recieverId";
     public static final String STATUS_CODE_KEY = "status_code";
     public static final int STATUS_CODE_SUCCESSED = 200;
     public static final int STATUS_CODE_FAILED = 400;
     public static final String PLAYER_DATA_KEY = "player_data";
     public static final String ONLINE_PLAYER_DATA_KEY = "online_player_data";
-    public static final String SCORE_KEY = "score";
 
 
 }
+

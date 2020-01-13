@@ -12,7 +12,6 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
-import java.sql.SQLException;
 
 import static db.Tables.player.SCORE;
 
@@ -39,6 +38,19 @@ public class PlayerHandler extends Thread {
 
             } else if(Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString())==Constant.LOGIN){
                 response = DBQueries.login(json);
+            }
+            else if(Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString())==Constant.INVITE){
+                //json
+               sendInvitationToSpecificPlayer(jsonObject);
+                
+            }
+             else if(Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString())==Constant.ACCEPT_INVITATION){
+                //json
+//                 AcceptInvitation(player1,player2)
+            }
+            else if(Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString())==Constant.DECLINE_INVITATION){
+                //json
+                 //DeclineInvitation(player1,player2)
             }
 
             if(Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_SUCCESSED)
@@ -93,39 +105,60 @@ public class PlayerHandler extends Thread {
             try {
                 String json = dataInputStream.readLine();
                 JsonObject jsonObject = Utils.toJson(json);
-                if(Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.UPDATE_SCORE){
-                    System.out.println("FDSAFDSF");
-                }
-                switch (Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString())){
-                    case Constant.LOGOUT:
-                        JsonObject response = DBQueries.logout(json);
-                        if(Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_SUCCESSED) {
-                            printStream.println(response.toString());
-                            //System.out.println(response.toString());
-                            Server.removeOnlinePlayersData(id);
-                            Server.removeOnlinePlayerHandler(this);
-                            socket.close();
-                            this.stop();
+                System.out.println(json);
+                if(Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString())==Constant.LOGOUT){
+                    JsonObject response = DBQueries.logout(json);
+                    if(Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_SUCCESSED) {
+                        printStream.println(response.toString());
+                        //System.out.println(response.toString());
+                        Server.removeOnlinePlayersData(id);
+                        Server.removeOnlinePlayerHandler(this);
+                        socket.close();
+                        this.stop();
 
-                        } else if(Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_FAILED) {
-                            printStream.println(response.toString());
-                        }
-                        break;
-                    case Constant.UPDATE_SCORE:
-                        System.out.println("score updated");
-                        DBQueries.updatePlayerScore(getPlayerId(),Integer.parseInt(jsonObject.get(Constant.SCORE_KEY).toString()));
-                        break;
-                    case Constant.BUSY_STATUS:
-                        System.out.println("status updated");
-                        DBQueries.changeStatus(getPlayerId(),0);
-                        break;
+                    } else if(Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_FAILED) {
+                        printStream.println(response.toString());
+                    }
+                } else {
+                    // playing mode
                 }
 
-
-
-            } catch (IOException | SQLException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
+    
+    
+    
+    void sendInvitationToSpecificPlayer(JsonObject jsonInvitation)
+    {
+        
+        Player invitedPlayer=Server.getOnlinePlayersData(Integer.parseInt(jsonInvitation.get(Constant.RECIEVER_ID_KEY).toString()));
+        PlayerHandler invitedPlayerHandeler = Server.getOnlinePlayerHandler(invitedPlayer.getId());
+        invitedPlayerHandeler.printStream.println(jsonInvitation);
+        System.out.println(jsonInvitation);
+        
+    }
+    
+  
+    
+//    void broadcastInvation()
+//    {
+//       //broadCast Invitation to all players;
+//        //make a thread function ListenToInvitatios in clientHandler  
+//    }
+    
+    
+//    void AcceptInvitation(int player1,int player2)
+//    {
+//      Start Game for both Players  
+//    }
+        
+    
+//   void DeclineInvitation(int player1,int player2)
+//    {
+//      send A Declination message to the player;  
+//    }
+    
 }

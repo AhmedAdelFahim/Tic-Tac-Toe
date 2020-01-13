@@ -10,7 +10,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.Scanner;
 import java.util.function.BiConsumer;
 
 public class Server {
@@ -19,7 +18,7 @@ public class Server {
     private static Hashtable<Integer,PlayerHandler> onlinePlayersHandler;
     public static Hashtable<Integer,Player> onlinePlayersData;
     public ArrayList<String> onlineTest ;
-    public Server() {
+    /*public Server() {
         try {
             serverSocket = new ServerSocket(5000);
             onlinePlayersHandler = new Hashtable<>();
@@ -32,7 +31,7 @@ public class Server {
             e.printStackTrace();
         }
 
-    }
+    }*/
 
     public  void startServer() {
         try {
@@ -62,7 +61,8 @@ public class Server {
     }
     
     public static void main(String [] args){
-        new Server();
+       Server server = new Server();
+        server.startServer();
     }
 
     public static void addOnlinePlayerHandler(PlayerHandler player){
@@ -74,16 +74,27 @@ public class Server {
         onlinePlayersHandler.remove(player.getPlayerId());
         //System.out.println("Onlines " +onlinePlayersHandler.size());
     }
+    
+    public static PlayerHandler getOnlinePlayerHandler(int id){
+        return onlinePlayersHandler.get(id);
+        //System.out.println("Onlines " +onlinePlayersHandler.size());
+    }
 
     public static void addOnlinePlayersData(Player player) {
         onlinePlayersData.put(player.getId(),player);
     }
 
     public static Player getOnlinePlayersData(int id) {
-
         return onlinePlayersData.get(id);
     }
 
+    //////////*****************************************
+     public static Hashtable getAllOnlinePlayersData() {
+        return onlinePlayersData;
+    }
+    /////////////*******************************
+    
+    
     public static void removeOnlinePlayersData(int playerId) {
         onlinePlayersData.remove(playerId);
     }
@@ -111,5 +122,4 @@ public class Server {
         });
 
     }
-
 }

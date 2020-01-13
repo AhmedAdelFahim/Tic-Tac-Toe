@@ -81,7 +81,7 @@ public class LoginView implements Initializable {
     private void handleSignUp(ActionEvent event) {
         try {
             System.out.println("Go To SignUp Page..");
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/homeplay/PlayScreen.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
             Stage stage = (Stage) signUpButton.getScene().getWindow();
             Scene scene = new Scene(loader.load());
             stage.setScene(scene);

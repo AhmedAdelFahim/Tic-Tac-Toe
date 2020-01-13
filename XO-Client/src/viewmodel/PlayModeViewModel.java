@@ -1,22 +1,25 @@
 package viewmodel;
 
 import com.google.gson.JsonArray;
+import java.util.HashMap;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.ClientSideHandler;
 import model.Player;
+import utils.Utils;
 
 public class PlayModeViewModel {
     private static ObservableList<Player> onlinePlayers ;
 
     public static ObservableList<Player> getOnlinePlayers() {
         onlinePlayers = FXCollections.observableArrayList();
-       //onlinePlayers.add(new Player("aaa",12));
+       onlinePlayers.add(new Player("aaa",12));
         return onlinePlayers;
     }
 
     public static void addOnlinePlayer(JsonArray onlinePlayersJson){
-        Platform.runLater(new Runnable() {
+      Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 onlinePlayers.clear();
@@ -28,5 +31,10 @@ public class PlayModeViewModel {
             }
         });
 
+    }
+    
+    public static boolean sendInvitation(HashMap map){
+        ClientSideHandler.getInstance().handelInvitation(Utils.toString(map));
+        return true;
     }
 }

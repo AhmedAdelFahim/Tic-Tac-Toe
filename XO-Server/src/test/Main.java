@@ -31,7 +31,7 @@ public class Main {
             printStream = new PrintStream(socket.getOutputStream());
             printStream.println(Utils.toString(map));
             printStream.println("hello login");
-            System.out.println(dataInputStream.readLine());
+            //System.out.println(dataInputStream.readLine());
         } catch (IOException e) {
             e.printStackTrace();
         }
