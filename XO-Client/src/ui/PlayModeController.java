@@ -32,6 +32,7 @@ import static javafx.scene.input.KeyCode.S;
 import static javafx.scene.input.KeyCode.T;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import model.ClientSideHandler;
 import model.Player;
 import viewmodel.PlayModeViewModel;
 
@@ -83,6 +84,7 @@ public class PlayModeController implements Initializable {
     @FXML
     private void handleComputerButton(MouseEvent event) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Level.fxml"));
+        PlayScreenView.setMode(PlayScreenView.Mode.AI);
         try {
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
