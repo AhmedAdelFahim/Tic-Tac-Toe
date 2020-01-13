@@ -8,6 +8,8 @@ package ui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -19,6 +21,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
@@ -40,20 +43,35 @@ public class PlayModeController implements Initializable {
 
     @FXML
     private ImageView computer;
+//    @FXML
+//    private TableView onlinePlayerTable;
+//    @FXML
+//    private TableColumn playerNameCol;
+//    @FXML
+//    private TableColumn playerScoreCol;
+    
     @FXML
-    private TableView onlinePlayerTable;
+    private Button backButton;
     @FXML
-    private TableColumn playerNameCol;
+    private Button handleLogoutAction;
     @FXML
-    private TableColumn playerScoreCol;
+    private Label user;
+    @FXML
+    private TableView playerTable;
+    @FXML
+    private TableColumn Online;
+    @FXML
+    private TableColumn Ranks;
 
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        playerNameCol.setCellValueFactory(new PropertyValueFactory("userName"));
-        playerScoreCol.setCellValueFactory(new PropertyValueFactory("score"));
-        onlinePlayerTable.setItems(PlayModeViewModel.getOnlinePlayers());
+        Online.setCellValueFactory(new PropertyValueFactory("userName"));
+        Ranks.setCellValueFactory(new PropertyValueFactory("score"));
+        playerTable.setItems(PlayModeViewModel.getOnlinePlayers());
 
-        onlinePlayerTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+        playerTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 System.out.println(((Player)newValue).getUserName());
@@ -64,11 +82,12 @@ public class PlayModeController implements Initializable {
 
     @FXML
     private void handleComputerButton(MouseEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Level.fxml"));
         try {
             Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root,800,500);
-            Stage stage = (Stage) onlinePlayerTable.getScene().getWindow();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) playerTable.getScene().getWindow();
+            stage.setTitle("Select Level Tic Tac Toe");
             stage.setScene(scene);
 
 
@@ -79,6 +98,23 @@ public class PlayModeController implements Initializable {
         System.out.println("clicked");
         //go to playgame with computer and one player
     }
+      @FXML
+    private void handleBackButtonAction(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SignUpView.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Scene sceneDashboard = new Scene(root);
+            Stage stage = (Stage) computer.getScene().getWindow();
+            stage.setScene(sceneDashboard);
+            stage.setTitle("Select Play Mode Tic Tac Toe");
+            stage.show();
+        } catch (IOException ex) {
+           /// Logger.getLogger(pro1.PlayModeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 
 
+    public void handleLogoutAction(ActionEvent actionEvent) {
+    }
 }
