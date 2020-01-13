@@ -10,6 +10,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Scanner;
 import java.util.function.BiConsumer;
 
 public class Server {
@@ -18,7 +19,7 @@ public class Server {
     private static Hashtable<Integer,PlayerHandler> onlinePlayersHandler;
     public static Hashtable<Integer,Player> onlinePlayersData;
     public ArrayList<String> onlineTest ;
-    /*public Server() {
+    public Server() {
         try {
             serverSocket = new ServerSocket(5000);
             onlinePlayersHandler = new Hashtable<>();
@@ -31,7 +32,7 @@ public class Server {
             e.printStackTrace();
         }
 
-    }*/
+    }
 
     public  void startServer() {
         try {
@@ -110,4 +111,5 @@ public class Server {
         });
 
     }
+
 }

@@ -16,7 +16,7 @@ public class DBConnection {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             /* Create connection url. */
-            String mysqlConnUrl = "jdbc:mysql://localhost:3306/tic_tac_toe";
+            String mysqlConnUrl = "jdbc:mysql://localhost:3306/tic_tac_toe?serverTimezone=UTC";
 
             /* db user name. */
             String mysqlUserName = "root";
