@@ -12,6 +12,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.sql.SQLException;
 
 import static db.Tables.player.SCORE;
 
@@ -92,24 +93,37 @@ public class PlayerHandler extends Thread {
             try {
                 String json = dataInputStream.readLine();
                 JsonObject jsonObject = Utils.toJson(json);
-                if(Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString())==Constant.LOGOUT){
-                    JsonObject response = DBQueries.logout(json);
-                    if(Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_SUCCESSED) {
-                        printStream.println(response.toString());
-                        //System.out.println(response.toString());
-                        Server.removeOnlinePlayersData(id);
-                        Server.removeOnlinePlayerHandler(this);
-                        socket.close();
-                        this.stop();
+                if(Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.UPDATE_SCORE){
+                    System.out.println("FDSAFDSF");
+                }
+                switch (Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString())){
+                    case Constant.LOGOUT:
+                        JsonObject response = DBQueries.logout(json);
+                        if(Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_SUCCESSED) {
+                            printStream.println(response.toString());
+                            //System.out.println(response.toString());
+                            Server.removeOnlinePlayersData(id);
+                            Server.removeOnlinePlayerHandler(this);
+                            socket.close();
+                            this.stop();
 
-                    } else if(Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_FAILED) {
-                        printStream.println(response.toString());
-                    }
-                } else {
-                    // playing mode
+                        } else if(Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_FAILED) {
+                            printStream.println(response.toString());
+                        }
+                        break;
+                    case Constant.UPDATE_SCORE:
+                        System.out.println("score updated");
+                        DBQueries.updatePlayerScore(getPlayerId(),Integer.parseInt(jsonObject.get(Constant.SCORE_KEY).toString()));
+                        break;
+                    case Constant.BUSY_STATUS:
+                        System.out.println("status updated");
+                        DBQueries.changeStatus(getPlayerId(),0);
+                        break;
                 }
 
-            } catch (IOException e) {
+
+
+            } catch (IOException | SQLException e) {
                 e.printStackTrace();
             }
         }
