@@ -53,6 +53,10 @@ public class SignUpView implements Initializable {
     private Label message;
     @FXML
     private Button haveAccountButton;
+    @FXML
+    private Label TicTacToe;
+    @FXML
+    private Label label1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

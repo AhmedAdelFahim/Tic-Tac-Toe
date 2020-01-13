@@ -13,10 +13,10 @@ public class DBConnection {
     public static synchronized Connection getInstance()
     {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
 
             /* Create connection url. */
-            String mysqlConnUrl = "jdbc:mysql://localhost:3306/tic_tac_toe?serverTimezone=UTC";
+            String mysqlConnUrl = "jdbc:mysql://localhost:3306/tic_tac_toe";
 
             /* db user name. */
             String mysqlUserName = "root";

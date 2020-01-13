@@ -16,6 +16,8 @@ public class Constant {
     public static final String ONLINE_PLAYER_DATA_KEY = "online_player_data";
 
     public static final String ID_KEY = "id";
+    public static final String SENDER_ID_KEY = "senderID";
+    public static final String RECIEVER_ID_KEY = "recieverId";
     public static final String FIRST_NAME_KEY ="first_name";
     public static final String LAST_NAME_KEY = "last_name";
     public static final String USER_NAME_KEY = "user_name";
@@ -23,6 +25,8 @@ public class Constant {
     public static final String SCORE_KEY = "score";
     public static final String STATUE_KEY = "status";
     public static final String PASSWORD_KEY = "password";
+    
+    public static final int INVITE = 5;
 
 
 }

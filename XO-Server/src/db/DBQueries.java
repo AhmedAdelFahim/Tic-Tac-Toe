@@ -2,6 +2,7 @@ package db;
 
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import model.Player;
 import utils.Constant;
 import utils.Utils;
@@ -155,19 +156,5 @@ public class DBQueries {
             e.printStackTrace();
         }
         return Utils.toJson(res);
-    }
-
-    public static void updatePlayerScore(int id, int score) throws SQLException {
-        PreparedStatement preparedStatement = DBConnection.getInstance().prepareStatement("UPDATE player SET "+ Tables.player.SCORE+" = " + Tables.player.SCORE + " + ? WHERE "+Tables.player.ID +" = ?");
-        preparedStatement.setInt(1,score);
-        preparedStatement.setInt(2,id);
-        preparedStatement.executeUpdate();
-    }
-
-    public static void changeStatus(int id, int status) throws SQLException {
-        PreparedStatement preparedStatement = DBConnection.getInstance().prepareStatement("UPDATE player SET "+ Tables.player.STATUE+" = " + Tables.player.SCORE + " = ?  WHERE "+Tables.player.ID +" = ?");
-        preparedStatement.setInt(1, status);
-        preparedStatement.setInt(2,id);
-        preparedStatement.executeUpdate();
     }
 }
