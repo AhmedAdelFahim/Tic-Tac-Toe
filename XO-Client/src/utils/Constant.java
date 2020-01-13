@@ -25,4 +25,5 @@ public class Constant {
     public static final String PASSWORD_KEY = "password";
 
 
+    public static final int UPDATE_SCORE = 5;
 }
