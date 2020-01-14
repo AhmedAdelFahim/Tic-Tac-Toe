@@ -21,7 +21,8 @@ public class PlayerHandler extends Thread {
     private Socket socket;
     private DataInputStream dataInputStream;
     private PrintStream printStream;
-    private int id;
+    private int host_id;
+    private int guest_id = -1;
     public PlayerHandler(Socket socket)
     {
         this.socket = socket;
@@ -29,7 +30,6 @@ public class PlayerHandler extends Thread {
             dataInputStream = new DataInputStream(socket.getInputStream());
             printStream = new PrintStream(socket.getOutputStream());
             String json = dataInputStream.readLine();
-            System.out.println(json);
             JsonObject jsonObject = Utils.toJson(json);
             JsonObject response = null;
 
@@ -47,7 +47,6 @@ public class PlayerHandler extends Thread {
                 JsonObject playerDataJsonObject = response.get(Constant.PLAYER_DATA_KEY).getAsJsonObject();
                 Player playerData = preparePlayerData(playerDataJsonObject);
                 Server.addOnlinePlayersData(playerData);
-                System.out.println(response.toString());
                 this.start();
                 Server.addOnlinePlayerHandler(this);
                 Server.broadcastOnlinePlayers();
@@ -65,26 +64,24 @@ public class PlayerHandler extends Thread {
     }
 
     private Player preparePlayerData(JsonObject playerDataJsonObject){
-        System.out.println(playerDataJsonObject);
-        id = Integer.parseInt(playerDataJsonObject.get(Tables.player.ID).toString());
+        host_id = Integer.parseInt(playerDataJsonObject.get(Tables.player.ID).toString());
         int score = Integer.parseInt(playerDataJsonObject.get(SCORE).toString());
         String fName = playerDataJsonObject.get(Tables.player.FIRST_NAME).toString();
         String lName = playerDataJsonObject.get(Tables.player.LAST_NAME).toString();
         String imageURL = playerDataJsonObject.get(Tables.player.IMAGE_URL).toString();
         String userName = playerDataJsonObject.get(Tables.player.USER_NAME).toString();
-        Player player = new Player(id,fName,lName,userName,imageURL,score);
+        Player player = new Player(host_id,fName,lName,userName,imageURL,score);
         player.setStatus(Constant.ONLINE_STATUS);
 
         return player;
     }
 
     public  void sendOnlinePlayers(String json){
-        //System.out.println("sendOnlinePlayers#"+id+" : "+json);
         printStream.println(json);
     }
 
     public int getPlayerId() {
-        return id;
+        return host_id;
     }
 
     @Override
@@ -92,17 +89,14 @@ public class PlayerHandler extends Thread {
         while (true){
             try {
                 String json = dataInputStream.readLine();
+                System.out.println(json);
                 JsonObject jsonObject = Utils.toJson(json);
-                if(Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.UPDATE_SCORE){
-                    System.out.println("FDSAFDSF");
-                }
                 switch (Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString())){
                     case Constant.LOGOUT:
                         JsonObject response = DBQueries.logout(json);
                         if(Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_SUCCESSED) {
                             printStream.println(response.toString());
-                            //System.out.println(response.toString());
-                            Server.removeOnlinePlayersData(id);
+                            Server.removeOnlinePlayersData(host_id);
                             Server.removeOnlinePlayerHandler(this);
                             socket.close();
                             this.stop();
@@ -112,12 +106,22 @@ public class PlayerHandler extends Thread {
                         }
                         break;
                     case Constant.UPDATE_SCORE:
-                        System.out.println("score updated");
-                        DBQueries.updatePlayerScore(getPlayerId(),Integer.parseInt(jsonObject.get(Constant.SCORE_KEY).toString()));
+                        DBQueries.updatePlayerScore(host_id);
                         break;
                     case Constant.BUSY_STATUS:
-                        System.out.println("status updated");
-                        DBQueries.changeStatus(getPlayerId(),0);
+                        System.out.println("update status");
+                        DBQueries.changeStatus(host_id,0);
+                        break;
+                    case Constant.ONLINE_STATUS:
+                        System.out.println("update status");
+                        DBQueries.changeStatus(host_id,1);
+                        break;
+                    case Constant.SAVE_GAME:
+                        DBQueries.saveGame(host_id,guest_id,jsonObject.get(Constant.GAME_BOARD).toString());
+                        System.out.println("updated successfully");
+                        break;
+                    default:
+                        System.out.println("default case");
                         break;
                 }
 

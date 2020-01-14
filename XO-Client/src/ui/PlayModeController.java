@@ -96,9 +96,7 @@ public class PlayModeController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //go
-        System.out.println("clicked");
-        //go to playgame with computer and one player
+
     }
       @FXML
     private void handleBackButtonAction(ActionEvent event) {

@@ -65,7 +65,7 @@ public class LevelController implements Initializable {
 
     @FXML
     private void handleMediumAction(ActionEvent event) {
-        PlayScreenView.setLevel(2);
+        PlayScreenView.setLevel(500);
         ClientSideHandler.updateStatus(Constant.BUSY_STATUS);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
         try {
@@ -80,7 +80,7 @@ public class LevelController implements Initializable {
 
     @FXML
     private void handleHardButton(ActionEvent event) {
-        PlayScreenView.setLevel(3);
+        PlayScreenView.setLevel(Double.POSITIVE_INFINITY);
         ClientSideHandler.updateStatus(Constant.BUSY_STATUS);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
         try {
