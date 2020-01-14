@@ -113,6 +113,7 @@ public class PlayModeController implements Initializable {
     @FXML
     private void handleComputerButton(MouseEvent event) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Level.fxml"));
+        PlayScreenView.setMode(PlayScreenView.Mode.AI);
         try {
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);

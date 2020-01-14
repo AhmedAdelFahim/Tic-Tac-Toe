@@ -29,4 +29,5 @@ public class Constant {
     public static final int INVITE = 5;
 
 
+    public static final int UPDATE_SCORE = 5;
 }

@@ -80,6 +80,21 @@ public Player getCurrentPlayer(){
 }
 
 
+    public void updateScore(){
+        HashMap<String,Object> map = new HashMap<>();
+        map.put(Constant.REQUEST_TYPE,Constant.UPDATE_SCORE);
+        printStream.println(Utils.toJson(map));
+        System.out.println("from client handler");
+    }
+
+    public static void updateStatus(int status){
+        HashMap<String,Object> map = new HashMap<>();
+        map.put(Constant.REQUEST_TYPE,status);
+        String request = Utils.toString(map);
+        printStream.println(Utils.toJson(request));
+        System.out.println("status updated");
+    }
+
     private void handler(){
         handler = new Thread(new Runnable() {
             @Override
