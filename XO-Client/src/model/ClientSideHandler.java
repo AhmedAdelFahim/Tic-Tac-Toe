@@ -1,5 +1,6 @@
 package model;
 
+import TicTacToe.Board;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import javafx.application.Platform;
@@ -79,21 +80,32 @@ public Player getCurrentPlayer(){
     return currentPlayer;
 }
 
+    public void updateScore(){
+        HashMap<String,Object> map = new HashMap<>();
+        map.put(Constant.REQUEST_TYPE,Constant.UPDATE_SCORE);
+        String request = Utils.toString(map);
+        printStream.println(request);
+        System.out.println("from client handler");
+    }
 
-public void updateScore(){
-    HashMap<String,Object> map = new HashMap<>();
-    map.put(Constant.REQUEST_TYPE,Constant.UPDATE_SCORE);
-    printStream.println(Utils.toJson(map));
-    System.out.println("from client handler");
-}
+    public static void updateStatus(int status){
+        System.out.println(status);
+        HashMap<String,Object> map = new HashMap<>();
+        map.put(Constant.REQUEST_TYPE,status);
+        String request = Utils.toString(map);
+        printStream.println(request);
+        System.out.println("status updated");
+    }
 
-public static void updateStatus(int status){
-    HashMap<String,Object> map = new HashMap<>();
-    map.put(Constant.REQUEST_TYPE,status);
-    String request = Utils.toString(map);
-    printStream.println(Utils.toJson(request));
-    System.out.println("status updated");
-}
+    public static void saveGame(String board){
+        HashMap<String,Object> map = new HashMap<>();
+        map.put(Constant.REQUEST_TYPE,Constant.SAVE_GAME);
+        map.put(Constant.GAME_BOARD,board);
+        String request = Utils.toString(map);
+        System.out.println(request);
+        printStream.println(request);
+    }
+
     private void handler(){
         handler = new Thread(new Runnable() {
             @Override

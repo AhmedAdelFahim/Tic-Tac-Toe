@@ -3,6 +3,7 @@ package db;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import javafx.scene.control.Tab;
 import model.Player;
 import utils.Constant;
 import utils.Utils;
@@ -158,12 +159,23 @@ public class DBQueries {
         return Utils.toJson(res);
     }
 
-    public static void updatePlayerScore(int id, int score) throws SQLException {
-        PreparedStatement preparedStatement = DBConnection.getInstance().prepareStatement("UPDATE player SET "+ Tables.player.SCORE+" = " + Tables.player.SCORE + " + ? WHERE "+Tables.player.ID +" = ?");
-        preparedStatement.setInt(1,score);
-        preparedStatement.setInt(2,id);
+    public static void updatePlayerScore(int id) throws SQLException {
+        PreparedStatement preparedStatement = DBConnection.getInstance().prepareStatement("UPDATE player SET "+ Tables.player.SCORE+" = " + Tables.player.SCORE + " + 1 WHERE "+Tables.player.ID +" = ?");
+        preparedStatement.setInt(1,id);
         preparedStatement.executeUpdate();
     }
+
+
+    public static void saveGame(int host_id,int guest_id , String board) throws SQLException {
+        PreparedStatement preparedStatement = DBConnection.getInstance().
+                prepareStatement("insert into saved_game ("+Tables.saved_game.HOST_ID + ", "+Tables.saved_game.GUEST_ID+
+                        "," + Tables.saved_game.GAME_BOARD + ") VALUES ( ? , ? , ? )");
+        preparedStatement.setInt(1,host_id);
+        preparedStatement.setInt(2,guest_id);
+        preparedStatement.setString(3, board);
+        preparedStatement.executeUpdate();
+    }
+
 
     public static void changeStatus(int id, int status) throws SQLException {
         PreparedStatement preparedStatement = DBConnection.getInstance().prepareStatement("UPDATE player SET "+ Tables.player.STATUE+" = " + Tables.player.SCORE + " = ?  WHERE "+Tables.player.ID +" = ?");

@@ -11,6 +11,7 @@ public class Constant {
     public static final String STATUS_CODE_KEY = "status_code";
     public static final int STATUS_CODE_SUCCESSED = 200;
     public static final int STATUS_CODE_FAILED = 400;
+    public static final int SAVE_GAME = 6;
     public static final String PLAYER_DATA_KEY = "player_data";
     public static final int ONLINE_PLAYERS_DATA = 3;
     public static final String ONLINE_PLAYER_DATA_KEY = "online_player_data";
@@ -27,6 +28,7 @@ public class Constant {
     public static final String PASSWORD_KEY = "password";
     
     public static final int INVITE = 5;
+    public static final String GAME_BOARD = "board";
 
     public static final int UPDATE_SCORE = 8;
 }

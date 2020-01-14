@@ -9,6 +9,7 @@ public class Constant {
     public static final int ONLINE_STATUS = 1;
     public static final int UPDATE_SCORE = 5;
     public static final int BUSY_STATUS = 0;
+    public static final int SAVE_GAME = 6;
     public static final int OFFLINE_STATUS = -1;
     public static final int INVITE = 5;
      public static final int ACCEPT_INVITATION = 6;
@@ -21,6 +22,7 @@ public class Constant {
     public static final String PLAYER_DATA_KEY = "player_data";
     public static final String ONLINE_PLAYER_DATA_KEY = "online_player_data";
     public static final String SCORE_KEY = "score";
+    public static final String GAME_BOARD = "board";
 
 
 }

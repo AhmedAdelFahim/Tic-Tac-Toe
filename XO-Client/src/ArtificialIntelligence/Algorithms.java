@@ -32,7 +32,7 @@ public class Algorithms {
      * @param board     the Tic Tac Toe board to play on
      * @param ply       the maximum depth
      */
-    public static void miniMax (Board board, int ply) {
+    public static void miniMax (Board board, double ply) {
         MiniMax.run(board.getTurn(), board, ply);
     }
 

@@ -253,9 +253,6 @@ public class Board {
                 sb.append(" ");
 
             }
-            if (y != BOARD_WIDTH -1) {
-                sb.append("\n");
-            }
         }
 
         return new String(sb);
