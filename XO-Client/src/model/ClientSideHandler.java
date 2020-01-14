@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ClientSideHandler {
     private static DataInputStream dataInputStream;
@@ -19,6 +21,7 @@ public class ClientSideHandler {
     private static Socket socket;
     private static ClientSideHandler clientSideHandler = null;
     private Thread handler;
+    private Player currentPlayer;
     public static synchronized ClientSideHandler getInstance(){
         if(clientSideHandler == null) {
             clientSideHandler = new ClientSideHandler();
@@ -32,6 +35,7 @@ public class ClientSideHandler {
             dataInputStream = new DataInputStream(socket.getInputStream());
             printStream = new PrintStream(socket.getOutputStream());
             printStream.println(json);
+            
             JsonObject jsonObject = Utils.toJson(dataInputStream.readLine());
             if(jsonObject.has(Constant.STATUS_CODE_KEY)&&Integer.parseInt(jsonObject.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_SUCCESSED)
             {
@@ -55,11 +59,14 @@ public boolean logIn(String json)
             printStream = new PrintStream(socket.getOutputStream());
             printStream.println(json);
             JsonObject jsonObject = Utils.toJson(dataInputStream.readLine());
+            System.err.println(jsonObject.toString());
             if(jsonObject.has(Constant.STATUS_CODE_KEY)&&Integer.parseInt(jsonObject.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_SUCCESSED)
             {
                 handler();
+                   currentPlayer = getCurrentPlayerData(jsonObject);
                 return true;
             }
+            
 
 
         } catch (IOException e) {
@@ -68,22 +75,25 @@ public boolean logIn(String json)
         return false;
     }
 
+public Player getCurrentPlayer(){
+    return currentPlayer;
+}
 
-    public void updateScore(){
-        HashMap<String,Object> map = new HashMap<>();
-        map.put(Constant.REQUEST_TYPE,Constant.UPDATE_SCORE);
-        printStream.println(Utils.toJson(map));
-        System.out.println("from client handler");
-    }
 
-    public static void updateStatus(int status){
-        HashMap<String,Object> map = new HashMap<>();
-        map.put(Constant.REQUEST_TYPE,status);
-        String request = Utils.toString(map);
-        printStream.println(Utils.toJson(request));
-        System.out.println("status updated");
-    }
+public void updateScore(){
+    HashMap<String,Object> map = new HashMap<>();
+    map.put(Constant.REQUEST_TYPE,Constant.UPDATE_SCORE);
+    printStream.println(Utils.toJson(map));
+    System.out.println("from client handler");
+}
 
+public static void updateStatus(int status){
+    HashMap<String,Object> map = new HashMap<>();
+    map.put(Constant.REQUEST_TYPE,status);
+    String request = Utils.toString(map);
+    printStream.println(Utils.toJson(request));
+    System.out.println("status updated");
+}
     private void handler(){
         handler = new Thread(new Runnable() {
             @Override
@@ -107,4 +117,52 @@ public boolean logIn(String json)
 
         handler.start();
     }
+    
+    
+//    Thread InvitationThread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//               while(true){
+//                   try {
+//                       JsonObject invitation= Utils.toJson(dataInputStream.readLine());
+//                      // if(invitation.request_type == Constatnt.INVITE && invitation.id = this.id){
+////                                alertBox----iinvitation 
+//                       // }
+//                   } catch (IOException ex) {
+//                       Logger.getLogger(ClientSideHandler.class.getName()).log(Level.SEVERE, null, ex);
+//                   }
+//                   
+//               }
+//            }
+//        });
+    
+    
+    
+    private Player getCurrentPlayerData(JsonObject playerDataJsonObject){
+        //playerDataJsonObject.get("player_data").getAsJsonObject().get(Constant.ID_KEY).toString()
+                
+        System.out.println(playerDataJsonObject);
+        int id = Integer.parseInt( playerDataJsonObject.get("player_data").getAsJsonObject().get(Constant.ID_KEY).toString());
+        int score = Integer.parseInt(playerDataJsonObject.get("player_data").getAsJsonObject().get(Constant.SCORE_KEY).toString());
+        String fName = playerDataJsonObject.get("player_data").getAsJsonObject().get(Constant.FIRST_NAME_KEY).toString();
+        String lName = playerDataJsonObject.get("player_data").getAsJsonObject().get(Constant.LAST_NAME_KEY).toString();
+        //String imageURL = playerDataJsonObject.get(Tables.player.IMAGE_URL).toString();
+        String userName = playerDataJsonObject.get("player_data").getAsJsonObject().get(Constant.USER_NAME_KEY).toString();
+        Player player = new Player(id,fName,lName,userName,null,score);
+
+        return player;
+    }
+public boolean handelInvitation(String json){
+        try {
+            //dataInputStream = new DataInputStream(socket.getInputStream());
+            printStream.println(json);
+            System.out.println(json);
+        } catch (Exception ex) {
+            Logger.getLogger(ClientSideHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+}
+
+
+    
 }

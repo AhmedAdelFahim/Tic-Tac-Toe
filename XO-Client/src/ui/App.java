@@ -19,10 +19,8 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        
         Parent root = FXMLLoader.load(getClass().getResource("SignUpView.fxml"));
-
-       
-//        root.setStyle("-fx-fill: activeborder;-fx-border:green;-fx-font:15px sans-serif;-fx-background-color: darkslategrey;");
 
         Scene scene = new Scene(root);
 

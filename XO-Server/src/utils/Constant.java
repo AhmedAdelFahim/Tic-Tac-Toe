@@ -10,6 +10,11 @@ public class Constant {
     public static final int UPDATE_SCORE = 5;
     public static final int BUSY_STATUS = 0;
     public static final int OFFLINE_STATUS = -1;
+    public static final int INVITE = 5;
+     public static final int ACCEPT_INVITATION = 6;
+    public static final int DECLINE_INVITATION = 7;
+    public static final String SENDER_ID_KEY = "senderID";
+    public static final String RECIEVER_ID_KEY = "recieverId";
     public static final String STATUS_CODE_KEY = "status_code";
     public static final int STATUS_CODE_SUCCESSED = 200;
     public static final int STATUS_CODE_FAILED = 400;
@@ -19,3 +24,4 @@ public class Constant {
 
 
 }
+

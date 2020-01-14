@@ -40,6 +40,19 @@ public class PlayerHandler extends Thread {
             } else if(Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString())==Constant.LOGIN){
                 response = DBQueries.login(json);
             }
+            else if(Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString())==Constant.INVITE){
+                //json
+               sendInvitationToSpecificPlayer(jsonObject);
+                
+            }
+             else if(Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString())==Constant.ACCEPT_INVITATION){
+                //json
+//                 AcceptInvitation(player1,player2)
+            }
+            else if(Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString())==Constant.DECLINE_INVITATION){
+                //json
+                 //DeclineInvitation(player1,player2)
+            }
 
             if(Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_SUCCESSED)
             {
@@ -127,5 +140,39 @@ public class PlayerHandler extends Thread {
                 e.printStackTrace();
             }
         }
+    
     }
+    
+    
+    
+    void sendInvitationToSpecificPlayer(JsonObject jsonInvitation)
+    {
+        
+        Player invitedPlayer=Server.getOnlinePlayersData(Integer.parseInt(jsonInvitation.get(Constant.RECIEVER_ID_KEY).toString()));
+        PlayerHandler invitedPlayerHandeler = Server.getOnlinePlayerHandler(invitedPlayer.getId());
+        invitedPlayerHandeler.printStream.println(jsonInvitation);
+        System.out.println(jsonInvitation);
+        
+    }
+    
+  
+    
+//    void broadcastInvation()
+//    {
+//       //broadCast Invitation to all players;
+//        //make a thread function ListenToInvitatios in clientHandler  
+//    }
+    
+    
+//    void AcceptInvitation(int player1,int player2)
+//    {
+//      Start Game for both Players  
+//    }
+        
+    
+//   void DeclineInvitation(int player1,int player2)
+//    {
+//      send A Declination message to the player;  
+//    }
+    
 }

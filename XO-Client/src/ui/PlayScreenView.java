@@ -178,6 +178,7 @@ public class PlayScreenView implements Initializable {
         if(CanPlay){
             pos_7.setText(board.getTurn().toString());
             pos_7.setDisable(true);
+            System.out.println("Pos_7");
             board.move(6);
             CanPlay = false;
         }
@@ -188,6 +189,7 @@ public class PlayScreenView implements Initializable {
         if(CanPlay){
             pos_8.setText(board.getTurn().toString());
             pos_8.setDisable(true);
+            System.out.println("Pos_8");
             board.move(7);
             CanPlay = false;
         }
@@ -198,6 +200,7 @@ public class PlayScreenView implements Initializable {
         if(CanPlay){
             pos_6.setText(board.getTurn().toString());
             pos_6.setDisable(true);
+            System.out.println("Pos_6");
             board.move(5);
             CanPlay = false;
         }
@@ -208,6 +211,7 @@ public class PlayScreenView implements Initializable {
         if(CanPlay){
             pos_9.setText(board.getTurn().toString());
             pos_9.setDisable(true);
+            System.out.println("Pos_9");
             board.move(8);
             CanPlay = false;
         }
@@ -234,10 +238,10 @@ public class PlayScreenView implements Initializable {
                         case AI:
                             switch (board.getTurn()){
                                 case X:
-                                    CanPlay=true;
+                                CanPlay=true;
                                     break;
                                 case O:
-                                    Algorithms.miniMax(board, level);
+                                Algorithms.miniMax(board, level);
                                     break;
                             }
                             break;

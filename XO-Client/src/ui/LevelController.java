@@ -60,8 +60,9 @@ public class LevelController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(LevelController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+    
     }
+
 
     @FXML
     private void handleMediumAction(ActionEvent event) {
@@ -80,6 +81,8 @@ public class LevelController implements Initializable {
 
     @FXML
     private void handleHardButton(ActionEvent event) {
+    
+    
         PlayScreenView.setLevel(3);
         ClientSideHandler.updateStatus(Constant.BUSY_STATUS);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
@@ -92,6 +95,7 @@ public class LevelController implements Initializable {
             Logger.getLogger(LevelController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
 
     @FXML
     private void handleLogoutButton(ActionEvent event) {

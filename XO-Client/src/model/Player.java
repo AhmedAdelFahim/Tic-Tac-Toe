@@ -18,6 +18,10 @@ public class Player {
     private int status;
     private IntegerProperty score;
 
+    public Player() {
+    }
+
+    
     public Player(String userName, int score) {
         this.userName = new SimpleStringProperty(userName);
         this.score = new SimpleIntegerProperty(score);
