@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +30,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
@@ -46,8 +50,10 @@ import javafx.stage.Stage;
 import model.ClientSideHandler;
 import model.Player;
 import utils.Constant;
+import viewmodel.InvitationViewModel;
 import viewmodel.LogInViewModel;
 import viewmodel.PlayModeViewModel;
+import viewmodel.SignUpViewModel;
 
 /**
  *
@@ -56,6 +62,7 @@ import viewmodel.PlayModeViewModel;
 public class PlayModeController implements Initializable {
     Thread playersThread;
     public Player currentPlayer;
+    public static String  senderUserName ;
     @FXML
     private ImageView computer;
 //    @FXML
@@ -92,20 +99,59 @@ public class PlayModeController implements Initializable {
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                //get  id of logged in user
                 int invitedPlayerId = ((Player)newValue).getId();
-                int snderPlayerId = currentPlayer.getId();
+                int senderPlayerId = currentPlayer.getId();
+                
+                String senderPlayerUserName =currentPlayer.getUserName();
                 
                 System.out.println(invitedPlayerId);
-                System.out.println(snderPlayerId);
+                System.out.println(senderPlayerId);
                 
                 HashMap<String, Object> map = new HashMap<>();
                 map.put(Constant.REQUEST_TYPE,Constant.INVITE);
-                map.put(Constant.SENDER_ID_KEY,snderPlayerId);
+                map.put(Constant.SENDER_ID_KEY,senderPlayerId);
                 map.put(Constant.RECIEVER_ID_KEY,invitedPlayerId);
-                map.put(Constant.USER_NAME_KEY,currentPlayer.getUserName());
+                map.put(Constant.RECIEVER_NAME_KEY,((Player)newValue).getUserName());
+                map.put(Constant.SENDER_NAME_KEY,currentPlayer.getUserName());
                 PlayModeViewModel.sendInvitation(map);
                 // Alert Waiting for otherplayer
-                
+               // System.out.println("********Before  Invetation Recieved *********");
+            
+               
+            }
+        });
+        
+         InvitationViewModel.tocurrentInviteScreenflagProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println(" ********************"+newValue);
+             if(newValue){
+                 System.out.println("******** Invetation Recieved *********");
+//                 Alert a=new Alert(AlertType.CONFIRMATION);
+                 Platform.runLater( new Runnable() {
 
+                     @Override
+                     public void run() {
+//                         Alert alert = new Alert(AlertType.CONFIRMATION, "Invitation " + "  " + " ?", ButtonType.YES, ButtonType.NO);
+                        Alert alert = new Alert(AlertType.CONFIRMATION);
+                        alert.getButtonTypes().clear();
+                        ButtonType accept= new ButtonType("ACCEPT");
+                        alert.getButtonTypes().add(accept);
+                        ButtonType decline = new ButtonType("DECLINE");
+                        alert.getButtonTypes().add(decline);
+                        alert.setTitle("Invitation");
+                        alert.setHeaderText(null);
+                        alert.setContentText("player"+senderUserName+"want to play");
+                        alert.showAndWait();
+                         if (alert.getResult() == ButtonType.YES) {//accpt request
+                   //do stuff//load the game
+                        }
+                         if (alert.getResult() == ButtonType.NO) {//decline request
+                   //do stuff
+                            
+                        }
+
+                     }
+                 });
+            } else {
+                System.out.println("FFF");
             }
         });
     }
@@ -113,7 +159,6 @@ public class PlayModeController implements Initializable {
     @FXML
     private void handleComputerButton(MouseEvent event) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Level.fxml"));
-        PlayScreenView.setMode(PlayScreenView.Mode.AI);
         try {
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
@@ -144,6 +189,7 @@ public class PlayModeController implements Initializable {
         }
         
     }
+    
 
 
     public void handleLogoutAction(ActionEvent actionEvent) {

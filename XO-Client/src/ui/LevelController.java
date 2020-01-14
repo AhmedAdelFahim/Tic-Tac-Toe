@@ -18,8 +18,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import model.ClientSideHandler;
-import utils.Constant;
 
 /**
  * FXML Controller class
@@ -49,48 +47,14 @@ public class LevelController implements Initializable {
 
     @FXML
     private void handleEasyAction(ActionEvent event) {
-        PlayScreenView.setLevel(1);
-        ClientSideHandler.updateStatus(Constant.BUSY_STATUS);
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
-        try {
-            Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root,800,500);
-            Stage stage = (Stage) hardButton.getScene().getWindow();
-            stage.setScene(scene);
-        } catch (IOException ex) {
-            Logger.getLogger(LevelController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
     }
 
     @FXML
     private void handleMediumAction(ActionEvent event) {
-        PlayScreenView.setLevel(2);
-        ClientSideHandler.updateStatus(Constant.BUSY_STATUS);
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
-        try {
-            Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root,800,500);
-            Stage stage = (Stage) hardButton.getScene().getWindow();
-            stage.setScene(scene);
-        } catch (IOException ex) {
-            Logger.getLogger(LevelController.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     @FXML
     private void handleHardButton(ActionEvent event) {
-        PlayScreenView.setLevel(3);
-        ClientSideHandler.updateStatus(Constant.BUSY_STATUS);
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
-        try {
-            Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root,800,500);
-            Stage stage = (Stage) hardButton.getScene().getWindow();
-            stage.setScene(scene);
-        } catch (IOException ex) {
-            Logger.getLogger(LevelController.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     @FXML
