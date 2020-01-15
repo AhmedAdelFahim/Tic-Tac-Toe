@@ -81,8 +81,9 @@ public class PlayScreenView implements Initializable {
         if (CanPlay) {
             pos_1.setText(board.getTurn().toString());
             pos_1.setDisable(true);
+            System.out.println("Pos_1");
             board.move(0);
-            CanPlay = false;
+            canPlay = false;
         }
 
     }
@@ -92,8 +93,9 @@ public class PlayScreenView implements Initializable {
         if (CanPlay) {
             pos_4.setText(board.getTurn().toString());
             pos_4.setDisable(true);
+            System.out.println("Pos_4");
             board.move(3);
-            CanPlay = false;
+            canPlay = false;
         }
     }
 
@@ -102,8 +104,9 @@ public class PlayScreenView implements Initializable {
         if (CanPlay) {
             pos_2.setText(board.getTurn().toString());
             pos_2.setDisable(true);
+            System.out.println("Pos_2");
             board.move(1);
-            CanPlay = false;
+            canPlay = false;
         }
     }
 
@@ -114,7 +117,7 @@ public class PlayScreenView implements Initializable {
             pos_5.setDisable(true);
             System.out.println("Pos_5");
             board.move(4);
-            CanPlay = false;
+            canPlay = false;
         }
     }
 
@@ -124,7 +127,7 @@ public class PlayScreenView implements Initializable {
             pos_3.setText(board.getTurn().toString());
             pos_3.setDisable(true);
             board.move(2);
-            CanPlay = false;
+            canPlay = false;
         }
     }
 
@@ -135,7 +138,7 @@ public class PlayScreenView implements Initializable {
             pos_7.setDisable(true);
             System.out.println("Pos_7");
             board.move(6);
-            CanPlay = false;
+            canPlay = false;
         }
     }
 
@@ -146,7 +149,7 @@ public class PlayScreenView implements Initializable {
             pos_8.setDisable(true);
             System.out.println("Pos_8");
             board.move(7);
-            CanPlay = false;
+            canPlay = false;
         }
     }
 
@@ -157,7 +160,7 @@ public class PlayScreenView implements Initializable {
             pos_6.setDisable(true);
             System.out.println("Pos_6");
             board.move(5);
-            CanPlay = false;
+            canPlay = false;
         }
     }
 
@@ -168,7 +171,7 @@ public class PlayScreenView implements Initializable {
             pos_9.setDisable(true);
             System.out.println("Pos_9");
             board.move(8);
-            CanPlay = false;
+            canPlay = false;
         }
     }
 

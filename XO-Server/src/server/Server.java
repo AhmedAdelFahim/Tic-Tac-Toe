@@ -10,7 +10,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.Scanner;
 import java.util.function.BiConsumer;
 
 public class Server {

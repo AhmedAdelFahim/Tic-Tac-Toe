@@ -7,7 +7,6 @@ public class Constant {
     public static final int SIGN_UP = 2;
     public static final int ONLINE_PLAYERS_DATA = 3;
     public static final int ONLINE_STATUS = 1;
-    public static final int UPDATE_SCORE = 5;
     public static final int BUSY_STATUS = 0;
     public static final int SAVE_GAME = 6;
     public static final int OFFLINE_STATUS = -1;

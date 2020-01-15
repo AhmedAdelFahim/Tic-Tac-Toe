@@ -15,6 +15,7 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import viewmodel.InvitationViewModel;
 
 public class ClientSideHandler {
     private static DataInputStream dataInputStream;
@@ -114,12 +115,22 @@ public Player getCurrentPlayer(){
                     try {
                         String json = dataInputStream.readLine();
                         JsonObject jsonObject = Utils.toJson(json);
-                        //System.out.println(json);
+                        System.out.println(json);
+                          System.out.println("client handler run");
                         if (jsonObject.has(Constant.REQUEST_TYPE) && Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.ONLINE_PLAYERS_DATA) {
                             JsonArray onlinePlayers = jsonObject.getAsJsonArray(Constant.ONLINE_PLAYER_DATA_KEY);
                             PlayModeViewModel.addOnlinePlayer(onlinePlayers);
                         }
+                        
+                        else if (jsonObject.has(Constant.REQUEST_TYPE) && Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.INVITE) {
+                            
+                             InvitationViewModel.handleInvitation(jsonObject);
+                             System.err.println("AAAAAAAAAAAAAAA");
+                        }
+                        
                         System.out.println();
+                        
+                        // Listeinng to invrtations 
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -154,6 +165,7 @@ public Player getCurrentPlayer(){
         //playerDataJsonObject.get("player_data").getAsJsonObject().get(Constant.ID_KEY).toString()
                 
         System.out.println(playerDataJsonObject);
+        System.out.println("current player data");
         int id = Integer.parseInt( playerDataJsonObject.get("player_data").getAsJsonObject().get(Constant.ID_KEY).toString());
         int score = Integer.parseInt(playerDataJsonObject.get("player_data").getAsJsonObject().get(Constant.SCORE_KEY).toString());
         String fName = playerDataJsonObject.get("player_data").getAsJsonObject().get(Constant.FIRST_NAME_KEY).toString();
@@ -169,6 +181,7 @@ public boolean handelInvitation(String json){
             //dataInputStream = new DataInputStream(socket.getInputStream());
             printStream.println(json);
             System.out.println(json);
+            System.out.println("handle invitation");
         } catch (Exception ex) {
             Logger.getLogger(ClientSideHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
