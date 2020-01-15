@@ -119,8 +119,9 @@ public class PlayModeController implements Initializable {
                
             }
         });
+        System.out.println("******** BEFOR Invetation Recieved *********");
         
-         InvitationViewModel.tocurrentInviteScreenflagProperty().addListener((observable, oldValue, newValue) -> {
+   InvitationViewModel.tocurrentInviteScreenflagProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println(" ********************"+newValue);
              if(newValue){
                  System.out.println("******** Invetation Recieved *********");
@@ -156,9 +157,12 @@ public class PlayModeController implements Initializable {
         });
     }
 
+
+
     @FXML
     private void handleComputerButton(MouseEvent event) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Level.fxml"));
+        PlayScreenView.setMode(PlayScreenView.Mode.AI);
         try {
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);

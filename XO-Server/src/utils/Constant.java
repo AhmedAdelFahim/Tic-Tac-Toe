@@ -1,17 +1,18 @@
 package utils;
 
 public class Constant {
-    public static final String REQUEST_TYPE = "request_type";
+        public static final String REQUEST_TYPE = "request_type";
     public static final int LOGIN = 1;
     public static final int LOGOUT = -1;
     public static final int SIGN_UP = 2;
     public static final int ONLINE_PLAYERS_DATA = 3;
     public static final int ONLINE_STATUS = 1;
+    public static final int UPDATE_SCORE = 8;
     public static final int BUSY_STATUS = 0;
     public static final int SAVE_GAME = 6;
     public static final int OFFLINE_STATUS = -1;
     public static final int INVITE = 5;
-     public static final int ACCEPT_INVITATION = 6;
+     public static final int ACCEPT_INVITATION = 9;
     public static final int DECLINE_INVITATION = 7;
     public static final String SENDER_ID_KEY = "senderID";
     public static final String RECIEVER_ID_KEY = "recieverId";

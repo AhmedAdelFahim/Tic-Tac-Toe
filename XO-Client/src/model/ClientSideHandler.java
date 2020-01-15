@@ -65,7 +65,7 @@ public boolean logIn(String json)
             if(jsonObject.has(Constant.STATUS_CODE_KEY)&&Integer.parseInt(jsonObject.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_SUCCESSED)
             {
                 handler();
-                   currentPlayer = getCurrentPlayerData(jsonObject);
+                currentPlayer = getCurrentPlayerData(jsonObject);
                 return true;
             }
             
