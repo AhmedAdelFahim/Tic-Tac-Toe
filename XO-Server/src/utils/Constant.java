@@ -25,5 +25,8 @@ public class Constant {
     public static final String GAME_BOARD = "board";
 
 
+    
+    public static final String SENDER_NAME_KEY = "sender_username";
+    public static final String RECIEVER_NAME_KEY = "reciever_name";
 }
 

@@ -23,19 +23,23 @@ public class Constant {
     public static final String LAST_NAME_KEY = "last_name";
     public static final String USER_NAME_KEY = "user_name";
     public static final String IMAGE_URL_KEY = "image_url";
-    public static final String RECIEVER_NAME_KEY = "reciever_name";
+
     public static final String SCORE_KEY = "score";
     public static final String STATUE_KEY = "status";
     public static final String PASSWORD_KEY = "password";
     
     public static final int INVITE = 5;
+    public static final int ACCEPT_INVITATION = 9;
+    public static final int DECLINE_INVITATION = 7;
+    
+    
     public static final String GAME_BOARD = "board";
 
     public static final int UPDATE_SCORE = 8;
     public static final String SENDER_NAME_KEY = "sender_username";
-    
+    public static final String RECIEVER_NAME_KEY = "reciever_name";
    
     
-
+    
 
 }

@@ -24,8 +24,8 @@ public class PlayerHandler extends Thread {
     private PrintStream printStream;
     private int host_id;
     private int guest_id = -1;
-    public PlayerHandler(Socket socket)
-    {
+
+    public PlayerHandler(Socket socket) {
         this.socket = socket;
         try {
             dataInputStream = new DataInputStream(socket.getInputStream());
@@ -34,17 +34,14 @@ public class PlayerHandler extends Thread {
             JsonObject jsonObject = Utils.toJson(json);
             JsonObject response = null;
 
-            if(Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString())==Constant.SIGN_UP){
+            if (Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.SIGN_UP) {
                 response = DBQueries.signUp(json);
 
-
-            } else if(Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString())==Constant.LOGIN){
+            } else if (Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.LOGIN) {
                 response = DBQueries.login(json);
             }
-            
 
-            if(Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_SUCCESSED)
-            {
+            if (Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString()) == Constant.STATUS_CODE_SUCCESSED) {
                 printStream.println(response.toString());
                 JsonObject playerDataJsonObject = response.get(Constant.PLAYER_DATA_KEY).getAsJsonObject();
                 Player playerData = preparePlayerData(playerDataJsonObject);
@@ -53,8 +50,7 @@ public class PlayerHandler extends Thread {
                 Server.addOnlinePlayerHandler(this);
                 Server.broadcastOnlinePlayers();
 
-            } else if(Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_FAILED)
-            {
+            } else if (Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString()) == Constant.STATUS_CODE_FAILED) {
                 printStream.println(response.toString());
                 this.socket.close();
                 this.stop();
@@ -65,20 +61,20 @@ public class PlayerHandler extends Thread {
         }
     }
 
-    private Player preparePlayerData(JsonObject playerDataJsonObject){
+    private Player preparePlayerData(JsonObject playerDataJsonObject) {
         host_id = Integer.parseInt(playerDataJsonObject.get(Tables.player.ID).toString());
         int score = Integer.parseInt(playerDataJsonObject.get(SCORE).toString());
         String fName = playerDataJsonObject.get(Tables.player.FIRST_NAME).toString();
         String lName = playerDataJsonObject.get(Tables.player.LAST_NAME).toString();
         String imageURL = playerDataJsonObject.get(Tables.player.IMAGE_URL).toString();
         String userName = playerDataJsonObject.get(Tables.player.USER_NAME).toString();
-        Player player = new Player(host_id,fName,lName,userName,imageURL,score);
+        Player player = new Player(host_id, fName, lName, userName, imageURL, score);
         player.setStatus(Constant.ONLINE_STATUS);
 
         return player;
     }
 
-    public  void sendOnlinePlayers(String json){
+    public void sendOnlinePlayers(String json) {
         printStream.println(json);
     }
 
@@ -88,36 +84,22 @@ public class PlayerHandler extends Thread {
 
     @Override
     public void run() {
-        while (true){
+        while (true) {
             try {
-                
-                /*else if(Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString())==Constant.INVITE){
-                            //json
-                        sendInvitationToSpecificPlayer(jsonObject);
-                            
-                        }
-                        else if(Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString())==Constant.ACCEPT_INVITATION){
-                            //json
-                        //                 AcceptInvitation(player1,player2)
-                        }
-                        else if(Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString())==Constant.DECLINE_INVITATION){
-                            //json
-                            //DeclineInvitation(player1,player2)
-                        }*/
                 String json = dataInputStream.readLine();
-                System.out.println(json);
+                //System.out.println(json);
                 JsonObject jsonObject = Utils.toJson(json);
-                switch (Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString())){
+                switch (Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString())) {
                     case Constant.LOGOUT:
                         JsonObject response = DBQueries.logout(json);
-                        if(Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_SUCCESSED) {
+                        if (Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString()) == Constant.STATUS_CODE_SUCCESSED) {
                             printStream.println(response.toString());
                             Server.removeOnlinePlayersData(host_id);
                             Server.removeOnlinePlayerHandler(this);
                             socket.close();
                             this.stop();
 
-                        } else if(Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString())==Constant.STATUS_CODE_FAILED) {
+                        } else if (Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString()) == Constant.STATUS_CODE_FAILED) {
                             printStream.println(response.toString());
                         }
                         break;
@@ -126,73 +108,49 @@ public class PlayerHandler extends Thread {
                         break;
                     case Constant.BUSY_STATUS:
                         System.out.println("update status");
-                        DBQueries.changeStatus(host_id,0);
+                        DBQueries.changeStatus(host_id, 0);
                         break;
                     case Constant.ONLINE_STATUS:
                         System.out.println("update status");
-                        DBQueries.changeStatus(host_id,1);
+                        DBQueries.changeStatus(host_id, 1);
                         break;
                     case Constant.SAVE_GAME:
-                        DBQueries.saveGame(host_id,guest_id,jsonObject.get(Constant.GAME_BOARD).toString());
+                        DBQueries.saveGame(host_id, guest_id, jsonObject.get(Constant.GAME_BOARD).toString());
                         System.out.println("updated successfully");
                         break;
                     case Constant.INVITE:
                         System.out.println(" INVITE");
-                        sendInvitationToSpecificPlayer(jsonObject);
-                            break;
-                        
+                        System.out.println(jsonObject);
+                        sendInvitationRequestToSpecificPlayer(jsonObject);
+                        break;
+
                     case Constant.ACCEPT_INVITATION:
-                        System.out.println(" ACCEPT_INVITATION");
+                        System.out.println("Accept");
+                        System.out.println(jsonObject);
+                        sendInvitationRequestToSpecificPlayer(jsonObject);
                         break;
                     case Constant.DECLINE_INVITATION:
+                        System.out.println("Decline");
+                        System.out.println(jsonObject);
+                        sendInvitationRequestToSpecificPlayer(jsonObject);
                         break;
                     default:
                         System.out.println("default case");
                         break;
                 }
 
-
-
             } catch (IOException | SQLException e) {
                 e.printStackTrace();
             }
         }
-    
+
     }
-    
-    
-    
-    
-    
-    void sendInvitationToSpecificPlayer(JsonObject jsonInvitation)
-    {
-        
-        Player invitedPlayer=Server.getOnlinePlayersData(Integer.parseInt(jsonInvitation.get(Constant.RECIEVER_ID_KEY).toString()));
+
+    void sendInvitationRequestToSpecificPlayer(JsonObject jsonInvitation) {
+
+        Player invitedPlayer = Server.getOnlinePlayersData(Integer.parseInt(jsonInvitation.get(Constant.RECIEVER_ID_KEY).toString()));
         PlayerHandler invitedPlayerHandeler = Server.getOnlinePlayerHandler(invitedPlayer.getId());
         invitedPlayerHandeler.printStream.println(jsonInvitation);
-        System.out.println(jsonInvitation);
-        System.out.println(invitedPlayerHandeler.getPlayerId()+" **********"+invitedPlayer.getId());
-        
     }
-    
-  
-    
-//    void broadcastInvation()
-//    {
-//       //broadCast Invitation to all players;
-//        //make a thread function ListenToInvitatios in clientHandler  
-//    }
-    
-    
-//    void AcceptInvitation(int player1,int player2)
-//    {
-//      Start Game for both Players  
-//    }
-        
-    
-//   void DeclineInvitation(int player1,int player2)
-//    {
-//      send A Declination message to the player;  
-//    }
-    
+
 }

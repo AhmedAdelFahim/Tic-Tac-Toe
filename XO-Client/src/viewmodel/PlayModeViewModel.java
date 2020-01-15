@@ -37,4 +37,12 @@ public class PlayModeViewModel {
         ClientSideHandler.getInstance().handelInvitation(Utils.toString(map));
         return true;
     }
+    public static boolean acceptInvitation(HashMap map){
+        ClientSideHandler.getInstance().acceptInvitation(Utils.toString(map));
+        return true;
+    }
+    public static boolean declineInvitation(HashMap map){
+        ClientSideHandler.getInstance().declineInvitation(Utils.toString(map));
+        return true;
+    }
 }

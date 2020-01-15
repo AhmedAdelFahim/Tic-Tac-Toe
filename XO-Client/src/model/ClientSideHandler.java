@@ -178,7 +178,6 @@ public Player getCurrentPlayer(){
     }
 public boolean handelInvitation(String json){
         try {
-            //dataInputStream = new DataInputStream(socket.getInputStream());
             printStream.println(json);
             System.out.println(json);
             System.out.println("handle invitation");
@@ -186,6 +185,27 @@ public boolean handelInvitation(String json){
             Logger.getLogger(ClientSideHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
         return true;
+}
+public boolean acceptInvitation(String json){
+    try {
+            printStream.println(json);
+            System.out.println(json);
+            System.out.println("Accept invitation");
+        } catch (Exception ex) {
+            Logger.getLogger(ClientSideHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;    
+}
+
+public boolean declineInvitation(String json){
+        try {
+            printStream.println(json);
+            System.out.println(json);
+            System.out.println("Decline invitation");
+        } catch (Exception ex) {
+            Logger.getLogger(ClientSideHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;    
 }
 
 

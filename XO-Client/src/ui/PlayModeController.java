@@ -5,6 +5,7 @@
  */
 package ui;
 
+import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
@@ -33,6 +34,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -60,9 +62,12 @@ import viewmodel.SignUpViewModel;
  * @author eg
  */
 public class PlayModeController implements Initializable {
+
     Thread playersThread;
     public Player currentPlayer;
-    public static String  senderUserName ;
+    public static String senderUserName;
+    public static JsonObject invitationJason;
+
     @FXML
     private ImageView computer;
 //    @FXML
@@ -71,7 +76,7 @@ public class PlayModeController implements Initializable {
 //    private TableColumn playerNameCol;
 //    @FXML
 //    private TableColumn playerScoreCol;
-    
+
     @FXML
     private Button backButton;
     @FXML
@@ -85,79 +90,104 @@ public class PlayModeController implements Initializable {
     @FXML
     private TableColumn Ranks;
 
-    
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         currentPlayer = ClientSideHandler.getInstance().getCurrentPlayer();
         Online.setCellValueFactory(new PropertyValueFactory("userName"));
         Ranks.setCellValueFactory(new PropertyValueFactory("score"));
         playerTable.setItems(PlayModeViewModel.getOnlinePlayers());
-     
+
         playerTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-               //get  id of logged in user
-                int invitedPlayerId = ((Player)newValue).getId();
+                //get  id of logged in user
+                int invitedPlayerId = ((Player) newValue).getId();
                 int senderPlayerId = currentPlayer.getId();
-                
-                String senderPlayerUserName =currentPlayer.getUserName();
-                
+
+                String senderPlayerUserName = currentPlayer.getUserName();
+
                 System.out.println(invitedPlayerId);
                 System.out.println(senderPlayerId);
-                
+
                 HashMap<String, Object> map = new HashMap<>();
-                map.put(Constant.REQUEST_TYPE,Constant.INVITE);
-                map.put(Constant.SENDER_ID_KEY,senderPlayerId);
-                map.put(Constant.RECIEVER_ID_KEY,invitedPlayerId);
-                map.put(Constant.RECIEVER_NAME_KEY,((Player)newValue).getUserName());
-                map.put(Constant.SENDER_NAME_KEY,currentPlayer.getUserName());
+                map.put(Constant.REQUEST_TYPE, Constant.INVITE);
+                map.put(Constant.SENDER_ID_KEY, senderPlayerId);
+                map.put(Constant.RECIEVER_ID_KEY, invitedPlayerId);
+                map.put(Constant.RECIEVER_NAME_KEY, ((Player) newValue).getUserName());
+                map.put(Constant.SENDER_NAME_KEY, currentPlayer.getUserName());
                 PlayModeViewModel.sendInvitation(map);
                 // Alert Waiting for otherplayer
-               // System.out.println("********Before  Invetation Recieved *********");
-            
-               
+                // System.out.println("********Before  Invetation Recieved *********");
+
             }
         });
         System.out.println("******** BEFOR Invetation Recieved *********");
-        
-   InvitationViewModel.tocurrentInviteScreenflagProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println(" ********************"+newValue);
-             if(newValue){
-                 System.out.println("******** Invetation Recieved *********");
-//                 Alert a=new Alert(AlertType.CONFIRMATION);
-                 Platform.runLater( new Runnable() {
 
-                     @Override
-                     public void run() {
-//                         Alert alert = new Alert(AlertType.CONFIRMATION, "Invitation " + "  " + " ?", ButtonType.YES, ButtonType.NO);
-                        Alert alert = new Alert(AlertType.CONFIRMATION);
-                        alert.getButtonTypes().clear();
-                        ButtonType accept= new ButtonType("ACCEPT");
-                        alert.getButtonTypes().add(accept);
-                        ButtonType decline = new ButtonType("DECLINE");
-                        alert.getButtonTypes().add(decline);
+//        InvitationViewModel.tocurrentInviteScreenflagProperty().addListener((observable, oldValue, newValue) -> {
+//            if (newValue) {
+//                System.out.println("******** Invetation Recieved *********");
+//                Platform.runLater(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        ButtonType accept = new ButtonType("Accept", ButtonBar.ButtonData.OK_DONE);
+//                        ButtonType decline = new ButtonType("Decline", ButtonBar.ButtonData.CANCEL_CLOSE);
+//                        Alert alert = new Alert(AlertType.WARNING,
+//                                "player" + senderUserName + "want to play", accept, decline);
+//                        alert.setTitle("Invitation");
+//                        alert.setHeaderText(null);
+//                        alert.showAndWait();
+//                        alert.getResult();
+//                        if (alert.getResult() == accept) {//accept request
+//                            System.err.println("Accepted Invivtation");
+//                            acceptInvitation(invitationJason);
+//                             System.err.println("After Accepted ");
+//                            //do stuff//load the game
+//                        }
+//                        if (alert.getResult() == decline) {//decline request
+//                            System.err.println("Decline Invivtation");
+//                            declineInvitation(invitationJason);
+//                            System.err.println("After Decline ");
+//                        }
+//
+//                    }
+//                });
+//            } else {
+//                System.out.println("FFF");
+//            }
+//        });
+           InvitationViewModel.tocurrentInviteScreenflagProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                System.out.println("******** Invetation Recieved *********");
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        ButtonType accept = new ButtonType("Accept", ButtonBar.ButtonData.OK_DONE);
+                        ButtonType decline = new ButtonType("Decline", ButtonBar.ButtonData.CANCEL_CLOSE);
+                        Alert alert = new Alert(AlertType.WARNING,
+                                "player" + senderUserName + "want to play", accept, decline);
                         alert.setTitle("Invitation");
                         alert.setHeaderText(null);
-                        alert.setContentText("player"+senderUserName+"want to play");
                         alert.showAndWait();
-                         if (alert.getResult() == ButtonType.YES) {//accpt request
-                   //do stuff//load the game
+                        alert.getResult();
+                        if (alert.getResult() == accept) {//accept request
+                            System.err.println("Accepted Invivtation");
+                            acceptInvitation(invitationJason);
+                             System.err.println("After Accepted ");
+                            //do stuff//load the game
                         }
-                         if (alert.getResult() == ButtonType.NO) {//decline request
-                   //do stuff
-                            
+                        if (alert.getResult() == decline) {//decline request
+                            System.err.println("Decline Invivtation");
+                            declineInvitation(invitationJason);
+                            System.err.println("After Decline ");
                         }
 
-                     }
-                 });
+                    }
+                });
             } else {
                 System.out.println("FFF");
             }
         });
     }
-
-
 
     @FXML
     private void handleComputerButton(MouseEvent event) {
@@ -170,13 +200,13 @@ public class PlayModeController implements Initializable {
             stage.setTitle("Select Level Tic Tac Toe");
             stage.setScene(scene);
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
-      @FXML
+
+    @FXML
     private void handleBackButtonAction(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SignUpView.fxml"));
@@ -187,23 +217,37 @@ public class PlayModeController implements Initializable {
             stage.setTitle("Select Play Mode Tic Tac Toe");
             stage.show();
         } catch (IOException ex) {
-           /// Logger.getLogger(pro1.PlayModeController.class.getName()).log(Level.SEVERE, null, ex);
+            /// Logger.getLogger(pro1.PlayModeController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+    }
+
+    void acceptInvitation(JsonObject jsonInvitation) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(Constant.REQUEST_TYPE, Constant.ACCEPT_INVITATION);
+        map.put(Constant.SENDER_ID_KEY, jsonInvitation.get(Constant.RECIEVER_ID_KEY));
+        map.put(Constant.SENDER_NAME_KEY, jsonInvitation.get(Constant.RECIEVER_NAME_KEY));
+        map.put(Constant.RECIEVER_ID_KEY, jsonInvitation.get(Constant.SENDER_ID_KEY));
+        map.put(Constant.RECIEVER_NAME_KEY, jsonInvitation.get(Constant.SENDER_NAME_KEY));
+
+        PlayModeViewModel.acceptInvitation(map);
+    }
+
+    void declineInvitation(JsonObject jsonInvitation) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(Constant.REQUEST_TYPE, Constant.DECLINE_INVITATION);
+        map.put(Constant.SENDER_ID_KEY, jsonInvitation.get(Constant.RECIEVER_ID_KEY));
+        map.put(Constant.SENDER_NAME_KEY, jsonInvitation.get(Constant.RECIEVER_NAME_KEY));
+        map.put(Constant.RECIEVER_ID_KEY, jsonInvitation.get(Constant.SENDER_ID_KEY));
+         map.put(Constant.RECIEVER_NAME_KEY, jsonInvitation.get(Constant.SENDER_NAME_KEY));
+        PlayModeViewModel.declineInvitation(map);
+        InvitationViewModel.resetCurrentInviteScreenflag();  
         
     }
     
-
-
     public void handleLogoutAction(ActionEvent actionEvent) {
         System.out.println("Dending Invetstion..");
 
-        
-        
-        
-        
     }
-    
-    
-    
 
 }
