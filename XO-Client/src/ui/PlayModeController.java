@@ -121,40 +121,24 @@ public class PlayModeController implements Initializable {
 
             }
         });
-        System.out.println("******** BEFOR Invetation Recieved *********");
-
-//        InvitationViewModel.tocurrentInviteScreenflagProperty().addListener((observable, oldValue, newValue) -> {
-//            if (newValue) {
-//                System.out.println("******** Invetation Recieved *********");
-//                Platform.runLater(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        ButtonType accept = new ButtonType("Accept", ButtonBar.ButtonData.OK_DONE);
-//                        ButtonType decline = new ButtonType("Decline", ButtonBar.ButtonData.CANCEL_CLOSE);
-//                        Alert alert = new Alert(AlertType.WARNING,
-//                                "player" + senderUserName + "want to play", accept, decline);
-//                        alert.setTitle("Invitation");
-//                        alert.setHeaderText(null);
-//                        alert.showAndWait();
-//                        alert.getResult();
-//                        if (alert.getResult() == accept) {//accept request
-//                            System.err.println("Accepted Invivtation");
-//                            acceptInvitation(invitationJason);
-//                             System.err.println("After Accepted ");
-//                            //do stuff//load the game
-//                        }
-//                        if (alert.getResult() == decline) {//decline request
-//                            System.err.println("Decline Invivtation");
-//                            declineInvitation(invitationJason);
-//                            System.err.println("After Decline ");
-//                        }
-//
-//                    }
-//                });
-//            } else {
-//                System.out.println("FFF");
-//            }
-//        });
+        InvitationViewModel.toDeclinedInvitationFlag().addListener((observable, declinedFlagOldValue, declinedFlagNewValue) -> {
+            if (declinedFlagNewValue) {
+                System.out.println("******** Invetation Declined *********");
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        Alert alert = new Alert(AlertType.INFORMATION,
+                                "player" + senderUserName + "declined your invitation to play");
+                        alert.setTitle("Invitation Declined");
+                        alert.setHeaderText(null);
+                        alert.showAndWait();
+                        alert.getResult();
+                    }
+                });
+            } else {
+                System.out.println("FFF");
+            }
+        });
            InvitationViewModel.tocurrentInviteScreenflagProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 System.out.println("******** Invetation Recieved *********");
@@ -187,6 +171,8 @@ public class PlayModeController implements Initializable {
                 System.out.println("FFF");
             }
         });
+           
+           
     }
 
     @FXML
@@ -229,8 +215,6 @@ public class PlayModeController implements Initializable {
         map.put(Constant.SENDER_NAME_KEY, jsonInvitation.get(Constant.RECIEVER_NAME_KEY));
         map.put(Constant.RECIEVER_ID_KEY, jsonInvitation.get(Constant.SENDER_ID_KEY));
         map.put(Constant.RECIEVER_NAME_KEY, jsonInvitation.get(Constant.SENDER_NAME_KEY));
-
-        PlayModeViewModel.acceptInvitation(map);
     }
 
     void declineInvitation(JsonObject jsonInvitation) {

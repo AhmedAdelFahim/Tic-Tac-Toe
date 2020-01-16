@@ -127,7 +127,11 @@ public Player getCurrentPlayer(){
                              InvitationViewModel.handleInvitation(jsonObject);
                              System.err.println("AAAAAAAAAAAAAAA");
                         }
-                        
+                        else if (jsonObject.has(Constant.REQUEST_TYPE) && Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.DECLINE_INVITATION) {
+                            
+                             InvitationViewModel.declineInvitation(jsonObject);
+                             System.err.println("AAAAAAAAAAAAAAA");
+                        }
                         System.out.println();
                         
                         // Listeinng to invrtations 
@@ -186,27 +190,8 @@ public boolean handelInvitation(String json){
         }
         return true;
 }
-public boolean acceptInvitation(String json){
-    try {
-            printStream.println(json);
-            System.out.println(json);
-            System.out.println("Accept invitation");
-        } catch (Exception ex) {
-            Logger.getLogger(ClientSideHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return true;    
-}
 
-public boolean declineInvitation(String json){
-        try {
-            printStream.println(json);
-            System.out.println(json);
-            System.out.println("Decline invitation");
-        } catch (Exception ex) {
-            Logger.getLogger(ClientSideHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return true;    
-}
+
 
 
     
