@@ -107,7 +107,7 @@ public class ClientSideHandler {
                 while (true) {
                     try {
                         String json = dataInputStream.readLine();
-                        System.out.println(json);
+//                        System.out.println(json);
                         JsonObject jsonObject = Utils.toJson(json);
                         if (jsonObject.has(Constant.REQUEST_TYPE) &&
                                 Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.ONLINE_PLAYERS_DATA) {
@@ -115,9 +115,15 @@ public class ClientSideHandler {
                             PlayModeViewModel.addOnlinePlayer(onlinePlayers);
                         } else if (jsonObject.has(Constant.REQUEST_TYPE) &&
                                 Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.INVITE) {
+                             System.out.println("NEW INVITATION");
                             InvitationViewModel.handleInvitation(jsonObject);
                         } else if (jsonObject.has(Constant.REQUEST_TYPE) &&
+                                Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.ACCEPT_INVITATION) {
+                             System.out.println("ACCEPTED INVITATION");
+                            System.out.println(jsonObject);
+                        }else if (jsonObject.has(Constant.REQUEST_TYPE) &&
                                 Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.DECLINE_INVITATION) {
+                             System.out.println("Declined INVITATION");
                             InvitationViewModel.declineInvitation(jsonObject);
                         } else if (jsonObject.has(Constant.REQUEST_TYPE) &&
                                 Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.LOGOUT_RESPONSE) {

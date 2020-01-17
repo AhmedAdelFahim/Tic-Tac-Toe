@@ -202,6 +202,7 @@ public class PlayModeController implements Initializable {
         map.put(Constant.SENDER_NAME_KEY, jsonInvitation.get(Constant.RECIEVER_NAME_KEY));
         map.put(Constant.RECIEVER_ID_KEY, jsonInvitation.get(Constant.SENDER_ID_KEY));
         map.put(Constant.RECIEVER_NAME_KEY, jsonInvitation.get(Constant.SENDER_NAME_KEY));
+        PlayModeViewModel.acceptInvitation(map);
     }
 
     void declineInvitation(JsonObject jsonInvitation) {
