@@ -108,7 +108,7 @@
             <Font name="Tahoma Bold" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="userName" layoutX="122.0" layoutY="447.0" prefHeight="30.0" prefWidth="91.0" text="User 1" textFill="#f8f7f7">
+      <Label fx:id="userNameTop" layoutX="122.0" layoutY="447.0" prefHeight="30.0" prefWidth="91.0" text="User 1" textFill="#f8f7f7">
          <font>
             <Font name="Tahoma Bold" size="24.0" />
          </font>
@@ -128,7 +128,7 @@
             <Font name="Tahoma Bold" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="userName" layoutX="612.0" layoutY="27.0" prefHeight="30.0" prefWidth="80.0" text="User 1" textFill="#f8f7f7">
+      <Label fx:id="userNameBottom" layoutX="612.0" layoutY="27.0" prefHeight="30.0" prefWidth="80.0" text="User 1" textFill="#f8f7f7">
          <font>
             <Font name="Tahoma Bold" size="24.0" />
          </font>

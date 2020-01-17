@@ -15,7 +15,6 @@ public class InvitationViewModel {
     private static final BooleanProperty declinedInvitationFlag = new SimpleBooleanProperty();
     public static void handleInvitation(JsonObject jsonObject) {
         currentInviteScreenflag.setValue(Boolean.TRUE);  
-        PlayModeController.senderUserName=jsonObject.get(Constant.SENDER_NAME_KEY).toString();
         PlayModeController.invitationJason =jsonObject;
     }
    

@@ -4,6 +4,12 @@ import TicTacToe.Board;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import ui.App;
+import ui.PlayModeController;
 import ui.PlayScreenView;
 import utils.Constant;
 import utils.Utils;
@@ -108,25 +114,55 @@ public class ClientSideHandler {
                 while (true) {
                     try {
                         String json = dataInputStream.readLine();
-//                        System.out.println(json);
                         JsonObject jsonObject = Utils.toJson(json);
                         if (jsonObject.has(Constant.REQUEST_TYPE) &&
                                 Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.ONLINE_PLAYERS_DATA) {
                             JsonArray onlinePlayers = jsonObject.getAsJsonArray(Constant.ONLINE_PLAYER_DATA_KEY);
                             PlayModeViewModel.addOnlinePlayer(onlinePlayers);
-                        } else if (jsonObject.has(Constant.REQUEST_TYPE) &&
+                        }
+
+                        else if (jsonObject.has(Constant.REQUEST_TYPE) &&
                                 Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.INVITE) {
-                             System.out.println("NEW INVITATION");
+                            PlayModeController.OtherPlayer=jsonObject.get(Constant.SENDER_NAME_KEY).toString();
+                            System.out.println("NEW INVITATION FROM" + PlayModeController.OtherPlayer);
                             InvitationViewModel.handleInvitation(jsonObject);
-                        } else if (jsonObject.has(Constant.REQUEST_TYPE) &&
+                        }
+
+                        else if (jsonObject.has(Constant.REQUEST_TYPE) &&
                                 Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.ACCEPT_INVITATION) {
-                             System.out.println("ACCEPTED INVITATION");
+                            PlayModeController.OtherPlayer = jsonObject.get(Constant.SENDER_NAME_KEY).toString();
+                            System.out.println("the Other Player Is " + PlayModeController.OtherPlayer);
+                            PlayScreenView.setModeToPlayers();
+                            PlayScreenView.setToHost();
+                            System.out.println(App.CurrentStage);
+                          Platform.runLater(new Runnable() {
+                              @Override
+                              public void run() {
+                                  FXMLLoader fxmlLoader = new FXMLLoader(PlayModeController.class.getResource("PlayScreen.fxml"));
+                                  try {
+                                      Parent root = fxmlLoader.load();
+                                      Scene scene = new Scene(root, 800, 500);
+                                      Stage stage = App.CurrentStage;
+                                      System.out.println(stage);
+                                      stage.setScene(scene);
+                                  } catch (IOException ex) {
+                                      ex.printStackTrace();
+                                  }
+                              }
+                          });
+
+
+                            System.out.println("ACCEPTED INVITATION");
                             System.out.println(jsonObject);
-                        }else if (jsonObject.has(Constant.REQUEST_TYPE) &&
+                        }
+
+                        else if (jsonObject.has(Constant.REQUEST_TYPE) &&
                                 Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.DECLINE_INVITATION) {
-                             System.out.println("Declined INVITATION");
+                            System.out.println("Declined INVITATION");
                             InvitationViewModel.declineInvitation(jsonObject);
-                        } else if (jsonObject.has(Constant.REQUEST_TYPE) &&
+                        }
+
+                        else if (jsonObject.has(Constant.REQUEST_TYPE) &&
                                 Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.LOGOUT_RESPONSE) {
                             if (jsonObject.has(Constant.STATUS_CODE_KEY) &&
                                     Integer.parseInt(jsonObject.get(Constant.STATUS_CODE_KEY).toString()) == Constant.STATUS_CODE_SUCCESSED) {
@@ -173,7 +209,7 @@ public class ClientSideHandler {
         printStream.println(json);
     }
 
-    private void destroy(){
+    private void destroy() {
         try {
             handler.stop();
             socket.close();

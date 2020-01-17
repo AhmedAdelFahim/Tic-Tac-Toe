@@ -22,9 +22,11 @@ import java.util.HashMap;
  */
 public class App extends Application {
 
+    public static Stage CurrentStage;
     @Override
     public void start(Stage stage) throws Exception {
-        
+
+        CurrentStage = stage;
         Parent root = FXMLLoader.load(getClass().getResource("SignUpView.fxml"));
 
         Scene scene = new Scene(root);

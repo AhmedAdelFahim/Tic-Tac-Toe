@@ -67,7 +67,9 @@ public class PlayScreenView implements Initializable {
     @FXML
     private FontAwesomeIconView opponentPicture;
     @FXML
-    private Label userName;
+    private Label userNameTop;
+    @FXML
+    private Label userNameBottom;
     @FXML
     private Label opponentUserName;
     @FXML
@@ -129,7 +131,8 @@ public class PlayScreenView implements Initializable {
 
     public enum Mode {Player, AI}
     public enum Player {Host,Guest}
-
+    public static String PlayerName;
+    public static String OpponentPlayerName;
     private static Player player = Player.Host;
     Button[][] BoardCells;
     Board.State state;
@@ -139,6 +142,15 @@ public class PlayScreenView implements Initializable {
 
     public void initGameBoard() {
         BoardCells = new Button[][]{{pos_1, pos_2, pos_3}, {pos_4, pos_5, pos_6}, {pos_7, pos_8, pos_9}};
+        System.out.println(PlayerName);
+        System.out.println(OpponentPlayerName);
+        userNameTop.setText(PlayerName);
+        userNameBottom.setText(PlayerName);
+        opponentUserName.setText(OpponentPlayerName);
+        setState();
+        System.out.println(state.toString());
+        userCharacter.setText(state.toString());
+        opponentCharacter.setText((state== Board.State.X?Board.State.O:Board.State.X).toString());
         System.out.println(level);
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -194,10 +206,14 @@ public class PlayScreenView implements Initializable {
 
     public static void setModeToAI() {
         mode = Mode.AI;
+        PlayerName = PlayModeController.currentPlayer.getUserName();
+        OpponentPlayerName = "Computer";
     }
 
     public static void setModeToPlayers() {
         mode = Mode.Player;
+        PlayerName = PlayModeController.currentPlayer.getUserName();
+        OpponentPlayerName = PlayModeController.OtherPlayer;
     }
     public static void setLevel(double myLevel) {
         level = myLevel;
@@ -207,8 +223,9 @@ public class PlayScreenView implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         board = new Board();
         initGameBoard();
-        setState();
         play();
+//        ClientSideHandler.updateStatus(Constant.BUSY_STATUS);
+
     }
 
 
@@ -250,6 +267,7 @@ public class PlayScreenView implements Initializable {
                     }
 
                     if (board.isGameOver()) {
+                        ClientSideHandler.updateStatus(Constant.ONLINE_STATUS);
                         int status = board.getWinner() == state ? 1 : 0;
                         if (status > 0) {
                             ClientSideHandler.getInstance().updateScore();

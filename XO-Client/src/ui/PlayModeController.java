@@ -62,15 +62,15 @@ import viewmodel.*;
 public class PlayModeController implements Initializable {
 
     Thread playersThread;
-    public Player currentPlayer;
-    public static String senderUserName;
+    public static Player currentPlayer;
+    public static String OtherPlayer;
     public static JsonObject invitationJason;
 
     @FXML
     private ImageView computer;
 
     @FXML
-    private Button backButton;
+    private static Button backButton;
     @FXML
     private Button handleLogoutAction;
     @FXML
@@ -113,7 +113,7 @@ public class PlayModeController implements Initializable {
                     @Override
                     public void run() {
                         Alert alert = new Alert(AlertType.INFORMATION,
-                                "player" + senderUserName + "declined your invitation to play");
+                                "player" + OtherPlayer + "declined your invitation to play");
                         alert.setTitle("Invitation Declined");
                         alert.setHeaderText(null);
                         alert.showAndWait();
@@ -132,14 +132,25 @@ public class PlayModeController implements Initializable {
                         ButtonType accept = new ButtonType("Accept", ButtonBar.ButtonData.OK_DONE);
                         ButtonType decline = new ButtonType("Decline", ButtonBar.ButtonData.CANCEL_CLOSE);
                         Alert alert = new Alert(AlertType.WARNING,
-                                "player" + senderUserName + "want to play", accept, decline);
+                                "player" + OtherPlayer + "want to play", accept, decline);
                         alert.setTitle("Invitation");
                         alert.setHeaderText(null);
                         alert.showAndWait();
                         alert.getResult();
                         if (alert.getResult() == accept) {//accept request
                             acceptInvitation(invitationJason);
-                            //do stuff//load the game
+                            PlayScreenView.setModeToPlayers();
+                            System.out.println("the Other Player Is " + OtherPlayer);
+                            PlayScreenView.setToGuest();
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
+                            try {
+                                Parent root = fxmlLoader.load();
+                                Scene scene = new Scene(root,800,500);
+                                Stage stage = (Stage) computer.getScene().getWindow();
+                                stage.setScene(scene);
+                            } catch (IOException ex) {
+                                ex.printStackTrace();
+                            }
                         }
                         if (alert.getResult() == decline) {//decline request
                             declineInvitation(invitationJason);
@@ -179,6 +190,7 @@ public class PlayModeController implements Initializable {
 
     @FXML
     private void handleComputerButton(MouseEvent event) {
+        System.out.println((Stage) playerTable.getScene().getWindow());
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Level.fxml"));
         PlayScreenView.setModeToAI();
         try {
@@ -225,4 +237,7 @@ public class PlayModeController implements Initializable {
         LogoutViewModel.logout(map);
     }
 
+    public static void startGameBoard(){
+
+    }
 }
