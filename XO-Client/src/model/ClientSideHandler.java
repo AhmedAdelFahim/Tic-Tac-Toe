@@ -21,6 +21,8 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static ui.PlayModeController.invitationJason;
+import ui.PlayScreenView;
 
 import viewmodel.InvitationViewModel;
 
@@ -196,6 +198,14 @@ public class ClientSideHandler {
     }
 
     public boolean handelInvitation(String json) {
+        try {
+            printStream.println(json);
+        } catch (Exception ex) {
+            Logger.getLogger(ClientSideHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+    }
+    public boolean sendGameMove(String json) {
         try {
             printStream.println(json);
         } catch (Exception ex) {

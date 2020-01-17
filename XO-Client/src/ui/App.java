@@ -15,6 +15,7 @@ import utils.Constant;
 import viewmodel.LogoutViewModel;
 
 import java.util.HashMap;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -33,6 +34,8 @@ public class App extends Application {
 
         stage.setScene(scene);
         stage.sizeToScene();
+        stage.setResizable(false);
+        stage.getIcons().add(new Image(App.class.getResourceAsStream("XOIcon.png")));
         stage.setTitle("Registration Form Tic Tac Toe");
 
         stage.show();

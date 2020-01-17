@@ -100,12 +100,14 @@ public class Server {
     }
 
     public static void broadcastOnlinePlayers(){
+        System.out.println("Broadcast");
         HashMap<String,Object> map = new HashMap<>();
         map.put(Constant.REQUEST_TYPE,Constant.ONLINE_PLAYERS_DATA);
         ArrayList<String> playersDataJSONObject = new ArrayList<>();
         onlinePlayersData.forEach(new BiConsumer<Integer, Player>() {
             @Override
             public void accept(Integer integer, Player player) {
+                if(player.getStatus() == Constant.ONLINE_STATUS || player.getStatus() == Constant.BUSY_STATUS)
                 playersDataJSONObject.add(player.toString());
 
             }
@@ -116,8 +118,8 @@ public class Server {
             @Override
             public void accept(Integer integer, PlayerHandler playerHandler) {
                 if(getOnlinePlayersData(playerHandler.getPlayerId()).getStatus()==Constant.ONLINE_STATUS) {
+                    playerHandler.sendOnlinePlayers(Utils.toString(map));
                 }
-                playerHandler.sendOnlinePlayers(Utils.toString(map));
             }
         });
 

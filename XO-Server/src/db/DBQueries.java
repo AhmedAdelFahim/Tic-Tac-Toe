@@ -67,7 +67,7 @@ public class DBQueries {
      */
     public static String getPlayerByUserName(String json){
         JsonObject jsonObject = Utils.toJson(json);
-        String userName = jsonObject.get("user_name").toString();
+        String userName = jsonObject.get(Tables.player.USER_NAME).toString();
         Player player = null;
         try {
             PreparedStatement selectPlayer = DBConnection.getInstance().prepareStatement("SELECT * FROM player WHERE user_name = ?");
@@ -132,8 +132,7 @@ public class DBQueries {
             PreparedStatement selectPlayer = DBConnection.getInstance().prepareStatement("SELECT * FROM player WHERE user_name = ?");
             selectPlayer.setString(1,userName);
             ResultSet resultSet = selectPlayer.executeQuery();
-            resultSet.next();
-            if(password.equals(resultSet.getString(Tables.player.PASSWORD))){
+            if(resultSet.next()&&password.equals(resultSet.getString(Tables.player.PASSWORD))){
                 int id = resultSet.getInt(Tables.player.ID);
                 int score = resultSet.getInt(Tables.player.SCORE);
                 String fName = resultSet.getString(Tables.player.FIRST_NAME);

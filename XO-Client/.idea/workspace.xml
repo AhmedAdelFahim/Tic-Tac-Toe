@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b9db6a1-96c0-4a5a-90c8-d040483635ca" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/ui/SignUpView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/SignUpView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../XO-Server/src/db/DBQueries.java" beforeDir="false" afterPath="$PROJECT_DIR$/../XO-Server/src/db/DBQueries.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,6 +13,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -93,7 +95,9 @@
       <workItem from="1579018635168" duration="1712000" />
       <workItem from="1579112538442" duration="143000" />
       <workItem from="1579112784173" duration="1415000" />
-      <workItem from="1579260943613" duration="5133000" />
+      <workItem from="1579260943613" duration="7011000" />
+      <workItem from="1579268866522" duration="9842000" />
+      <workItem from="1579282738277" duration="40000" />
     </task>
     <servers />
   </component>
@@ -118,34 +122,34 @@
       <screen x="0" y="24" width="1366" height="716" />
     </state>
     <state x="145" y="47" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.24.1366.716@0.24.1366.716" timestamp="1579112972133" />
-    <state x="537" y="140" width="281" height="481" key="#com.intellij.ide.util.MemberChooser" timestamp="1579265650185">
+    <state x="537" y="140" width="281" height="481" key="#com.intellij.ide.util.MemberChooser" timestamp="1579270348836">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state x="537" y="140" width="281" height="481" key="#com.intellij.ide.util.MemberChooser/0.24.1366.716@0.24.1366.716" timestamp="1579265650185" />
-    <state width="1324" height="144" key="GridCell.Tab.0.bottom" timestamp="1579266111236">
+    <state x="537" y="140" width="281" height="481" key="#com.intellij.ide.util.MemberChooser/0.24.1366.716@0.24.1366.716" timestamp="1579270348836" />
+    <state width="1324" height="144" key="GridCell.Tab.0.bottom" timestamp="1579282777568">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state width="1324" height="144" key="GridCell.Tab.0.bottom/0.24.1366.716@0.24.1366.716" timestamp="1579266111236" />
-    <state width="1324" height="144" key="GridCell.Tab.0.center" timestamp="1579266111235">
+    <state width="1324" height="144" key="GridCell.Tab.0.bottom/0.24.1366.716@0.24.1366.716" timestamp="1579282777568" />
+    <state width="1324" height="144" key="GridCell.Tab.0.center" timestamp="1579282777567">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state width="1324" height="144" key="GridCell.Tab.0.center/0.24.1366.716@0.24.1366.716" timestamp="1579266111235" />
-    <state width="1324" height="144" key="GridCell.Tab.0.left" timestamp="1579266111235">
+    <state width="1324" height="144" key="GridCell.Tab.0.center/0.24.1366.716@0.24.1366.716" timestamp="1579282777567" />
+    <state width="1324" height="144" key="GridCell.Tab.0.left" timestamp="1579282777566">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state width="1324" height="144" key="GridCell.Tab.0.left/0.24.1366.716@0.24.1366.716" timestamp="1579266111235" />
-    <state width="1324" height="144" key="GridCell.Tab.0.right" timestamp="1579266111236">
+    <state width="1324" height="144" key="GridCell.Tab.0.left/0.24.1366.716@0.24.1366.716" timestamp="1579282777566" />
+    <state width="1324" height="144" key="GridCell.Tab.0.right" timestamp="1579282777567">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state width="1324" height="144" key="GridCell.Tab.0.right/0.24.1366.716@0.24.1366.716" timestamp="1579266111236" />
-    <state x="127" y="80" width="1092" height="600" key="MergeDialog" timestamp="1579261431961">
+    <state width="1324" height="144" key="GridCell.Tab.0.right/0.24.1366.716@0.24.1366.716" timestamp="1579282777567" />
+    <state x="127" y="80" width="1092" height="600" key="MergeDialog" timestamp="1579281540972">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state x="127" y="80" width="1092" height="600" key="MergeDialog/0.24.1366.716@0.24.1366.716" timestamp="1579261431961" />
-    <state x="458" y="162" width="439" height="437" key="MultipleFileMergeDialog" timestamp="1579261431969">
+    <state x="127" y="80" width="1092" height="600" key="MergeDialog/0.24.1366.716@0.24.1366.716" timestamp="1579281540972" />
+    <state x="458" y="162" width="439" height="437" key="MultipleFileMergeDialog" timestamp="1579281540979">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state x="458" y="162" width="439" height="437" key="MultipleFileMergeDialog/0.24.1366.716@0.24.1366.716" timestamp="1579261431969" />
+    <state x="458" y="162" width="439" height="437" key="MultipleFileMergeDialog/0.24.1366.716@0.24.1366.716" timestamp="1579281540979" />
     <state x="294" y="61" width="768" height="639" key="SettingsEditor" timestamp="1579019219946">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
@@ -154,9 +158,9 @@
       <screen x="0" y="24" width="1366" height="716" />
     </state>
     <state x="418" y="248" key="com.intellij.ide.util.TipDialog/0.24.1366.716@0.24.1366.716" timestamp="1579112796070" />
-    <state x="507" y="317" width="341" height="127" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1579260951293">
+    <state x="507" y="317" width="341" height="127" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1579281407546">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state x="507" y="317" width="341" height="127" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.24.1366.716@0.24.1366.716" timestamp="1579260951293" />
+    <state x="507" y="317" width="341" height="127" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.24.1366.716@0.24.1366.716" timestamp="1579281407546" />
   </component>
 </project>

@@ -15,7 +15,7 @@ public class PlayModeViewModel {
 
     public static ObservableList<Player> getOnlinePlayers() {
         onlinePlayers = FXCollections.observableArrayList();
-       onlinePlayers.add(new Player("aaa",12));
+        //onlinePlayers.add(new Player("aaa",12));
         return onlinePlayers;
     }
 
@@ -45,6 +45,11 @@ public class PlayModeViewModel {
    
     public static boolean declineInvitation(HashMap map){
         ClientSideHandler.getInstance().handelInvitation(Utils.toString(map));
+        return true;
+    }
+    
+    public static boolean gameMove(HashMap map){
+        ClientSideHandler.getInstance().sendGameMove(Utils.toString(map));
         return true;
     }
 }

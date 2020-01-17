@@ -7,3 +7,5 @@ XO-Client/test
 XO-Client/out
 XO-Client/.idea
 XO-Client/XO-Client.iml
+stty.exe.stackdump
+bash.exe.stackdump

@@ -7,11 +7,13 @@ package ui;
 
 import ArtificialIntelligence.Algorithms;
 import TicTacToe.Board;
+import com.google.gson.JsonObject;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -30,13 +32,18 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.ClientSideHandler;
+import model.Player;
 import utils.Constant;
+import viewmodel.InvitationViewModel;
+import viewmodel.PlayModeViewModel;
 
 /**
  * @author islam salah
  */
 public class PlayScreenView implements Initializable {
 
+    public Player currentPlayer;
+    public static int otherPlayerId;
 
     @FXML
     private Label label;
@@ -88,44 +95,35 @@ public class PlayScreenView implements Initializable {
 
     @FXML
     private void Pso_4_Handeler(ActionEvent event) {
-
     }
 
     @FXML
     private void Pso_2_Handeler(ActionEvent event) {
-
     }
 
     @FXML
     private void Pso_5_Handeler(ActionEvent event) {
-
     }
 
     @FXML
     private void Pso_3_Handeler(ActionEvent event) {
-
     }
 
     @FXML
     private void Pso_7_Handeler(ActionEvent event) {
-
     }
 
     @FXML
     private void Pso_8_Handeler(ActionEvent event) {
-
     }
 
     @FXML
     private void Pso_6_Handeler(ActionEvent event) {
-
     }
 
     @FXML
     private void Pso_9_Handeler(ActionEvent event) {
-
     }
-
 
     Board board;
 
@@ -174,17 +172,17 @@ public class PlayScreenView implements Initializable {
         }
     }
 
-
     public void printGameBoard() {
-        for (int i = 0; i < board.toArray().length; i++)
+        for (int i = 0; i < board.toArray().length; i++) {
             for (int j = 0; j < board.toArray().length; j++) {
-                if (board.toArray()[i][j].toString().equals("Blank"))
+                if (board.toArray()[i][j].toString().equals("Blank")) {
                     BoardCells[i][j].setText("");
-                else {
+                } else {
                     BoardCells[i][j].setText(board.toArray()[i][j].toString());
                     BoardCells[i][j].setDisable(true);
                 }
             }
+        }
     }
 
     public static void setToHost(){
@@ -221,6 +219,7 @@ public class PlayScreenView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        currentPlayer = ClientSideHandler.getInstance().getCurrentPlayer();
         board = new Board();
         initGameBoard();
         play();
@@ -250,10 +249,10 @@ public class PlayScreenView implements Initializable {
                         case AI:
                             switch (board.getTurn()) {
                                 case X:
-                                CanPlay=true;
+                                    CanPlay = true;
                                     break;
                                 case O:
-                                Algorithms.miniMax(board, level);
+                                    Algorithms.miniMax(board, level);
                                     break;
                             }
                             break;
@@ -274,12 +273,13 @@ public class PlayScreenView implements Initializable {
                             System.out.println("score updated successfully");
                         }
                         String msg;
-                        if (board.getWinner() == state)
+                        if (board.getWinner() == state) {
                             msg = "Congratulation! Game is Over and you won";
-                        else if (board.getWinner() != Board.State.Blank)
+                        } else if (board.getWinner() != Board.State.Blank) {
                             msg = "Sorry! Game is Over and you loose";
-                        else
+                        } else {
                             msg = "Game is Over with draw";
+                        }
 
                         Platform.runLater(new Runnable() {
                             @Override
@@ -293,7 +293,6 @@ public class PlayScreenView implements Initializable {
                                 ButtonType NoBtn = new ButtonType("No");
 
                                 alert.getButtonTypes().setAll(YesBtn, NoBtn);
-
 
                                 Optional<ButtonType> result = alert.showAndWait();
                                 if (result.get() == YesBtn) {
@@ -330,7 +329,6 @@ public class PlayScreenView implements Initializable {
         }
     }
 
-
     @FXML
     private void gameStatus(MouseEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -359,4 +357,22 @@ public class PlayScreenView implements Initializable {
         }
     }
 
+    public void sendGameMove(int movePos) {
+        /////use switch after handling loading game screen sfter invitstion accepted
+//        switch (mode) {
+//            case Player:
+                HashMap<String, Object> map = new HashMap<>();
+                map.put(Constant.REQUEST_TYPE, Constant.GAME_MOVE);
+                map.put(Constant.SENDER_ID_KEY, currentPlayer.getId());
+                // map.put(Constant.SENDER_NAME_KEY,currentPlayer.getUserName());
+                map.put(Constant.RECIEVER_ID_KEY, otherPlayerId);
+                map.put(Constant.MOVE_POSTION, movePos);
+                PlayModeViewModel.gameMove(map);
+                System.err.println(otherPlayerId);
+//                break;
+//            default:
+//                break;
+//        }
+
+    }
 }
