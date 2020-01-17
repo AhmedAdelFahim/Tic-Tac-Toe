@@ -28,5 +28,8 @@ public class Constant {
     
     public static final String SENDER_NAME_KEY = "sender_username";
     public static final String RECIEVER_NAME_KEY = "reciever_name";
+
+//    public static final String RESPONSE_KEY = "logout_response";
+    public static final int LOGOUT_RESPONSE = 40;
 }
 

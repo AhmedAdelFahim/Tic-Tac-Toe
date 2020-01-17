@@ -52,10 +52,8 @@ import javafx.stage.Stage;
 import model.ClientSideHandler;
 import model.Player;
 import utils.Constant;
-import viewmodel.InvitationViewModel;
-import viewmodel.LogInViewModel;
-import viewmodel.PlayModeViewModel;
-import viewmodel.SignUpViewModel;
+import utils.Utils;
+import viewmodel.*;
 
 /**
  *
@@ -70,12 +68,6 @@ public class PlayModeController implements Initializable {
 
     @FXML
     private ImageView computer;
-//    @FXML
-//    private TableView onlinePlayerTable;
-//    @FXML
-//    private TableColumn playerNameCol;
-//    @FXML
-//    private TableColumn playerScoreCol;
 
     @FXML
     private Button backButton;
@@ -105,10 +97,6 @@ public class PlayModeController implements Initializable {
                 int senderPlayerId = currentPlayer.getId();
 
                 String senderPlayerUserName = currentPlayer.getUserName();
-
-                System.out.println(invitedPlayerId);
-                System.out.println(senderPlayerId);
-
                 HashMap<String, Object> map = new HashMap<>();
                 map.put(Constant.REQUEST_TYPE, Constant.INVITE);
                 map.put(Constant.SENDER_ID_KEY, senderPlayerId);
@@ -116,14 +104,11 @@ public class PlayModeController implements Initializable {
                 map.put(Constant.RECIEVER_NAME_KEY, ((Player) newValue).getUserName());
                 map.put(Constant.SENDER_NAME_KEY, currentPlayer.getUserName());
                 PlayModeViewModel.sendInvitation(map);
-                // Alert Waiting for otherplayer
-                // System.out.println("********Before  Invetation Recieved *********");
 
             }
         });
         InvitationViewModel.toDeclinedInvitationFlag().addListener((observable, declinedFlagOldValue, declinedFlagNewValue) -> {
             if (declinedFlagNewValue) {
-                System.out.println("******** Invetation Declined *********");
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
@@ -141,7 +126,6 @@ public class PlayModeController implements Initializable {
         });
            InvitationViewModel.tocurrentInviteScreenflagProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                System.out.println("******** Invetation Recieved *********");
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
@@ -154,15 +138,11 @@ public class PlayModeController implements Initializable {
                         alert.showAndWait();
                         alert.getResult();
                         if (alert.getResult() == accept) {//accept request
-                            System.err.println("Accepted Invivtation");
                             acceptInvitation(invitationJason);
-                             System.err.println("After Accepted ");
                             //do stuff//load the game
                         }
                         if (alert.getResult() == decline) {//decline request
-                            System.err.println("Decline Invivtation");
                             declineInvitation(invitationJason);
-                            System.err.println("After Decline ");
                         }
 
                     }
@@ -171,9 +151,31 @@ public class PlayModeController implements Initializable {
                 System.out.println("FFF");
             }
         });
-           
-           
+
+        LogoutViewModel.toSignUpFlagProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue){
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
+                        try {
+                            Parent root = fxmlLoader.load();
+                            Scene scene = new Scene(root);
+                            Stage stage = (Stage) playerTable.getScene().getWindow();
+                            stage.setScene(scene);
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+            }
+        });
     }
+
+
+
 
     @FXML
     private void handleComputerButton(MouseEvent event) {
@@ -186,24 +188,9 @@ public class PlayModeController implements Initializable {
             stage.setTitle("Select Level Tic Tac Toe");
             stage.setScene(scene);
 
+
         } catch (IOException e) {
             e.printStackTrace();
-        }
-
-    }
-
-    @FXML
-    private void handleBackButtonAction(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SignUpView.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            Scene sceneDashboard = new Scene(root);
-            Stage stage = (Stage) computer.getScene().getWindow();
-            stage.setScene(sceneDashboard);
-            stage.setTitle("Select Play Mode Tic Tac Toe");
-            stage.show();
-        } catch (IOException ex) {
-            /// Logger.getLogger(pro1.PlayModeController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -223,15 +210,18 @@ public class PlayModeController implements Initializable {
         map.put(Constant.SENDER_ID_KEY, jsonInvitation.get(Constant.RECIEVER_ID_KEY));
         map.put(Constant.SENDER_NAME_KEY, jsonInvitation.get(Constant.RECIEVER_NAME_KEY));
         map.put(Constant.RECIEVER_ID_KEY, jsonInvitation.get(Constant.SENDER_ID_KEY));
-         map.put(Constant.RECIEVER_NAME_KEY, jsonInvitation.get(Constant.SENDER_NAME_KEY));
+        map.put(Constant.RECIEVER_NAME_KEY, jsonInvitation.get(Constant.SENDER_NAME_KEY));
         PlayModeViewModel.declineInvitation(map);
-        InvitationViewModel.resetCurrentInviteScreenflag();  
-        
-    }
-    
-    public void handleLogoutAction(ActionEvent actionEvent) {
-        System.out.println("Dending Invetstion..");
+        InvitationViewModel.resetCurrentInviteScreenflag();
 
+    }
+
+    public void handleLogoutAction(ActionEvent actionEvent) {
+
+        HashMap<String,Object> map = new HashMap<>();
+        map.put(Constant.USER_NAME_KEY,ClientSideHandler.getInstance().getCurrentPlayer().getUserName());
+        map.put(Constant.REQUEST_TYPE,Constant.LOGOUT);
+        LogoutViewModel.logout(map);
     }
 
 }
