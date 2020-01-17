@@ -14,7 +14,7 @@ public class PlayModeViewModel {
 
     public static ObservableList<Player> getOnlinePlayers() {
         onlinePlayers = FXCollections.observableArrayList();
-       onlinePlayers.add(new Player("aaa",12));
+        //onlinePlayers.add(new Player("aaa",12));
         return onlinePlayers;
     }
 
