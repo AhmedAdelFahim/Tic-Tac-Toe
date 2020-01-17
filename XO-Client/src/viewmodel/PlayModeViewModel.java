@@ -46,4 +46,9 @@ public class PlayModeViewModel {
         ClientSideHandler.getInstance().handelInvitation(Utils.toString(map));
         return true;
     }
+    
+    public static boolean gameMove(HashMap map){
+        ClientSideHandler.getInstance().sendGameMove(Utils.toString(map));
+        return true;
+    }
 }

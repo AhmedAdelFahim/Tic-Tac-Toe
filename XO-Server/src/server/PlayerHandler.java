@@ -126,20 +126,23 @@ public class PlayerHandler extends Thread {
                         break;
                     case Constant.INVITE:
                         System.out.println(" INVITE");
-                        System.out.println(jsonObject);
                         sendInvitationRequestToSpecificPlayer(jsonObject);
                         break;
 
                     case Constant.ACCEPT_INVITATION:
                         System.out.println("Accept");
-                        System.out.println(jsonObject);
                         sendInvitationRequestToSpecificPlayer(jsonObject);
                         break;
                     case Constant.DECLINE_INVITATION:
                         System.out.println("Decline");
-                        System.out.println(jsonObject);
                         sendInvitationRequestToSpecificPlayer(jsonObject);
                         break;
+                    case Constant.GAME_MOVE:
+                        System.out.println("GameMove");
+                        System.out.println(jsonObject);
+                        sendGameMoveToSpecificPlayer(jsonObject);
+                        break;    
+                        
                     default:
                         System.out.println("default case");
                         break;
@@ -159,4 +162,11 @@ public class PlayerHandler extends Thread {
         invitedPlayerHandeler.printStream.println(jsonInvitation);
     }
 
+     void sendGameMoveToSpecificPlayer(JsonObject jsonInvitation) {
+
+        Player otherPlayer = Server.getOnlinePlayersData(Integer.parseInt(jsonInvitation.get(Constant.RECIEVER_ID_KEY).toString()));
+        PlayerHandler invitedPlayerHandeler = Server.getOnlinePlayerHandler(otherPlayer.getId());
+         System.err.println("a game move from "+jsonInvitation.get(Constant.SENDER_ID_KEY).toString()+" to " +jsonInvitation.get(Constant.RECIEVER_ID_KEY).toString() + " movePosition is "+jsonInvitation.get(Constant.MOVE_POSTION).toString());;
+        invitedPlayerHandeler.printStream.println(jsonInvitation);
+    }
 }

@@ -31,5 +31,11 @@ public class Constant {
 
 //    public static final String RESPONSE_KEY = "logout_response";
     public static final int LOGOUT_RESPONSE = 40;
+    
+    
+    
+    public static final int GAME_MOVE = 50;
+    public static final String MOVE_POSTION = "move_position";
+
 }
 

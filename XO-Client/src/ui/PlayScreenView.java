@@ -7,11 +7,13 @@ package ui;
 
 import ArtificialIntelligence.Algorithms;
 import TicTacToe.Board;
+import com.google.gson.JsonObject;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -29,13 +31,18 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.ClientSideHandler;
+import model.Player;
 import utils.Constant;
+import viewmodel.InvitationViewModel;
+import viewmodel.PlayModeViewModel;
 
 /**
  * @author islam salah
  */
 public class PlayScreenView implements Initializable {
 
+    public Player currentPlayer;
+    public static int otherPlayerId;
 
     @FXML
     private Label label;
@@ -84,6 +91,7 @@ public class PlayScreenView implements Initializable {
             System.out.println("Pos_1");
             board.move(0);
             CanPlay = false;
+            sendGameMove(0);
         }
 
     }
@@ -96,6 +104,7 @@ public class PlayScreenView implements Initializable {
             System.out.println("Pos_4");
             board.move(3);
             CanPlay = false;
+             sendGameMove(3);
         }
     }
 
@@ -107,6 +116,7 @@ public class PlayScreenView implements Initializable {
             System.out.println("Pos_2");
             board.move(1);
             CanPlay = false;
+             sendGameMove(1);
         }
     }
 
@@ -118,6 +128,7 @@ public class PlayScreenView implements Initializable {
             System.out.println("Pos_5");
             board.move(4);
             CanPlay = false;
+             sendGameMove(4);
         }
     }
 
@@ -128,6 +139,7 @@ public class PlayScreenView implements Initializable {
             pos_3.setDisable(true);
             board.move(2);
             CanPlay = false;
+             sendGameMove(2);
         }
     }
 
@@ -139,6 +151,7 @@ public class PlayScreenView implements Initializable {
             System.out.println("Pos_7");
             board.move(6);
             CanPlay = false;
+             sendGameMove(6);
         }
     }
 
@@ -150,6 +163,7 @@ public class PlayScreenView implements Initializable {
             System.out.println("Pos_8");
             board.move(7);
             CanPlay = false;
+             sendGameMove(7);
         }
     }
 
@@ -161,6 +175,7 @@ public class PlayScreenView implements Initializable {
             System.out.println("Pos_6");
             board.move(5);
             CanPlay = false;
+             sendGameMove(5);
         }
     }
 
@@ -172,13 +187,16 @@ public class PlayScreenView implements Initializable {
             System.out.println("Pos_9");
             board.move(8);
             CanPlay = false;
+             sendGameMove(8);
         }
     }
 
-
     Board board;
 
-    public enum Mode {Player, AI}
+    public enum Mode {
+
+        Player, AI
+    }
 
     Button[][] BoardCells;
     Board.State state;
@@ -197,19 +215,18 @@ public class PlayScreenView implements Initializable {
         }
     }
 
-
     public void printGameBoard() {
-        for (int i = 0; i < board.toArray().length; i++)
+        for (int i = 0; i < board.toArray().length; i++) {
             for (int j = 0; j < board.toArray().length; j++) {
-                if (board.toArray()[i][j].toString().equals("Blank"))
+                if (board.toArray()[i][j].toString().equals("Blank")) {
                     BoardCells[i][j].setText("");
-                else {
+                } else {
                     BoardCells[i][j].setText(board.toArray()[i][j].toString());
                     BoardCells[i][j].setDisable(true);
                 }
             }
+        }
     }
-
 
     public void setState(Board.State state) {
         this.state = state;
@@ -225,13 +242,13 @@ public class PlayScreenView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        currentPlayer = ClientSideHandler.getInstance().getCurrentPlayer();
         board = new Board();
         initGameBoard();
         setState(Board.State.X);
         CanPlay = true;
         play(mode, state);
     }
-
 
     public void play(Mode mode, Board.State state) {
         new Thread(new Runnable() {
@@ -254,10 +271,10 @@ public class PlayScreenView implements Initializable {
                         case AI:
                             switch (board.getTurn()) {
                                 case X:
-                                CanPlay=true;
+                                    CanPlay = true;
                                     break;
                                 case O:
-                                Algorithms.miniMax(board, level);
+                                    Algorithms.miniMax(board, level);
                                     break;
                             }
                             break;
@@ -277,12 +294,13 @@ public class PlayScreenView implements Initializable {
                             System.out.println("score updated successfully");
                         }
                         String msg;
-                        if (board.getWinner() == state)
+                        if (board.getWinner() == state) {
                             msg = "Congratulation! Game is Over and you won";
-                        else if (board.getWinner() != Board.State.Blank)
+                        } else if (board.getWinner() != Board.State.Blank) {
                             msg = "Sorry! Game is Over and you loose";
-                        else
+                        } else {
                             msg = "Game is Over with draw";
+                        }
 
                         Platform.runLater(new Runnable() {
                             @Override
@@ -295,7 +313,6 @@ public class PlayScreenView implements Initializable {
                                 ButtonType NoBtn = new ButtonType("No");
 
                                 alert.getButtonTypes().setAll(YesBtn, NoBtn);
-
 
                                 Optional<ButtonType> result = alert.showAndWait();
                                 if (result.get() == YesBtn) {
@@ -332,7 +349,6 @@ public class PlayScreenView implements Initializable {
         }
     }
 
-
     @FXML
     private void gameStatus(MouseEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -361,4 +377,22 @@ public class PlayScreenView implements Initializable {
         }
     }
 
+    public void sendGameMove(int movePos) {
+        /////use switch after handling loading game screen sfter invitstion accepted
+//        switch (mode) {
+//            case Player:
+                HashMap<String, Object> map = new HashMap<>();
+                map.put(Constant.REQUEST_TYPE, Constant.GAME_MOVE);
+                map.put(Constant.SENDER_ID_KEY, currentPlayer.getId());
+                // map.put(Constant.SENDER_NAME_KEY,currentPlayer.getUserName());
+                map.put(Constant.RECIEVER_ID_KEY, otherPlayerId);
+                map.put(Constant.MOVE_POSTION, movePos);
+                PlayModeViewModel.gameMove(map);
+                System.err.println(otherPlayerId);
+//                break;
+//            default:
+//                break;
+//        }
+
+    }
 }

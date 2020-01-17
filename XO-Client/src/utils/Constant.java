@@ -34,7 +34,10 @@ public class Constant {
     
     
     public static final String GAME_BOARD = "board";
-
+    public static final int GAME_MOVE = 50;
+    public static final String MOVE_POSTION = "move_position";
+    
+    
     public static final int UPDATE_SCORE = 8;
     public static final String SENDER_NAME_KEY = "sender_username";
     public static final String RECIEVER_NAME_KEY = "reciever_name";

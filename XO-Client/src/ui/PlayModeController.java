@@ -117,6 +117,10 @@ public class PlayModeController implements Initializable {
                         alert.showAndWait();
                         alert.getResult();
                         if (alert.getResult() == accept) {//accept request
+                            //set the id of the other player in gamescreen
+                            PlayScreenView.otherPlayerId =Integer.parseInt(invitationJason.get(Constant.SENDER_ID_KEY).toString());
+                            System.err.println(PlayScreenView.otherPlayerId);
+                            //PlayScreenView.setMode(Player); change the gameplay mode
                             acceptInvitation(invitationJason);
                             //do stuff//load the game
                         }
@@ -193,9 +197,10 @@ public class PlayModeController implements Initializable {
         map.put(Constant.RECIEVER_NAME_KEY, jsonInvitation.get(Constant.SENDER_NAME_KEY));
         PlayModeViewModel.declineInvitation(map);
         InvitationViewModel.resetCurrentInviteScreenflag();
-
     }
 
+    
+    
     public void handleLogoutAction(ActionEvent actionEvent) {
 
         HashMap<String,Object> map = new HashMap<>();
