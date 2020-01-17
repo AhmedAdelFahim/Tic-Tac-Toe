@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="362.0" prefWidth="590.0" style="-fx-background-color: #2D3E50;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.PlayModeController">
+<GridPane alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="362.0" prefWidth="590.0" style="-fx-background-color: #2D3E50;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.PlayModeController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="91.0" minWidth="10.0" prefWidth="69.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" prefWidth="81.0" />
@@ -75,11 +74,6 @@
          </children>
       </Pane>
       <Button mnemonicParsing="false" onAction="#handleLogoutAction" prefHeight="35.0" prefWidth="79.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-family: Impact; -fx-background-color: #34A798; -fx-font-size: 15; -fx-background-radius: 20;" text="Logout" GridPane.columnIndex="5">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Button>
-      <Button fx:id="backButton" alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="34.0" prefWidth="63.0" style="-fx-background-color: #34A798; -fx-font-family: Impact; -fx-background-radius: 20;" text="Back" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="12">
          <font>
             <Font size="15.0" />
          </font>

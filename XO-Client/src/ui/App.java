@@ -10,6 +10,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.ClientSideHandler;
+import utils.Constant;
+import viewmodel.LogoutViewModel;
+
+import java.util.HashMap;
 
 /**
  *
@@ -30,6 +35,16 @@ public class App extends Application {
 
         stage.show();
 
+    }
+
+    @Override
+    public void stop() throws Exception {
+        // logout before close
+        HashMap<String,Object> map = new HashMap<>();
+        map.put(Constant.USER_NAME_KEY, ClientSideHandler.getInstance().getCurrentPlayer().getUserName());
+        map.put(Constant.REQUEST_TYPE,Constant.LOGOUT);
+        LogoutViewModel.logout(map);
+        super.stop();
     }
 
     /**

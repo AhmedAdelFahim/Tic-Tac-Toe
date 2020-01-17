@@ -2,27 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b9db6a1-96c0-4a5a-90c8-d040483635ca" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/Level.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/Level.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/LevelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/LevelController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/PlayMode.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/PlayMode.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/PlayModeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/PlayModeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/SignUpView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/SignUpView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ui/SignUpView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/SignUpView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XO-Server/XO-Server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../XO-Server/XO-Server.iml" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="UPDATE_TYPE" value="MERGE" />
   </component>
   <component name="ProjectId" id="1WGCskwO98AxwrfoGfwErBSn5ny" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="Repository.Attach.Annotations" value="false" />
@@ -40,20 +44,8 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
   <component name="RunManager">
-    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="App" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ui.App" />
       <module name="XO-Client" />
       <extension name="coverage">
@@ -72,6 +64,18 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -85,6 +89,11 @@
       <workItem from="1578766756696" duration="172000" />
       <workItem from="1578843556494" duration="1872000" />
       <workItem from="1578846131060" duration="1763000" />
+      <workItem from="1579017346078" duration="352000" />
+      <workItem from="1579018635168" duration="1712000" />
+      <workItem from="1579112538442" duration="143000" />
+      <workItem from="1579112784173" duration="1415000" />
+      <workItem from="1579260943613" duration="5133000" />
     </task>
     <servers />
   </component>
@@ -103,5 +112,51 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="145" y="47" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1579112972133">
+      <screen x="0" y="24" width="1366" height="716" />
+    </state>
+    <state x="145" y="47" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.24.1366.716@0.24.1366.716" timestamp="1579112972133" />
+    <state x="537" y="140" width="281" height="481" key="#com.intellij.ide.util.MemberChooser" timestamp="1579265650185">
+      <screen x="0" y="24" width="1366" height="716" />
+    </state>
+    <state x="537" y="140" width="281" height="481" key="#com.intellij.ide.util.MemberChooser/0.24.1366.716@0.24.1366.716" timestamp="1579265650185" />
+    <state width="1324" height="144" key="GridCell.Tab.0.bottom" timestamp="1579266111236">
+      <screen x="0" y="24" width="1366" height="716" />
+    </state>
+    <state width="1324" height="144" key="GridCell.Tab.0.bottom/0.24.1366.716@0.24.1366.716" timestamp="1579266111236" />
+    <state width="1324" height="144" key="GridCell.Tab.0.center" timestamp="1579266111235">
+      <screen x="0" y="24" width="1366" height="716" />
+    </state>
+    <state width="1324" height="144" key="GridCell.Tab.0.center/0.24.1366.716@0.24.1366.716" timestamp="1579266111235" />
+    <state width="1324" height="144" key="GridCell.Tab.0.left" timestamp="1579266111235">
+      <screen x="0" y="24" width="1366" height="716" />
+    </state>
+    <state width="1324" height="144" key="GridCell.Tab.0.left/0.24.1366.716@0.24.1366.716" timestamp="1579266111235" />
+    <state width="1324" height="144" key="GridCell.Tab.0.right" timestamp="1579266111236">
+      <screen x="0" y="24" width="1366" height="716" />
+    </state>
+    <state width="1324" height="144" key="GridCell.Tab.0.right/0.24.1366.716@0.24.1366.716" timestamp="1579266111236" />
+    <state x="127" y="80" width="1092" height="600" key="MergeDialog" timestamp="1579261431961">
+      <screen x="0" y="24" width="1366" height="716" />
+    </state>
+    <state x="127" y="80" width="1092" height="600" key="MergeDialog/0.24.1366.716@0.24.1366.716" timestamp="1579261431961" />
+    <state x="458" y="162" width="439" height="437" key="MultipleFileMergeDialog" timestamp="1579261431969">
+      <screen x="0" y="24" width="1366" height="716" />
+    </state>
+    <state x="458" y="162" width="439" height="437" key="MultipleFileMergeDialog/0.24.1366.716@0.24.1366.716" timestamp="1579261431969" />
+    <state x="294" y="61" width="768" height="639" key="SettingsEditor" timestamp="1579019219946">
+      <screen x="0" y="24" width="1366" height="716" />
+    </state>
+    <state x="294" y="61" width="768" height="639" key="SettingsEditor/0.24.1366.716@0.24.1366.716" timestamp="1579019219946" />
+    <state x="418" y="248" key="com.intellij.ide.util.TipDialog" timestamp="1579112796070">
+      <screen x="0" y="24" width="1366" height="716" />
+    </state>
+    <state x="418" y="248" key="com.intellij.ide.util.TipDialog/0.24.1366.716@0.24.1366.716" timestamp="1579112796070" />
+    <state x="507" y="317" width="341" height="127" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1579260951293">
+      <screen x="0" y="24" width="1366" height="716" />
+    </state>
+    <state x="507" y="317" width="341" height="127" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.24.1366.716@0.24.1366.716" timestamp="1579260951293" />
   </component>
 </project>

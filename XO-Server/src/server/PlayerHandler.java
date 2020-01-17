@@ -93,6 +93,7 @@ public class PlayerHandler extends Thread {
                     case Constant.LOGOUT:
                         JsonObject response = DBQueries.logout(json);
                         if (Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString()) == Constant.STATUS_CODE_SUCCESSED) {
+                            System.out.println(response.toString());
                             printStream.println(response.toString());
                             Server.removeOnlinePlayersData(host_id);
                             Server.removeOnlinePlayerHandler(this);

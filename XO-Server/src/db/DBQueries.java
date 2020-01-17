@@ -97,6 +97,7 @@ public class DBQueries {
 
     public static JsonObject logout(String json){
         HashMap<String,Object> res = new HashMap<>();
+        res.put(Constant.REQUEST_TYPE,Constant.LOGOUT_RESPONSE);
         try {
             int isUpdated = updatePlayerStatus(json,Constant.OFFLINE_STATUS);
 

@@ -7,9 +7,12 @@ package ui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import model.ClientSideHandler;
 import utils.Constant;
+import viewmodel.LogoutViewModel;
 
 /**
  * FXML Controller class
@@ -44,8 +48,26 @@ public class LevelController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+        LogoutViewModel.toSignUpFlagProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue){
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
+                        try {
+                            Parent root = fxmlLoader.load();
+                            Scene scene = new Scene(root);
+                            Stage stage = (Stage) easyButton.getScene().getWindow();
+                            stage.setScene(scene);
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+            }
+        });    }
 
     @FXML
     private void handleEasyAction(ActionEvent event) {
@@ -97,6 +119,10 @@ public class LevelController implements Initializable {
 
     @FXML
     private void handleLogoutButton(ActionEvent event) {
+        HashMap<String,Object> map = new HashMap<>();
+        map.put(Constant.USER_NAME_KEY,ClientSideHandler.getInstance().getCurrentPlayer().getUserName());
+        map.put(Constant.REQUEST_TYPE,Constant.LOGOUT);
+        LogoutViewModel.logout(map);
     }
 
     @FXML
