@@ -14,6 +14,8 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static ui.PlayModeController.invitationJason;
+import ui.PlayScreenView;
 
 import viewmodel.InvitationViewModel;
 
@@ -116,15 +118,25 @@ public class ClientSideHandler {
                         } else if (jsonObject.has(Constant.REQUEST_TYPE) &&
                                 Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.INVITE) {
                              System.out.println("NEW INVITATION");
+                              System.out.println(jsonObject);
                             InvitationViewModel.handleInvitation(jsonObject);
                         } else if (jsonObject.has(Constant.REQUEST_TYPE) &&
                                 Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.ACCEPT_INVITATION) {
                              System.out.println("ACCEPTED INVITATION");
                             System.out.println(jsonObject);
+                            
+                            // set the static attribute to the id of the player who accepted the invitation 
+                        //PlayScreenView.otherPlayerId =Integer.parseInt(invitationJason.get(Constant.SENDER_ID_KEY).toString());
+                        //note : sice we are testing on the same project this will cause a conflict because of the static attribute
+                            //in order to test --two separated client project must run 
                         }else if (jsonObject.has(Constant.REQUEST_TYPE) &&
                                 Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.DECLINE_INVITATION) {
                              System.out.println("Declined INVITATION");
                             InvitationViewModel.declineInvitation(jsonObject);
+                        }else if (jsonObject.has(Constant.REQUEST_TYPE) &&
+                                Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.GAME_MOVE) {
+                             System.out.println("Game Move");
+                             System.out.println(jsonObject);
                         } else if (jsonObject.has(Constant.REQUEST_TYPE) &&
                                 Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.LOGOUT_RESPONSE) {
                             if (jsonObject.has(Constant.STATUS_CODE_KEY) &&
@@ -159,6 +171,14 @@ public class ClientSideHandler {
     }
 
     public boolean handelInvitation(String json) {
+        try {
+            printStream.println(json);
+        } catch (Exception ex) {
+            Logger.getLogger(ClientSideHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+    }
+    public boolean sendGameMove(String json) {
         try {
             printStream.println(json);
         } catch (Exception ex) {
