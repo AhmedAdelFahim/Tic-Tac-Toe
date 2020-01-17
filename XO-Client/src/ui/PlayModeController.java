@@ -69,8 +69,7 @@ public class PlayModeController implements Initializable {
     @FXML
     private ImageView computer;
 
-    @FXML
-    private Button backButton;
+    
     @FXML
     private Button handleLogoutAction;
     @FXML
@@ -224,5 +223,19 @@ public class PlayModeController implements Initializable {
         map.put(Constant.REQUEST_TYPE,Constant.LOGOUT);
         LogoutViewModel.logout(map);
     }
-
+    @FXML
+    private void handleSaveAction(ActionEvent event) {
+         try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("savedGames.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Scene sceneDashboard = new Scene(root);
+            Stage stage = (Stage) computer.getScene().getWindow();
+            stage.setScene(sceneDashboard);
+            stage.setTitle("Select Saved Game Tic Tac Toe");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(PlayModeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }
