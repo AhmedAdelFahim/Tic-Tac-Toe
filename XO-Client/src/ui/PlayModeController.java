@@ -169,11 +169,24 @@ public class PlayModeController implements Initializable {
                         alert.setHeaderText(null);
                         alert.showAndWait();
                         alert.getResult();
-                        if (alert.getResult() == accept) {//accept request
-                            System.err.println("Accepted Invivtation");
+                        if (alert.getResult() == accept) {
+                            System.err.println("Accepted Invitation");
                             acceptInvitation(invitationJason);
-                             System.err.println("After Accepted ");
-                            //do stuff//load the game
+                            System.err.println("After Accepted ");
+                            PlayScreenView.setModeToPlayers();
+                            PlayScreenView.setToGuest();
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
+                            try {
+                                Parent root = fxmlLoader.load();
+                                Scene scene = new Scene(root);
+                                Stage stage = (Stage) playerTable.getScene().getWindow();
+                                stage.setTitle("Select Level Tic Tac Toe");
+                                stage.setScene(scene);
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
                         }
                         if (alert.getResult() == decline) {//decline request
                             System.err.println("Decline Invivtation");
@@ -192,7 +205,7 @@ public class PlayModeController implements Initializable {
     @FXML
     private void handleComputerButton(MouseEvent event) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Level.fxml"));
-        PlayScreenView.setMode(PlayScreenView.Mode.AI);
+        PlayScreenView.setModeToAI();
         try {
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);

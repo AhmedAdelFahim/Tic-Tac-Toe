@@ -105,14 +105,21 @@ public class PlayerHandler extends Thread {
                         break;
                     case Constant.UPDATE_SCORE:
                         DBQueries.updatePlayerScore(host_id);
+                        Player player = Server.getOnlinePlayersData(host_id);
+                        player.setScore(player.getScore()+1);
+                        Server.broadcastOnlinePlayers();
                         break;
                     case Constant.BUSY_STATUS:
+                        DBQueries.changeStatus(host_id, Constant.BUSY_STATUS);
                         System.out.println("update status");
-                        DBQueries.changeStatus(host_id, 0);
+                        Server.getOnlinePlayersData(host_id).setStatus(Constant.BUSY_STATUS);
+                        Server.broadcastOnlinePlayers();
                         break;
                     case Constant.ONLINE_STATUS:
-                        System.out.println("update status");
                         DBQueries.changeStatus(host_id, 1);
+                        System.out.println("update status");
+                        Server.getOnlinePlayersData(host_id).setStatus(Constant.ONLINE_STATUS);
+                        Server.broadcastOnlinePlayers();
                         break;
                     case Constant.SAVE_GAME:
                         DBQueries.saveGame(host_id, guest_id, jsonObject.get(Constant.GAME_BOARD).toString());

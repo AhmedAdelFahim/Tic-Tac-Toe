@@ -4,6 +4,7 @@ import TicTacToe.Board;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import javafx.application.Platform;
+import ui.PlayScreenView;
 import utils.Constant;
 import utils.Utils;
 import viewmodel.PlayModeViewModel;
@@ -190,11 +191,13 @@ public boolean acceptInvitation(String json){
     try {
             printStream.println(json);
             System.out.println(json);
-            System.out.println("Accept invitation");
+            System.out.println("Invitation Accepted");
+            PlayScreenView.setModeToPlayers();
+            PlayScreenView.setToHost();
         } catch (Exception ex) {
             Logger.getLogger(ClientSideHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return true;    
+        return true;
 }
 
 public boolean declineInvitation(String json){

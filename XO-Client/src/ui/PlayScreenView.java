@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -76,110 +77,60 @@ public class PlayScreenView implements Initializable {
     @FXML
     private FontAwesomeIconView list;
 
+
+
     @FXML
     private void Pso_1_Handeler(ActionEvent event) {
-        if (CanPlay) {
-            pos_1.setText(board.getTurn().toString());
-            pos_1.setDisable(true);
-            System.out.println("Pos_1");
-            board.move(0);
-            CanPlay = false;
-        }
 
     }
 
     @FXML
     private void Pso_4_Handeler(ActionEvent event) {
-        if (CanPlay) {
-            pos_4.setText(board.getTurn().toString());
-            pos_4.setDisable(true);
-            System.out.println("Pos_4");
-            board.move(3);
-            CanPlay = false;
-        }
+
     }
 
     @FXML
     private void Pso_2_Handeler(ActionEvent event) {
-        if (CanPlay) {
-            pos_2.setText(board.getTurn().toString());
-            pos_2.setDisable(true);
-            System.out.println("Pos_2");
-            board.move(1);
-            CanPlay = false;
-        }
+
     }
 
     @FXML
     private void Pso_5_Handeler(ActionEvent event) {
-        if (CanPlay) {
-            pos_5.setText(board.getTurn().toString());
-            pos_5.setDisable(true);
-            System.out.println("Pos_5");
-            board.move(4);
-            CanPlay = false;
-        }
+
     }
 
     @FXML
     private void Pso_3_Handeler(ActionEvent event) {
-        if (CanPlay) {
-            pos_3.setText(board.getTurn().toString());
-            pos_3.setDisable(true);
-            board.move(2);
-            CanPlay = false;
-        }
+
     }
 
     @FXML
     private void Pso_7_Handeler(ActionEvent event) {
-        if (CanPlay) {
-            pos_7.setText(board.getTurn().toString());
-            pos_7.setDisable(true);
-            System.out.println("Pos_7");
-            board.move(6);
-            CanPlay = false;
-        }
+
     }
 
     @FXML
     private void Pso_8_Handeler(ActionEvent event) {
-        if (CanPlay) {
-            pos_8.setText(board.getTurn().toString());
-            pos_8.setDisable(true);
-            System.out.println("Pos_8");
-            board.move(7);
-            CanPlay = false;
-        }
+
     }
 
     @FXML
     private void Pso_6_Handeler(ActionEvent event) {
-        if (CanPlay) {
-            pos_6.setText(board.getTurn().toString());
-            pos_6.setDisable(true);
-            System.out.println("Pos_6");
-            board.move(5);
-            CanPlay = false;
-        }
+
     }
 
     @FXML
     private void Pso_9_Handeler(ActionEvent event) {
-        if (CanPlay) {
-            pos_9.setText(board.getTurn().toString());
-            pos_9.setDisable(true);
-            System.out.println("Pos_9");
-            board.move(8);
-            CanPlay = false;
-        }
+
     }
 
 
     Board board;
 
     public enum Mode {Player, AI}
+    public enum Player {Host,Guest}
 
+    private static Player player = Player.Host;
     Button[][] BoardCells;
     Board.State state;
     private static Mode mode;
@@ -191,8 +142,22 @@ public class PlayScreenView implements Initializable {
         System.out.println(level);
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                BoardCells[i][j].setDisable(false);
-                BoardCells[i][j].setText("");
+                int finalJ = j;
+                int finalI = i;
+                BoardCells[i][j].setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        if (CanPlay) {
+                            BoardCells[finalI][finalJ].setText(board.getTurn().toString());
+                            BoardCells[finalI][finalJ].setDisable(true);
+//                            convert from 2d array  to 1d
+                            board.move(finalI*3+finalJ);
+                            CanPlay = false;
+                        }
+                        BoardCells[finalI][finalJ].setDisable(false);
+                        BoardCells[finalI][finalJ].setText("");
+                    }
+                });
             }
         }
     }
@@ -210,15 +175,30 @@ public class PlayScreenView implements Initializable {
             }
     }
 
-
-    public void setState(Board.State state) {
-        this.state = state;
+    public static void setToHost(){
+        player = Player.Host;
     }
 
-    public static void setMode(Mode myMode) {
-        mode = myMode;
+    public static void setToGuest(){
+        player = Player.Guest;
     }
 
+    public void setState() {
+        if(player == Player.Host){
+            state = Board.State.X;
+            CanPlay = true;
+        }
+        else
+            state = Board.State.O;
+    }
+
+    public static void setModeToAI() {
+        mode = Mode.AI;
+    }
+
+    public static void setModeToPlayers() {
+        mode = Mode.Player;
+    }
     public static void setLevel(double myLevel) {
         level = myLevel;
     }
@@ -227,13 +207,12 @@ public class PlayScreenView implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         board = new Board();
         initGameBoard();
-        setState(Board.State.X);
-        CanPlay = true;
-        play(mode, state);
+        setState();
+        play();
     }
 
 
-    public void play(Mode mode, Board.State state) {
+    public void play() {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -263,7 +242,7 @@ public class PlayScreenView implements Initializable {
                             break;
                         case Player:
                             if (board.getTurn() != state) {
-//                                get from server
+//                                ClientSideHandler.getInstance().getOtherPlayerMove();
                             } else {
                                 CanPlay = true;
                             }
@@ -287,6 +266,7 @@ public class PlayScreenView implements Initializable {
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
+                                printGameBoard();
                                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                                 alert.setTitle(msg);
                                 alert.setHeaderText(msg + " Would you like to try again ?");
@@ -302,7 +282,7 @@ public class PlayScreenView implements Initializable {
                                     board.reset();
                                     initGameBoard();
                                     CanPlay = true;
-                                    play(mode, state);
+                                    play();
                                 } else if (result.get() == NoBtn) {
                                     goHome();
                                 }
