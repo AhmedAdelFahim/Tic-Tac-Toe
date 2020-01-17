@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b9db6a1-96c0-4a5a-90c8-d040483635ca" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/viewmodel/LogoutViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/ClientSideHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/ClientSideHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/LevelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/LevelController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/PlayMode.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/PlayMode.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/PlayModeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/PlayModeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Constant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XO-Server/src/db/DBQueries.java" beforeDir="false" afterPath="$PROJECT_DIR$/../XO-Server/src/db/DBQueries.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XO-Server/src/server/PlayerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../XO-Server/src/server/PlayerHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../XO-Server/src/utils/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/../XO-Server/src/utils/Constant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../tic_tac_toe.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/SignUpView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/SignUpView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +93,7 @@
       <workItem from="1579018635168" duration="1712000" />
       <workItem from="1579112538442" duration="143000" />
       <workItem from="1579112784173" duration="1415000" />
-      <workItem from="1579260943613" duration="4880000" />
+      <workItem from="1579260943613" duration="5133000" />
     </task>
     <servers />
   </component>
@@ -133,22 +122,22 @@
       <screen x="0" y="24" width="1366" height="716" />
     </state>
     <state x="537" y="140" width="281" height="481" key="#com.intellij.ide.util.MemberChooser/0.24.1366.716@0.24.1366.716" timestamp="1579265650185" />
-    <state width="1324" height="144" key="GridCell.Tab.0.bottom" timestamp="1579265679014">
+    <state width="1324" height="144" key="GridCell.Tab.0.bottom" timestamp="1579266111236">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state width="1324" height="144" key="GridCell.Tab.0.bottom/0.24.1366.716@0.24.1366.716" timestamp="1579265679014" />
-    <state width="1324" height="144" key="GridCell.Tab.0.center" timestamp="1579265679014">
+    <state width="1324" height="144" key="GridCell.Tab.0.bottom/0.24.1366.716@0.24.1366.716" timestamp="1579266111236" />
+    <state width="1324" height="144" key="GridCell.Tab.0.center" timestamp="1579266111235">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state width="1324" height="144" key="GridCell.Tab.0.center/0.24.1366.716@0.24.1366.716" timestamp="1579265679014" />
-    <state width="1324" height="144" key="GridCell.Tab.0.left" timestamp="1579265679013">
+    <state width="1324" height="144" key="GridCell.Tab.0.center/0.24.1366.716@0.24.1366.716" timestamp="1579266111235" />
+    <state width="1324" height="144" key="GridCell.Tab.0.left" timestamp="1579266111235">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state width="1324" height="144" key="GridCell.Tab.0.left/0.24.1366.716@0.24.1366.716" timestamp="1579265679013" />
-    <state width="1324" height="144" key="GridCell.Tab.0.right" timestamp="1579265679014">
+    <state width="1324" height="144" key="GridCell.Tab.0.left/0.24.1366.716@0.24.1366.716" timestamp="1579266111235" />
+    <state width="1324" height="144" key="GridCell.Tab.0.right" timestamp="1579266111236">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state width="1324" height="144" key="GridCell.Tab.0.right/0.24.1366.716@0.24.1366.716" timestamp="1579265679014" />
+    <state width="1324" height="144" key="GridCell.Tab.0.right/0.24.1366.716@0.24.1366.716" timestamp="1579266111236" />
     <state x="127" y="80" width="1092" height="600" key="MergeDialog" timestamp="1579261431961">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
