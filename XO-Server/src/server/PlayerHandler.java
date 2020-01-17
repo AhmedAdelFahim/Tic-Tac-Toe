@@ -93,8 +93,9 @@ public class PlayerHandler extends Thread {
                     case Constant.LOGOUT:
                         JsonObject response = DBQueries.logout(json);
                         if (Integer.parseInt(response.get(Constant.STATUS_CODE_KEY).toString()) == Constant.STATUS_CODE_SUCCESSED) {
-                            System.out.println(response.toString());
                             printStream.println(response.toString());
+                            Server.getOnlinePlayersData(host_id).setStatus(Constant.OFFLINE_STATUS);
+                            Server.broadcastOnlinePlayers();
                             Server.removeOnlinePlayersData(host_id);
                             Server.removeOnlinePlayerHandler(this);
                             socket.close();
@@ -109,11 +110,15 @@ public class PlayerHandler extends Thread {
                         break;
                     case Constant.BUSY_STATUS:
                         System.out.println("update status");
-                        DBQueries.changeStatus(host_id, 0);
+                        DBQueries.changeStatus(host_id, Constant.BUSY_STATUS);
+                        Server.getOnlinePlayersData(host_id).setStatus(Constant.BUSY_STATUS);
+                        Server.broadcastOnlinePlayers();
                         break;
                     case Constant.ONLINE_STATUS:
                         System.out.println("update status");
-                        DBQueries.changeStatus(host_id, 1);
+                        DBQueries.changeStatus(host_id, Constant.ONLINE_STATUS);
+                        Server.getOnlinePlayersData(host_id).setStatus(Constant.ONLINE_STATUS);
+                        Server.broadcastOnlinePlayers();
                         break;
                     case Constant.SAVE_GAME:
                         DBQueries.saveGame(host_id, guest_id, jsonObject.get(Constant.GAME_BOARD).toString());
