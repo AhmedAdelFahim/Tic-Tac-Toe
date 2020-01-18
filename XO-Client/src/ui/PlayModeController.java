@@ -39,6 +39,7 @@ public class PlayModeController implements Initializable {
     Thread playersThread;
     public static Player currentPlayer;
     public static String OtherPlayer;
+    public static String OtherPlayerId;
     public static JsonObject invitationJason;
 
     @FXML
@@ -93,7 +94,7 @@ public class PlayModeController implements Initializable {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        Alert alert = new Alert(AlertType.INFORMATION,
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION,
                                 "player" + OtherPlayer + "declined your invitation to play");
                         alert.setTitle("Invitation Declined");
                         alert.setHeaderText(null);
@@ -112,20 +113,17 @@ public class PlayModeController implements Initializable {
                     public void run() {
                         ButtonType accept = new ButtonType("Accept", ButtonBar.ButtonData.OK_DONE);
                         ButtonType decline = new ButtonType("Decline", ButtonBar.ButtonData.CANCEL_CLOSE);
-                        Alert alert = new Alert(AlertType.WARNING,
+                        Alert alert = new Alert(Alert.AlertType.WARNING,
                                 "player" + OtherPlayer + "want to play", accept, decline);
                         alert.setTitle("Invitation");
                         alert.setHeaderText(null);
                         alert.showAndWait();
                         alert.getResult();
                         if (alert.getResult() == accept) {//accept request
-                            //set the id of the other player in gamescreen
-                            PlayScreenView.otherPlayerId =Integer.parseInt(invitationJason.get(Constant.SENDER_ID_KEY).toString());
-                            System.err.println(PlayScreenView.otherPlayerId);
-                            //PlayScreenView.setMode(Player); change the gameplay mode
                             acceptInvitation(invitationJason);
                             PlayScreenView.setModeToPlayers();
                             System.out.println("the Other Player Is " + OtherPlayer);
+                            System.out.println("the Other Player id  " + OtherPlayerId);
                             PlayScreenView.setToGuest();
                             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
                             try {
@@ -175,7 +173,6 @@ public class PlayModeController implements Initializable {
 
     @FXML
     private void handleComputerButton(MouseEvent event) {
-        System.out.println((Stage) playerTable.getScene().getWindow());
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Level.fxml"));
         PlayScreenView.setModeToAI();
         try {

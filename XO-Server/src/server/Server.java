@@ -77,7 +77,10 @@ public class Server {
     
     public static PlayerHandler getOnlinePlayerHandler(int id){
         return onlinePlayersHandler.get(id);
-        //System.out.println("Onlines " +onlinePlayersHandler.size());
+    }
+
+    public static Hashtable<Integer, PlayerHandler> getAllOnlinePlayerHandler(){
+        return onlinePlayersHandler;
     }
 
     public static void addOnlinePlayersData(Player player) {

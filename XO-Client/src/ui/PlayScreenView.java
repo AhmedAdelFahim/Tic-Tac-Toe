@@ -42,8 +42,7 @@ import viewmodel.PlayModeViewModel;
  */
 public class PlayScreenView implements Initializable {
 
-    public Player currentPlayer;
-    public static int otherPlayerId;
+    public model.Player currentPlayer;
 
     @FXML
     private Label label;
@@ -139,6 +138,8 @@ public class PlayScreenView implements Initializable {
     boolean CanPlay = false;
 
     public void initGameBoard() {
+        board.reset();
+        ClientSideHandler.updateStatus(Constant.BUSY_STATUS);
         BoardCells = new Button[][]{{pos_1, pos_2, pos_3}, {pos_4, pos_5, pos_6}, {pos_7, pos_8, pos_9}};
         System.out.println(PlayerName);
         System.out.println(OpponentPlayerName);
@@ -154,18 +155,22 @@ public class PlayScreenView implements Initializable {
             for (int j = 0; j < 3; j++) {
                 int finalJ = j;
                 int finalI = i;
+                BoardCells[finalI][finalJ].setDisable(false);
+                BoardCells[finalI][finalJ].setText("");
                 BoardCells[i][j].setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
                         if (CanPlay) {
                             BoardCells[finalI][finalJ].setText(board.getTurn().toString());
-                            BoardCells[finalI][finalJ].setDisable(true);
 //                            convert from 2d array  to 1d
                             board.move(finalI*3+finalJ);
+                            if(mode==Mode.Player)
+                                sendGameMove(finalI*3+finalJ);
+
                             CanPlay = false;
                         }
-                        BoardCells[finalI][finalJ].setDisable(false);
-                        BoardCells[finalI][finalJ].setText("");
+
+
                     }
                 });
             }
@@ -198,8 +203,10 @@ public class PlayScreenView implements Initializable {
             state = Board.State.X;
             CanPlay = true;
         }
-        else
+        else {
             state = Board.State.O;
+            CanPlay = false;
+        }
     }
 
     public static void setModeToAI() {
@@ -223,7 +230,6 @@ public class PlayScreenView implements Initializable {
         board = new Board();
         initGameBoard();
         play();
-//        ClientSideHandler.updateStatus(Constant.BUSY_STATUS);
 
     }
 
@@ -257,9 +263,22 @@ public class PlayScreenView implements Initializable {
                             }
                             break;
                         case Player:
+
                             if (board.getTurn() != state) {
-//                                ClientSideHandler.getInstance().getOtherPlayerMove();
-                            } else {
+                                System.out.println("hello its other player turn");
+                               if(ClientSideHandler.getInstance().getOtherPlayerMove()!=-1){
+                                   System.out.println("other player player");
+                                   board.move(ClientSideHandler.getInstance().getOtherPlayerMove());
+                                   Platform.runLater(new Runnable() {
+                                       @Override
+                                       public void run() {
+                                           printGameBoard();
+                                       }
+                                   });
+                                   ClientSideHandler.getInstance().setOtherPlayerMove();
+                               }
+                            }
+                            else {
                                 CanPlay = true;
                             }
                             break;
@@ -297,8 +316,8 @@ public class PlayScreenView implements Initializable {
                                 Optional<ButtonType> result = alert.showAndWait();
                                 if (result.get() == YesBtn) {
                                     board.reset();
+                                    System.out.println(board);
                                     initGameBoard();
-                                    CanPlay = true;
                                     play();
                                 } else if (result.get() == NoBtn) {
                                     goHome();
@@ -358,21 +377,14 @@ public class PlayScreenView implements Initializable {
     }
 
     public void sendGameMove(int movePos) {
-        /////use switch after handling loading game screen sfter invitstion accepted
-//        switch (mode) {
-//            case Player:
+
                 HashMap<String, Object> map = new HashMap<>();
                 map.put(Constant.REQUEST_TYPE, Constant.GAME_MOVE);
                 map.put(Constant.SENDER_ID_KEY, currentPlayer.getId());
-                // map.put(Constant.SENDER_NAME_KEY,currentPlayer.getUserName());
-                map.put(Constant.RECIEVER_ID_KEY, otherPlayerId);
+                map.put(Constant.RECIEVER_ID_KEY, PlayModeController.OtherPlayerId);
                 map.put(Constant.MOVE_POSTION, movePos);
                 PlayModeViewModel.gameMove(map);
-                System.err.println(otherPlayerId);
-//                break;
-//            default:
-//                break;
-//        }
+                System.err.println(map);
 
     }
 }

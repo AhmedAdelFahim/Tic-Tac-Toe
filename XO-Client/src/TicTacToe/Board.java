@@ -61,7 +61,7 @@ public class Board {
      * @param index     the position on the board (example: index 4 is location (0, 1))
      * @return          true if the move has not already been played
      */
-    public boolean move (int index) {
+    public  boolean move(int index) {
         return move(index% BOARD_WIDTH, index/ BOARD_WIDTH);
     }
 

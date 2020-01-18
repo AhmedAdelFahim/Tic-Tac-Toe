@@ -33,6 +33,7 @@ public class ClientSideHandler {
     private static ClientSideHandler clientSideHandler = null;
     private Thread handler;
     private Player currentPlayer;
+    private int OtherPlayerMove = -1;
 
     public static synchronized ClientSideHandler getInstance() {
         if (clientSideHandler == null) {
@@ -117,6 +118,7 @@ public class ClientSideHandler {
                     try {
                         String json = dataInputStream.readLine();
                         JsonObject jsonObject = Utils.toJson(json);
+                        System.out.println(json);
                         if (jsonObject.has(Constant.REQUEST_TYPE) &&
                                 Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.ONLINE_PLAYERS_DATA) {
                             JsonArray onlinePlayers = jsonObject.getAsJsonArray(Constant.ONLINE_PLAYER_DATA_KEY);
@@ -126,6 +128,7 @@ public class ClientSideHandler {
                         else if (jsonObject.has(Constant.REQUEST_TYPE) &&
                                 Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.INVITE) {
                             PlayModeController.OtherPlayer=jsonObject.get(Constant.SENDER_NAME_KEY).toString();
+                            PlayModeController.OtherPlayerId=jsonObject.get(Constant.SENDER_ID_KEY).toString();
                             System.out.println("NEW INVITATION FROM" + PlayModeController.OtherPlayer);
                             InvitationViewModel.handleInvitation(jsonObject);
                         }
@@ -133,6 +136,7 @@ public class ClientSideHandler {
                         else if (jsonObject.has(Constant.REQUEST_TYPE) &&
                                 Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.ACCEPT_INVITATION) {
                             PlayModeController.OtherPlayer = jsonObject.get(Constant.SENDER_NAME_KEY).toString();
+                            PlayModeController.OtherPlayerId=jsonObject.get(Constant.SENDER_ID_KEY).toString();
                             System.out.println("the Other Player Is " + PlayModeController.OtherPlayer);
                             PlayScreenView.setModeToPlayers();
                             PlayScreenView.setToHost();
@@ -165,6 +169,14 @@ public class ClientSideHandler {
                         }
 
                         else if (jsonObject.has(Constant.REQUEST_TYPE) &&
+                                Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.GAME_MOVE) {
+                                OtherPlayerMove = jsonObject.get(Constant.MOVE_POSTION).getAsInt();
+                        }
+
+
+
+
+                        else if (jsonObject.has(Constant.REQUEST_TYPE) &&
                                 Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.LOGOUT_RESPONSE) {
                             if (jsonObject.has(Constant.STATUS_CODE_KEY) &&
                                     Integer.parseInt(jsonObject.get(Constant.STATUS_CODE_KEY).toString()) == Constant.STATUS_CODE_SUCCESSED) {
@@ -183,6 +195,7 @@ public class ClientSideHandler {
 
         handler.start();
     }
+
 
 
     private Player getCurrentPlayerData(JsonObject playerDataJsonObject) {
@@ -206,6 +219,7 @@ public class ClientSideHandler {
         return true;
     }
     public boolean sendGameMove(String json) {
+        System.out.println(json);
         try {
             printStream.println(json);
         } catch (Exception ex) {
@@ -214,6 +228,14 @@ public class ClientSideHandler {
         return true;
     }
 
+
+    public int getOtherPlayerMove(){
+        return OtherPlayerMove;
+    }
+
+    public void setOtherPlayerMove(){
+        OtherPlayerMove = -1;
+    }
 
     public void logout(String json) {
         printStream.println(json);
