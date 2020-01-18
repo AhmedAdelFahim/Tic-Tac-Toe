@@ -49,7 +49,7 @@ public class LevelController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         LogoutViewModel.toSignUpFlagProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue){
+            if (newValue) {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
@@ -59,7 +59,7 @@ public class LevelController implements Initializable {
                             Scene scene = new Scene(root);
                             Stage stage = (Stage) easyButton.getScene().getWindow();
                             stage.setScene(scene);
-
+                            stage.setTitle("Login Form Tic Tac Toe");
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -67,7 +67,8 @@ public class LevelController implements Initializable {
                 });
 
             }
-        });    }
+        });
+    }
 
     @FXML
     private void handleEasyAction(ActionEvent event) {
@@ -76,15 +77,15 @@ public class LevelController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
         try {
             Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root,800,500);
+            Scene scene = new Scene(root, 800, 500);
             Stage stage = (Stage) hardButton.getScene().getWindow();
             stage.setScene(scene);
+            stage.setTitle("Tic Tac Toe");
         } catch (IOException ex) {
             Logger.getLogger(LevelController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
-    }
 
+    }
 
     @FXML
     private void handleMediumAction(ActionEvent event) {
@@ -93,9 +94,10 @@ public class LevelController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
         try {
             Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root,800,500);
+            Scene scene = new Scene(root, 800, 500);
             Stage stage = (Stage) hardButton.getScene().getWindow();
             stage.setScene(scene);
+            stage.setTitle("Tic Tac Toe");
         } catch (IOException ex) {
             Logger.getLogger(LevelController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -108,20 +110,20 @@ public class LevelController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
         try {
             Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root,800,500);
+            Scene scene = new Scene(root, 800, 500);
             Stage stage = (Stage) hardButton.getScene().getWindow();
             stage.setScene(scene);
+            stage.setTitle("Tic Tac Toe");
         } catch (IOException ex) {
             Logger.getLogger(LevelController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-
     @FXML
     private void handleLogoutButton(ActionEvent event) {
-        HashMap<String,Object> map = new HashMap<>();
-        map.put(Constant.USER_NAME_KEY,ClientSideHandler.getInstance().getCurrentPlayer().getUserName());
-        map.put(Constant.REQUEST_TYPE,Constant.LOGOUT);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(Constant.USER_NAME_KEY, ClientSideHandler.getInstance().getCurrentPlayer().getUserName());
+        map.put(Constant.REQUEST_TYPE, Constant.LOGOUT);
         LogoutViewModel.logout(map);
     }
 
@@ -138,7 +140,7 @@ public class LevelController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(LevelController.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
     }
-    
+
 }
