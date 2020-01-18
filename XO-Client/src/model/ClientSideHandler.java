@@ -23,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import static ui.PlayModeController.invitationJason;
 import ui.PlayScreenView;
+import ui.SavedGamesController;
 
 import viewmodel.InvitationViewModel;
 
@@ -172,7 +173,12 @@ public class ClientSideHandler {
                                 Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.GAME_MOVE) {
                                 OtherPlayerMove = jsonObject.get(Constant.MOVE_POSTION).getAsInt();
                         }
-
+                            
+                        else if (jsonObject.has(Constant.REQUEST_TYPE) &&
+                                Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.SAVED_GAMES) {
+//                                System.out.println(jsonObject);
+                            SavedGamesController.savedGamesJson =jsonObject;
+                        }
 
 
 
@@ -218,6 +224,17 @@ public class ClientSideHandler {
         }
         return true;
     }
+    
+    public boolean handelSavedGames(String json) {
+        try {
+            printStream.println(json);
+        } catch (Exception ex) {
+            Logger.getLogger(ClientSideHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+    }
+    
+    
     public boolean sendGameMove(String json) {
         System.out.println(json);
         try {

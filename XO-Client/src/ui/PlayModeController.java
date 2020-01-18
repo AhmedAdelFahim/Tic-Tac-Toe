@@ -245,7 +245,7 @@ public class PlayModeController implements Initializable {
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
             Stage stage = (Stage) computer.getScene().getWindow();
-            stage.setTitle("Select Level Tic Tac Toe");
+            stage.setTitle("Tic Tac Toe");
             stage.setScene(scene);
 
         } catch (IOException e) {
@@ -283,9 +283,19 @@ public class PlayModeController implements Initializable {
         LogoutViewModel.logout(map);
     }
 
+    public void getSavedGames(ActionEvent actionEvent) { //sends a request to the server to the saved games
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(Constant.SENDER_ID_KEY, ClientSideHandler.getInstance().getCurrentPlayer().getId());
+        map.put(Constant.REQUEST_TYPE, Constant.SAVED_GAMES);
+        PlayModeViewModel.getSavedGames(map);
+    }
+    
+    
     @FXML
     private void handleSaveAction(ActionEvent event) {
         try {
+            getSavedGames(event);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("savedGames.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             Scene sceneDashboard = new Scene(root);

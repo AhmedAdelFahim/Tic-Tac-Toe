@@ -39,7 +39,6 @@
         </Button>
         <ListView fx:id="onlineList" layoutX="476.0" layoutY="129.0" prefHeight="257.0" prefWidth="214.0" style="-fx-background-color: #2D3E50; -fx-border-color: #000000;" >
 
-        </ListView>
-        <Label fx:id="noOnlinePlayers" layoutX="577.0" layoutY="243.0" prefHeight="30.0" prefWidth="125.0" text="No Online Players" textFill="#f2f2f2" translateX="-56.0"  />
-    </children>
+       </ListView>
+   </children>
 </AnchorPane>

@@ -69,7 +69,7 @@ public class SignUpView implements Initializable {
                     Scene scene = new Scene(root);
                     Stage stage = (Stage) firstName.getScene().getWindow();
                     stage.setScene(scene);
-                    stage.setTitle("Select Play Mode Tic Tac Toe");
+                    stage.setTitle("Tic Tac Toe");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -118,7 +118,7 @@ public class SignUpView implements Initializable {
             Scene scene = new Scene(root);
             Stage stage = (Stage) firstName.getScene().getWindow();
             stage.setScene(scene);
-            stage.setTitle("Login Form Tic Tac Toe");
+            stage.setTitle("Tic Tac Toe");
 
         } catch (IOException e) {
             e.printStackTrace();

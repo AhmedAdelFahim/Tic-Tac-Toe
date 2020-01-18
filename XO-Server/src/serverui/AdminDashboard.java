@@ -27,14 +27,15 @@ public class AdminDashboard extends Application {
         
         stageDashboard.setScene(sceneDashboard);
         stageDashboard.setResizable(false);
+        stageDashboard.setTitle("Tic Tac Toe");
         stageDashboard.show();
     }
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        launch(args);
-    }
+//    public static void main(String[] args) {
+//        launch(args);
+//    }
     
 }

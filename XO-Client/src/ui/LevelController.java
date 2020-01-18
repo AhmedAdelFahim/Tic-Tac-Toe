@@ -134,7 +134,7 @@ public class LevelController implements Initializable {
             Scene sceneDashboard = new Scene(root);
             Stage stage = (Stage) easyButton.getScene().getWindow();
             stage.setScene(sceneDashboard);
-            stage.setTitle("Select Play Mode Tic Tac Toe");
+            stage.setTitle("Tic Tac Toe");
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(LevelController.class.getName()).log(Level.SEVERE, null, ex);

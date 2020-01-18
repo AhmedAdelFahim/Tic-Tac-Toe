@@ -60,7 +60,7 @@ public class OpenController implements Initializable {
             Scene scene = new Scene(root);
             Stage stage = (Stage) optionslabel.getScene().getWindow();
             stage.setScene(scene);
-            stage.setTitle("Registration Form Tic Tac Toe");
+            stage.setTitle("Tic Tac Toe");
 
         } catch (IOException e) {
             e.printStackTrace();
