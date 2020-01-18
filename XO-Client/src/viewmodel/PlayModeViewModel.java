@@ -25,7 +25,10 @@ public class PlayModeViewModel {
             public void run() {
                 onlinePlayers.clear();
                 for (int i = 0; i < onlinePlayersJson.size(); ++i) {
-                    onlinePlayers.add(Player.preparePlayerData(onlinePlayersJson.get(i).getAsJsonObject()));
+                    Player player = Player.preparePlayerData(onlinePlayersJson.get(i).getAsJsonObject());
+                    if(player.getId() == ClientSideHandler.getInstance().getCurrentPlayer().getId())
+                        continue;
+                    onlinePlayers.add(player);
 
                 }
 

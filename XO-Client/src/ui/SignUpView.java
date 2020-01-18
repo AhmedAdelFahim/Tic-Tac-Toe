@@ -21,6 +21,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import utils.Constant;
 import viewmodel.SignUpViewModel;
@@ -59,7 +60,7 @@ public class SignUpView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        Font.loadFont(getClass().getResource("../res/font/Bangers.ttf").toExternalForm(),28);
         SignUpViewModel.toPlayScreenFlagProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayMode.fxml"));

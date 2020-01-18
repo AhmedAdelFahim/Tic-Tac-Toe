@@ -20,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.ClientSideHandler;
 import utils.Constant;
@@ -48,6 +49,7 @@ public class LevelController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Font.loadFont(getClass().getResource("../res/font/Bangers.ttf").toExternalForm(),28);
         LogoutViewModel.toSignUpFlagProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 Platform.runLater(new Runnable() {
@@ -57,7 +59,7 @@ public class LevelController implements Initializable {
                         try {
                             Parent root = fxmlLoader.load();
                             Scene scene = new Scene(root);
-                            Stage stage = (Stage) easyButton.getScene().getWindow();
+                            Stage stage = (Stage) logoutButton.getScene().getWindow();
                             stage.setScene(scene);
                             stage.setTitle("Tic Tac Toe");
                         } catch (IOException e) {
@@ -76,7 +78,7 @@ public class LevelController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
         try {
             Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root, 800, 500);
+            Scene scene = new Scene(root);
             Stage stage = (Stage) hardButton.getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle("Tic Tac Toe");
@@ -92,7 +94,7 @@ public class LevelController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
         try {
             Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root, 800, 500);
+            Scene scene = new Scene(root);
             Stage stage = (Stage) hardButton.getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle("Tic Tac Toe");
@@ -107,7 +109,7 @@ public class LevelController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
         try {
             Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root, 800, 500);
+            Scene scene = new Scene(root);
             Stage stage = (Stage) hardButton.getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle("Tic Tac Toe");

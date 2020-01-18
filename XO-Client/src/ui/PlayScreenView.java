@@ -340,7 +340,7 @@ public class PlayScreenView implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayMode.fxml"));
         try {
             Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root, 800, 500);
+            Scene scene = new Scene(root);
             Stage stage = (Stage) pos_1.getScene().getWindow();
             stage.setScene(scene);
         } catch (IOException ex) {

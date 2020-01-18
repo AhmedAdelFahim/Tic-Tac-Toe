@@ -27,6 +27,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import utils.Constant;
 import viewmodel.LogInViewModel;
@@ -53,15 +54,19 @@ public class LoginView implements Initializable {
     @FXML
     private Button signUpButton;
 
+
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Font.loadFont(getClass().getResource("../res/font/Bangers.ttf").toExternalForm(),28);
+        //headerLabel.setStyle("-fx-font-family: Bangers");
         LogInViewModel.toPlayScreenFlagProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println(newValue);
             if (newValue) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayMode.fxml"));
                 try {
                     Parent root = fxmlLoader.load();
-                    Scene scene = new Scene(root, 800, 500);
+                    Scene scene = new Scene(root);
                     Stage stage = (Stage) signUpButton.getScene().getWindow();
                     stage.setScene(scene);
                     stage.setTitle("Select Play Mode Tic Tac Toe");

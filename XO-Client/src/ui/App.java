@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.ClientSideHandler;
 import utils.Constant;
 import viewmodel.LogoutViewModel;
@@ -26,7 +27,7 @@ public class App extends Application {
     public static Stage CurrentStage;
     @Override
     public void start(Stage stage) throws Exception {
-
+        stage.initStyle(StageStyle.UNDECORATED);
         CurrentStage = stage;
         Parent root = FXMLLoader.load(getClass().getResource("open.fxml"));
 
@@ -45,10 +46,12 @@ public class App extends Application {
     @Override
     public void stop() throws Exception {
         // logout before close
-        HashMap<String,Object> map = new HashMap<>();
-        map.put(Constant.USER_NAME_KEY, ClientSideHandler.getInstance().getCurrentPlayer().getUserName());
-        map.put(Constant.REQUEST_TYPE,Constant.LOGOUT);
-        LogoutViewModel.logout(map);
+        if(ClientSideHandler.getInstance().getCurrentPlayer()!=null) {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put(Constant.USER_NAME_KEY, ClientSideHandler.getInstance().getCurrentPlayer().getUserName());
+            map.put(Constant.REQUEST_TYPE, Constant.LOGOUT);
+            LogoutViewModel.logout(map);
+        }
         super.stop();
     }
 

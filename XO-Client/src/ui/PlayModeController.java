@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -29,6 +30,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -43,8 +45,6 @@ import viewmodel.*;
  * @author eg
  */
 public class PlayModeController implements Initializable {
-
-    Thread playersThread;
     public static Player currentPlayer;
     public static String OtherPlayer;
     public static String OtherPlayerId;
@@ -61,41 +61,27 @@ public class PlayModeController implements Initializable {
     @FXML
     private ListView<Player> onlineList;
 
-    /*@FXML
-    private TableView playerTable;
     @FXML
-    private TableColumn Online;
-    @FXML
-    private TableColumn Ranks;*/
+    private Label noOnlinePlayers;
+
+
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Font.loadFont(getClass().getResource("../res/font/Bangers.ttf").toExternalForm(),28);
         currentPlayer = ClientSideHandler.getInstance().getCurrentPlayer();
         onlineList.setCellFactory(new PlayerCellFactory());
         onlineList.setItems(PlayModeViewModel.getOnlinePlayers());
-
-//        listView.setItems(names);
-        /*Online.setCellValueFactory(new PropertyValueFactory("userName"));
-        Ranks.setCellValueFactory(new PropertyValueFactory("score"));
-        playerTable.setItems(PlayModeViewModel.getOnlinePlayers());*/
-
- /* playerTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+        onlineList.getItems().addListener(new ListChangeListener<Player>() {
             @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                //get  id of logged in user
-                int invitedPlayerId = ((Player) newValue).getId();
-                int senderPlayerId = currentPlayer.getId();
-
-                String senderPlayerUserName = currentPlayer.getUserName();
-                HashMap<String, Object> map = new HashMap<>();
-                map.put(Constant.REQUEST_TYPE, Constant.INVITE);
-                map.put(Constant.SENDER_ID_KEY, senderPlayerId);
-                map.put(Constant.RECIEVER_ID_KEY, invitedPlayerId);
-                map.put(Constant.RECIEVER_NAME_KEY, ((Player) newValue).getUserName());
-                map.put(Constant.SENDER_NAME_KEY, currentPlayer.getUserName());
-                PlayModeViewModel.sendInvitation(map);
-
+            public void onChanged(Change<? extends Player> c) {
+                if(c.getList().size()>0){
+                    noOnlinePlayers.setVisible(false);
+                } else if(c.getList().size()==0){
+                    noOnlinePlayers.setVisible(true);
+                }
             }
-        });*/
+        });
         InvitationViewModel.toDeclinedInvitationFlag().addListener((observable, declinedFlagOldValue, declinedFlagNewValue) -> {
             if (declinedFlagNewValue) {
                 Platform.runLater(new Runnable() {
@@ -130,7 +116,7 @@ public class PlayModeController implements Initializable {
                         dialog.setTitle("Invitation Declined");
                         dialog.setScene(dialogScene);
                         dialog.show();
-                        }
+                    }
                 });
             } else {
                 System.out.println("FFF");
@@ -142,7 +128,7 @@ public class PlayModeController implements Initializable {
                     @Override
                     public void run() {
 
-   ////////////////////////////////////////////////////////////////////////
+                        ////////////////////////////////////////////////////////////////////////
                         final Stage dialog = new Stage();
                         dialog.initModality(Modality.APPLICATION_MODAL);//he must reply first
                         VBox dialogVbox = new VBox(20);
@@ -152,50 +138,47 @@ public class PlayModeController implements Initializable {
                         Button accept = new Button();
                         accept.setText("Accept");
                         accept.setOnAction(new EventHandler<ActionEvent>() {
-                        public void handle(ActionEvent event) {
-//                        System.out.println("Scrape button pressed.");
-                        acceptInvitation(invitationJason);
-                        PlayScreenView.setModeToPlayers();
-//                            System.out.println("the Other Player Is " + OtherPlayer);
-//                            System.out.println("the Other Player id  " + OtherPlayerId);
-                        PlayScreenView.setToGuest();
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
-                        try {
-                            Parent root = fxmlLoader.load();
-                            Scene scene = new Scene(root, 800, 500);
-                            Stage stage = (Stage) computer.getScene().getWindow();
-                            stage.setScene(scene);
-                            stage.setTitle("Tic Tac Toe");
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
-                        }
+                            public void handle(ActionEvent event) {
+                                acceptInvitation(invitationJason);
+                                PlayScreenView.setModeToPlayers();
+                                PlayScreenView.setToGuest();
+                                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
+                                try {
+                                    Parent root = fxmlLoader.load();
+                                    Scene scene = new Scene(root);
+                                    Stage stage = (Stage) computer.getScene().getWindow();
+                                    stage.setScene(scene);
+                                    stage.setTitle("Tic Tac Toe");
+                                } catch (IOException ex) {
+                                    ex.printStackTrace();
+                                }
 
-                        dialog.close();
-                    }
-                });
-                         hbButtons.getChildren().add(accept);
-                         hbButtons.setAlignment(Pos.CENTER_RIGHT);
+                                dialog.close();
+                            }
+                        });
+                        hbButtons.getChildren().add(accept);
+                        hbButtons.setAlignment(Pos.CENTER_RIGHT);
 
-                         Button decline = new Button();
-                         decline.setText("Decline");
-                         decline.setOnAction(new EventHandler<ActionEvent>() {
-                         public void handle(ActionEvent event) {
-                         System.out.println("Scrape button pressed.");
-                         declineInvitation(invitationJason);
-                         dialog.close();
-                    }
-                });
-                         hbButtons.getChildren().add(decline);
-                         hbButtons.setAlignment(Pos.CENTER_RIGHT);
+                        Button decline = new Button();
+                        decline.setText("Decline");
+                        decline.setOnAction(new EventHandler<ActionEvent>() {
+                            public void handle(ActionEvent event) {
+                                System.out.println("Scrape button pressed.");
+                                declineInvitation(invitationJason);
+                                dialog.close();
+                            }
+                        });
+                        hbButtons.getChildren().add(decline);
+                        hbButtons.setAlignment(Pos.CENTER_RIGHT);
 
-                         BorderPane root = new BorderPane();
-                         root.setPadding(new Insets(10)); // space between elements and window border
-                         root.setCenter(dialogVbox);
-                         root.setBottom(hbButtons);
-                         Scene dialogScene = new Scene(root, 300, 100);
-                         dialog.setTitle("Invitation");
-                         dialog.setScene(dialogScene);
-                         dialog.show();
+                        BorderPane root = new BorderPane();
+                        root.setPadding(new Insets(10)); // space between elements and window border
+                        root.setCenter(dialogVbox);
+                        root.setBottom(hbButtons);
+                        Scene dialogScene = new Scene(root, 300, 100);
+                        dialog.setTitle("Invitation");
+                        dialog.setScene(dialogScene);
+                        dialog.show();
 
                         ////////////////////////////////////////////////////////
 //                        ButtonType accept = new ButtonType("Accept", ButtonBar.ButtonData.OK_DONE);
@@ -232,7 +215,6 @@ public class PlayModeController implements Initializable {
                 System.out.println("FFF");
             }
         });
-
         LogoutViewModel.toSignUpFlagProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 Platform.runLater(new Runnable() {
@@ -242,7 +224,7 @@ public class PlayModeController implements Initializable {
                         try {
                             Parent root = fxmlLoader.load();
                             Scene scene = new Scene(root);
-                            Stage stage = (Stage) computer.getScene().getWindow();
+                            Stage stage = (Stage) onlineList.getScene().getWindow();
                             stage.setScene(scene);
                             stage.setTitle("Tic Tac Toe");
                         } catch (IOException e) {
