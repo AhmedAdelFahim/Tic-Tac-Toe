@@ -53,13 +53,13 @@ public class LevelController implements Initializable {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("open.fxml"));
                         try {
                             Parent root = fxmlLoader.load();
                             Scene scene = new Scene(root);
                             Stage stage = (Stage) easyButton.getScene().getWindow();
                             stage.setScene(scene);
-                            stage.setTitle("Login Form Tic Tac Toe");
+                            stage.setTitle("Tic Tac Toe");
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

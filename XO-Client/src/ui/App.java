@@ -28,7 +28,7 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
 
         CurrentStage = stage;
-        Parent root = FXMLLoader.load(getClass().getResource("SignUpView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("open.fxml"));
 
         Scene scene = new Scene(root);
 
@@ -36,7 +36,7 @@ public class App extends Application {
         stage.sizeToScene();
         stage.setResizable(false);
         stage.getIcons().add(new Image(App.class.getResourceAsStream("XOIcon.png")));
-        stage.setTitle("Registration Form Tic Tac Toe");
+        stage.setTitle("Tic Tac Toe");
 
         stage.show();
 

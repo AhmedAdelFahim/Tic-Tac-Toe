@@ -11,7 +11,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -45,7 +44,6 @@ public class PlayModeController implements Initializable {
     @FXML
     private ImageView computer;
 
-    
     @FXML
     private Button handleLogoutAction;
     @FXML
@@ -60,7 +58,6 @@ public class PlayModeController implements Initializable {
     private TableColumn Online;
     @FXML
     private TableColumn Ranks;*/
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         currentPlayer = ClientSideHandler.getInstance().getCurrentPlayer();
@@ -71,7 +68,7 @@ public class PlayModeController implements Initializable {
         Ranks.setCellValueFactory(new PropertyValueFactory("score"));
         playerTable.setItems(PlayModeViewModel.getOnlinePlayers());*/
 
-       /* playerTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+ /* playerTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 //get  id of logged in user
@@ -106,7 +103,7 @@ public class PlayModeController implements Initializable {
                 System.out.println("FFF");
             }
         });
-           InvitationViewModel.tocurrentInviteScreenflagProperty().addListener((observable, oldValue, newValue) -> {
+        InvitationViewModel.tocurrentInviteScreenflagProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 Platform.runLater(new Runnable() {
                     @Override
@@ -128,7 +125,7 @@ public class PlayModeController implements Initializable {
                             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
                             try {
                                 Parent root = fxmlLoader.load();
-                                Scene scene = new Scene(root,800,500);
+                                Scene scene = new Scene(root, 800, 500);
                                 Stage stage = (Stage) computer.getScene().getWindow();
                                 stage.setScene(scene);
                             } catch (IOException ex) {
@@ -147,17 +144,17 @@ public class PlayModeController implements Initializable {
         });
 
         LogoutViewModel.toSignUpFlagProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue){
+            if (newValue) {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("open.fxml"));
                         try {
                             Parent root = fxmlLoader.load();
                             Scene scene = new Scene(root);
                             Stage stage = (Stage) computer.getScene().getWindow();
                             stage.setScene(scene);
-
+                            stage.setTitle("Tic Tac Toe");
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -167,9 +164,6 @@ public class PlayModeController implements Initializable {
             }
         });
     }
-
-
-
 
     @FXML
     private void handleComputerButton(MouseEvent event) {
@@ -181,7 +175,6 @@ public class PlayModeController implements Initializable {
             Stage stage = (Stage) computer.getScene().getWindow();
             stage.setTitle("Select Level Tic Tac Toe");
             stage.setScene(scene);
-
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -210,18 +203,17 @@ public class PlayModeController implements Initializable {
         InvitationViewModel.resetCurrentInviteScreenflag();
     }
 
-    
-    
     public void handleLogoutAction(ActionEvent actionEvent) {
 
-        HashMap<String,Object> map = new HashMap<>();
-        map.put(Constant.USER_NAME_KEY,ClientSideHandler.getInstance().getCurrentPlayer().getUserName());
-        map.put(Constant.REQUEST_TYPE,Constant.LOGOUT);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(Constant.USER_NAME_KEY, ClientSideHandler.getInstance().getCurrentPlayer().getUserName());
+        map.put(Constant.REQUEST_TYPE, Constant.LOGOUT);
         LogoutViewModel.logout(map);
     }
+
     @FXML
     private void handleSaveAction(ActionEvent event) {
-         try {
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("savedGames.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             Scene sceneDashboard = new Scene(root);
@@ -233,5 +225,5 @@ public class PlayModeController implements Initializable {
             //Logger.getLogger(PlayModeController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }
