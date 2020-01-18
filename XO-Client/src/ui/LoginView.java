@@ -57,14 +57,14 @@ public class LoginView implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         LogInViewModel.toPlayScreenFlagProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println(newValue);
-            if(newValue){
+            if (newValue) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayMode.fxml"));
                 try {
                     Parent root = fxmlLoader.load();
-                    Scene scene = new Scene(root,800,500);
+                    Scene scene = new Scene(root, 800, 500);
                     Stage stage = (Stage) signUpButton.getScene().getWindow();
                     stage.setScene(scene);
-
+                    stage.setTitle("Select Play Mode Tic Tac Toe");
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -81,10 +81,11 @@ public class LoginView implements Initializable {
     private void handleSignUp(ActionEvent event) {
         try {
             System.out.println("Go To SignUp Page..");
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("SignUpView.fxml"));
             Stage stage = (Stage) signUpButton.getScene().getWindow();
             Scene scene = new Scene(loader.load());
             stage.setScene(scene);
+            stage.setTitle("Registration Form Tic Tac Toe");
             System.out.println("Logged In Successfully");
         } catch (IOException ex) {
             Logger.getLogger(LoginView.class.getName()).log(Level.SEVERE, null, ex);
@@ -114,9 +115,9 @@ public class LoginView implements Initializable {
 
             if (logInStatus == 1) {
                 HashMap<String, Object> map = new HashMap<>();
-               map.put(Constant.REQUEST_TYPE,Constant.LOGIN);
-                map.put(Constant.USER_NAME_KEY,userName);
-                map.put(Constant.PASSWORD_KEY,passWord);
+                map.put(Constant.REQUEST_TYPE, Constant.LOGIN);
+                map.put(Constant.USER_NAME_KEY, userName);
+                map.put(Constant.PASSWORD_KEY, passWord);
                 System.out.println(map.toString());
                 LogInViewModel.logIn(map);
             }
