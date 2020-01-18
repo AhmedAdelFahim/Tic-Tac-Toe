@@ -108,7 +108,7 @@ public class PlayerHandler extends Thread {
                     case Constant.UPDATE_SCORE:
                         DBQueries.updatePlayerScore(host_id);
                         Player player = Server.getOnlinePlayersData(host_id);
-                        player.setScore(player.getScore()+1);
+                        player.setScore(player.getScore() + 1);
                         Server.broadcastOnlinePlayers();
                         break;
                     case Constant.BUSY_STATUS:
@@ -145,7 +145,11 @@ public class PlayerHandler extends Thread {
                         System.out.println(jsonObject);
                         sendGameMoveToSpecificPlayer(jsonObject);
                         break;
-
+                    case Constant.SAVED_GAMES:
+                        System.out.println("SavedGames");
+                        JsonObject gamesData = DBQueries.getSavedGamesFromDataBase(jsonObject.get(Constant.SENDER_ID_KEY).toString());
+                        sendSavedGames(jsonObject, gamesData);
+                        break;
                     default:
                         System.out.println("default case");
                         break;
@@ -167,7 +171,15 @@ public class PlayerHandler extends Thread {
 
     void sendGameMoveToSpecificPlayer(JsonObject jsonInvitation) {
         PlayerHandler invitedPlayerHandeler = Server.getOnlinePlayerHandler(jsonInvitation.get(Constant.RECIEVER_ID_KEY).getAsInt());
-        System.err.println("a game move from "+jsonInvitation.get(Constant.SENDER_ID_KEY).toString()+" to " +jsonInvitation.get(Constant.RECIEVER_ID_KEY).toString() + " movePosition is "+jsonInvitation.get(Constant.MOVE_POSTION).toString());;
+        System.err.println("a game move from " + jsonInvitation.get(Constant.SENDER_ID_KEY).toString() + " to " + jsonInvitation.get(Constant.RECIEVER_ID_KEY).toString() + " movePosition is " + jsonInvitation.get(Constant.MOVE_POSTION).toString());;
         invitedPlayerHandeler.printStream.println(jsonInvitation);
+    }
+
+    void sendSavedGames(JsonObject jsonRequest, JsonObject jsonGames) {
+
+        Player currentPlayer = Server.getOnlinePlayersData(Integer.parseInt(jsonRequest.get(Constant.SENDER_ID_KEY).toString()));
+        PlayerHandler currentPlayerHandeler = Server.getOnlinePlayerHandler(currentPlayer.getId());
+        System.err.println(jsonGames);
+        currentPlayerHandeler.printStream.println(jsonGames);
     }
 }

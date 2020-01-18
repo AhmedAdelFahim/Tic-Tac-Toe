@@ -11,3 +11,5 @@ public class PlayerCellFactory implements Callback<ListView<Player>, ListCell<Pl
         return new OnlinePlayerItem();
     }
 }
+
+

@@ -64,7 +64,7 @@ public class LoginView implements Initializable {
                     Scene scene = new Scene(root, 800, 500);
                     Stage stage = (Stage) signUpButton.getScene().getWindow();
                     stage.setScene(scene);
-                    stage.setTitle("Select Play Mode Tic Tac Toe");
+                    stage.setTitle("Tic Tac Toe");
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -85,7 +85,7 @@ public class LoginView implements Initializable {
             Stage stage = (Stage) signUpButton.getScene().getWindow();
             Scene scene = new Scene(loader.load());
             stage.setScene(scene);
-            stage.setTitle("Registration Form Tic Tac Toe");
+            stage.setTitle("Tic Tac Toe");
             System.out.println("Logged In Successfully");
         } catch (IOException ex) {
             Logger.getLogger(LoginView.class.getName()).log(Level.SEVERE, null, ex);

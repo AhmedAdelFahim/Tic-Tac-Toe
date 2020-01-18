@@ -11,20 +11,38 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="456.0" prefWidth="279.0" style="-fx-background-color: #2D3E50;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.SignUpView">
+<AnchorPane id="AnchorPane" prefHeight="456.0" prefWidth="500.0" style="-fx-background-color: #2D3E50;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.SignUpView">
     <children>
-        <Button fx:id="registerButton" alignment="CENTER" contentDisplay="CENTER" layoutX="49.0" layoutY="326.0" onAction="#handleRegisterButton0Action" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: #1ABA9C;" text="Register" textFill="#eee8e8" />
-        <Label fx:id="TicTacToe" alignment="CENTER" contentDisplay="CENTER" layoutX="34.0" minHeight="16" minWidth="69" prefHeight="53.0" prefWidth="206.0" style="-fx-font-family: Stencil Std;" text="Tic Tac Toe" textFill="WHITE">
+        <Button fx:id="registerButton" alignment="CENTER" contentDisplay="CENTER" layoutX="151.0" layoutY="338.0" onAction="#handleRegisterButton0Action" prefHeight="41.0" prefWidth="184.0" style="-fx-background-color: #1ABA9C;" text="Register" textFill="#eee8e8">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font></Button>
+        <Label fx:id="TicTacToe" alignment="CENTER" contentDisplay="CENTER" layoutX="139.0" minHeight="16" minWidth="69" prefHeight="53.0" prefWidth="206.0" style="-fx-font-family: Stencil Std;" text="Tic Tac Toe" textFill="WHITE">
          <font>
             <Font size="34.0" />
          </font></Label>
-      <Button fx:id="haveAccountButton" alignment="CENTER" contentDisplay="CENTER" layoutX="47.0" layoutY="367.0" mnemonicParsing="false" onAction="#handlehaveAccountButtonAction" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: #414E56;" text="Aleady have account" textFill="#fcf9f9" />
+      <Button fx:id="haveAccountButton" alignment="CENTER" contentDisplay="CENTER" layoutX="154.0" layoutY="405.0" mnemonicParsing="false" onAction="#handlehaveAccountButtonAction" prefHeight="17.0" prefWidth="177.0" style="-fx-background-color: #414E56;" text="Aleady have account" textFill="#fcf9f9" />
       <Label fx:id="label1" layoutX="154.0" layoutY="113.0" prefHeight="7.0" prefWidth="69.0" />
-      <TextField fx:id="firstName" layoutX="48.0" layoutY="58.0" prefHeight="17.0" prefWidth="177.0" promptText=" first name" style="-fx-background-color: #414450; -fx-border-color: #5DBCD2; -fx-text-fill: white;" text="aaa" />
-      <TextField fx:id="lastName" layoutX="48.0" layoutY="109.0" prefHeight="17.0" prefWidth="177.0" promptText="last name" style="-fx-background-color: #414450; -fx-border-color: #5DBCD2; -fx-text-fill: white;" text="ddd" />
-      <TextField fx:id="userName" layoutX="48.0" layoutY="159.0" prefHeight="17.0" prefWidth="177.0" promptText="user name" style="-fx-background-color: #414450; -fx-border-color: #5DBCD2; -fx-text-fill: white;" text="xxx" />
+      <TextField fx:id="firstName" layoutX="154.0" layoutY="88.0" prefHeight="34.0" prefWidth="177.0" promptText=" first name" style="-fx-background-color: #414450; -fx-border-color: #5DBCD2; -fx-text-fill: white;" text="aaa">
+         <font>
+            <Font size="15.0" />
+         </font></TextField>
+      <TextField fx:id="lastName" layoutX="154.0" layoutY="130.0" prefHeight="34.0" prefWidth="177.0" promptText="last name" style="-fx-background-color: #414450; -fx-border-color: #5DBCD2; -fx-text-fill: white;" text="ddd">
+         <font>
+            <Font size="15.0" />
+         </font></TextField>
+      <TextField fx:id="userName" layoutX="154.0" layoutY="174.0" prefHeight="34.0" prefWidth="177.0" promptText="user name" style="-fx-background-color: #414450; -fx-border-color: #5DBCD2; -fx-text-fill: white;" text="xxx">
+         <font>
+            <Font size="15.0" />
+         </font></TextField>
       <Label fx:id="message" layoutX="49.0" layoutY="301.0" prefHeight="25.0" prefWidth="155.0" textFill="#f20808" />
-      <PasswordField fx:id="password" layoutX="47.0" layoutY="215.0" prefHeight="25.0" prefWidth="177.0" promptText="password" style="-fx-background-color: #414450; -fx-border-color: #5DBCD2; -fx-text-fill: white;" text="111" />
-      <PasswordField fx:id="confirmPassword" layoutX="48.0" layoutY="264.0" prefHeight="25.0" prefWidth="177.0" promptText="confirm password" style="-fx-background-color: #414450; -fx-border-color: #5DBCD2; -fx-text-fill: white;" text="111" />
+      <PasswordField fx:id="password" layoutX="154.0" layoutY="220.0" prefHeight="34.0" prefWidth="177.0" promptText="password" style="-fx-background-color: #414450; -fx-border-color: #5DBCD2; -fx-text-fill: white;" text="111">
+         <font>
+            <Font size="15.0" />
+         </font></PasswordField>
+      <PasswordField fx:id="confirmPassword" layoutX="154.0" layoutY="267.0" prefHeight="34.0" prefWidth="177.0" promptText="confirm password" style="-fx-background-color: #414450; -fx-border-color: #5DBCD2; -fx-text-fill: white;" text="111">
+         <font>
+            <Font size="15.0" />
+         </font></PasswordField>
     </children>
 </AnchorPane>

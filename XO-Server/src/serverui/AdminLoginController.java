@@ -69,6 +69,7 @@ public class AdminLoginController implements Initializable {
                 Scene sceneDashboard = new Scene(root,800,500);
                 Stage stage = (Stage) Login.getScene().getWindow();
                 stage.setScene(sceneDashboard);
+                stage.setTitle("Tic Tac Toe");
                 stage.show();
     }
 

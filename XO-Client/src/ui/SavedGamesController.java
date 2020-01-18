@@ -5,8 +5,10 @@
  */
 package ui;
 
+import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +21,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+import model.ClientSideHandler;
+import model.Game;
+import utils.Constant;
+import viewmodel.LogoutViewModel;
+import viewmodel.PlayModeViewModel;
 
 /**
  * FXML Controller class
@@ -27,24 +34,23 @@ import javafx.stage.Stage;
  */
 public class SavedGamesController implements Initializable {
 
+   public static JsonObject savedGamesJson;
 //    @FXML
 //    private ListView<?> listPlayer;
     @FXML
     private Button backButtton;
     @FXML
     private Button savedButton;
+    @FXML
+    private ListView<Game> savedGamesList;
     
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+       savedGamesList.setCellFactory(new GameCellFactory());
+       savedGamesList.setItems(PlayModeViewModel.getSavedGames());
     }    
 
-    @FXML
-    private void handlePlayerAction(ListView.EditEvent<?> event) {
-        
-        
-    }
 
     @FXML
     private void handleBackAction(ActionEvent event) {
@@ -56,7 +62,7 @@ public class SavedGamesController implements Initializable {
             Scene sceneDashboard = new Scene(root);
             Stage stage = (Stage) savedButton.getScene().getWindow();
             stage.setScene(sceneDashboard);
-            stage.setTitle("Select Play Mode Tic Tac Toe");
+            stage.setTitle("Tic Tac Toe");
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(LevelController.class.getName()).log(Level.SEVERE, null, ex);
@@ -65,7 +71,10 @@ public class SavedGamesController implements Initializable {
 
     @FXML
     private void handleLogoutAction(ActionEvent event) {
-        
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(Constant.USER_NAME_KEY, ClientSideHandler.getInstance().getCurrentPlayer().getUserName());
+        map.put(Constant.REQUEST_TYPE, Constant.LOGOUT);
+        LogoutViewModel.logout(map); 
     }
     
 }

@@ -6,17 +6,25 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.ClientSideHandler;
+import model.Game;
 import model.Player;
 import ui.PlayScreenView;
 import utils.Utils;
 
 public class PlayModeViewModel {
     private static ObservableList<Player> onlinePlayers ;
+    private static ObservableList<Game> savedGames ;
 
     public static ObservableList<Player> getOnlinePlayers() {
         onlinePlayers = FXCollections.observableArrayList();
         //onlinePlayers.add(new Player("aaa",12));
         return onlinePlayers;
+    }
+    
+     public static ObservableList<Game> getSavedGames() {
+        savedGames = FXCollections.observableArrayList();
+        //onlinePlayers.add(new Player("aaa",12));
+        return savedGames;
     }
 
     public static void addOnlinePlayer(JsonArray onlinePlayersJson){
@@ -52,4 +60,11 @@ public class PlayModeViewModel {
         ClientSideHandler.getInstance().sendGameMove(Utils.toString(map));
         return true;
     }
+    
+    public static boolean getSavedGames(HashMap map){
+        System.out.println(map);
+        ClientSideHandler.getInstance().handelSavedGames(Utils.toString(map));
+        return true;
+    }
+   
 }
