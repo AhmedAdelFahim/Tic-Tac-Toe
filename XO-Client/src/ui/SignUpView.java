@@ -36,7 +36,6 @@ import java.net.Socket;
  */
 public class SignUpView implements Initializable {
 
-
     @FXML
     private TextField firstName;
     @FXML
@@ -62,15 +61,14 @@ public class SignUpView implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         SignUpViewModel.toPlayScreenFlagProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue){
+            if (newValue) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayMode.fxml"));
                 try {
                     Parent root = fxmlLoader.load();
                     Scene scene = new Scene(root);
                     Stage stage = (Stage) firstName.getScene().getWindow();
                     stage.setScene(scene);
-
-
+                    stage.setTitle("Select Play Mode Tic Tac Toe");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -80,7 +78,6 @@ public class SignUpView implements Initializable {
             }
         });
     }
-
 
     @FXML
     private void handleRegisterButton0Action(ActionEvent event) {
@@ -93,23 +90,20 @@ public class SignUpView implements Initializable {
         } else if ((confirmPassword.getText().equals(password.getText()))
                 && (firstName.getText().matches("(?i)(^[a-z]+)[a-z .,-]((?! .,-)$){1,20}$"))
                 && (lastName.getText().matches("(?i)(^[a-z]+)[a-z .,-]((?! .,-)$){1,25}$"))
-                && (userName.getText().matches("\\w+"))
-                ) {
+                && (userName.getText().matches("\\w+"))) {
             HashMap<String, Object> map = new HashMap<>();
             message.setText("");
 
-            map.put(Constant.REQUEST_TYPE,Constant.SIGN_UP);
-            map.put(Constant.USER_NAME_KEY,userName.getText());
-            map.put(Constant.FIRST_NAME_KEY,firstName.getText());
-            map.put(Constant.LAST_NAME_KEY,lastName.getText());
-            map.put(Constant.PASSWORD_KEY,password.getText());
+            map.put(Constant.REQUEST_TYPE, Constant.SIGN_UP);
+            map.put(Constant.USER_NAME_KEY, userName.getText());
+            map.put(Constant.FIRST_NAME_KEY, firstName.getText());
+            map.put(Constant.LAST_NAME_KEY, lastName.getText());
+            map.put(Constant.PASSWORD_KEY, password.getText());
             SignUpViewModel.signUp(map);
-        }
-         else {
+        } else {
             message.setText("Invalid input");
             //System.out.println("You clicked register!");
         }
-       
 
     }
 
@@ -123,7 +117,7 @@ public class SignUpView implements Initializable {
             Scene scene = new Scene(root);
             Stage stage = (Stage) firstName.getScene().getWindow();
             stage.setScene(scene);
-
+            stage.setTitle("Login Form Tic Tac Toe");
 
         } catch (IOException e) {
             e.printStackTrace();
