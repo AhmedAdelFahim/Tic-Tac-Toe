@@ -8,8 +8,7 @@ import model.Game;
 public class GameCellFactory implements Callback<ListView<Game>, ListCell<Game>> {
     @Override
     public ListCell<Game> call(ListView<Game> param) {
-        return new SavedGameItem();
+        //return new SavedGameItem();
+        return null;
     }
 }
-
-
