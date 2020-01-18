@@ -15,17 +15,26 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.ClientSideHandler;
 import model.Player;
+import org.controlsfx.control.Notifications;
 import utils.Constant;
 import viewmodel.*;
 
@@ -63,6 +72,7 @@ public class PlayModeController implements Initializable {
         currentPlayer = ClientSideHandler.getInstance().getCurrentPlayer();
         onlineList.setCellFactory(new PlayerCellFactory());
         onlineList.setItems(PlayModeViewModel.getOnlinePlayers());
+
 //        listView.setItems(names);
         /*Online.setCellValueFactory(new PropertyValueFactory("userName"));
         Ranks.setCellValueFactory(new PropertyValueFactory("score"));
@@ -91,13 +101,36 @@ public class PlayModeController implements Initializable {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION,
-                                "player" + OtherPlayer + "declined your invitation to play");
-                        alert.setTitle("Invitation Declined");
-                        alert.setHeaderText(null);
-                        alert.showAndWait();
-                        alert.getResult();
-                    }
+//                        Alert alert = new Alert(Alert.AlertType.INFORMATION,
+//                                "player" + OtherPlayer + "declined your invitation to play");
+//                        alert.setTitle("Invitation Declined");
+//                        alert.setHeaderText(null);
+//                        alert.showAndWait();
+//                        alert.getResult();
+                        final Stage dialog = new Stage();
+                        dialog.initModality(Modality.APPLICATION_MODAL);//he must reply first
+                        VBox dialogVbox = new VBox(20);
+                        dialogVbox.getChildren().add(new Text("player "+OtherPlayer+" declined your invitation to play"));
+                        HBox hbButtons = new HBox();
+                        Button accept = new Button();
+                        accept.setText("ok");
+                        accept.setOnAction(new EventHandler<ActionEvent>() {
+                            public void handle(ActionEvent event) {
+                                dialog.close();
+                            }
+                        });
+
+                        hbButtons.getChildren().add(accept);
+                        hbButtons.setAlignment(Pos.CENTER_RIGHT);
+                        BorderPane root = new BorderPane();
+                        root.setPadding(new Insets(10)); // space between elements and window border
+                        root.setCenter(dialogVbox);
+                        root.setBottom(hbButtons);
+                        Scene dialogScene = new Scene(root, 300, 100);
+                        dialog.setTitle("Invitation Declined");
+                        dialog.setScene(dialogScene);
+                        dialog.show();
+                        }
                 });
             } else {
                 System.out.println("FFF");
@@ -108,34 +141,91 @@ public class PlayModeController implements Initializable {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        ButtonType accept = new ButtonType("Accept", ButtonBar.ButtonData.OK_DONE);
-                        ButtonType decline = new ButtonType("Decline", ButtonBar.ButtonData.CANCEL_CLOSE);
-                        Alert alert = new Alert(Alert.AlertType.WARNING,
-                                "player" + OtherPlayer + "want to play", accept, decline);
-                        alert.setTitle("Invitation");
-                        alert.setHeaderText(null);
-                        alert.showAndWait();
-                        alert.getResult();
-                        if (alert.getResult() == accept) {//accept request
-                            acceptInvitation(invitationJason);
-                            PlayScreenView.setModeToPlayers();
-                            System.out.println("the Other Player Is " + OtherPlayer);
-                            System.out.println("the Other Player id  " + OtherPlayerId);
-                            PlayScreenView.setToGuest();
-                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
-                            try {
-                                Parent root = fxmlLoader.load();
-                                Scene scene = new Scene(root, 800, 500);
-                                Stage stage = (Stage) computer.getScene().getWindow();
-                                stage.setScene(scene);
-                            } catch (IOException ex) {
-                                ex.printStackTrace();
-                            }
-                        }
-                        if (alert.getResult() == decline) {//decline request
-                            declineInvitation(invitationJason);
+
+   ////////////////////////////////////////////////////////////////////////
+                        final Stage dialog = new Stage();
+                        dialog.initModality(Modality.APPLICATION_MODAL);//he must reply first
+                        VBox dialogVbox = new VBox(20);
+                        dialogVbox.getChildren().add(new Text("player "+OtherPlayer+" want to play with you"));
+                        HBox hbButtons = new HBox();
+
+                        Button accept = new Button();
+                        accept.setText("Accept");
+                        accept.setOnAction(new EventHandler<ActionEvent>() {
+                        public void handle(ActionEvent event) {
+//                        System.out.println("Scrape button pressed.");
+                        acceptInvitation(invitationJason);
+                        PlayScreenView.setModeToPlayers();
+//                            System.out.println("the Other Player Is " + OtherPlayer);
+//                            System.out.println("the Other Player id  " + OtherPlayerId);
+                        PlayScreenView.setToGuest();
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
+                        try {
+                            Parent root = fxmlLoader.load();
+                            Scene scene = new Scene(root, 800, 500);
+                            Stage stage = (Stage) computer.getScene().getWindow();
+                            stage.setScene(scene);
+                            stage.setTitle("Tic Tac Toe");
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
                         }
 
+                        dialog.close();
+                    }
+                });
+                         hbButtons.getChildren().add(accept);
+                         hbButtons.setAlignment(Pos.CENTER_RIGHT);
+
+                         Button decline = new Button();
+                         decline.setText("Decline");
+                         decline.setOnAction(new EventHandler<ActionEvent>() {
+                         public void handle(ActionEvent event) {
+                         System.out.println("Scrape button pressed.");
+                         declineInvitation(invitationJason);
+                         dialog.close();
+                    }
+                });
+                         hbButtons.getChildren().add(decline);
+                         hbButtons.setAlignment(Pos.CENTER_RIGHT);
+
+                         BorderPane root = new BorderPane();
+                         root.setPadding(new Insets(10)); // space between elements and window border
+                         root.setCenter(dialogVbox);
+                         root.setBottom(hbButtons);
+                         Scene dialogScene = new Scene(root, 300, 100);
+                         dialog.setTitle("Invitation");
+                         dialog.setScene(dialogScene);
+                         dialog.show();
+
+                        ////////////////////////////////////////////////////////
+//                        ButtonType accept = new ButtonType("Accept", ButtonBar.ButtonData.OK_DONE);
+//                        ButtonType decline = new ButtonType("Decline", ButtonBar.ButtonData.CANCEL_CLOSE);
+//                        Alert alert = new Alert(Alert.AlertType.WARNING,
+//                                "player" + OtherPlayer + "want to play", accept, decline);
+//                        alert.setTitle("Invitation");
+//                        alert.setHeaderText(null);
+//                        alert.showAndWait();
+//                        alert.getResult();
+//                        if (alert.getResult() == accept) {//accept request
+//                            acceptInvitation(invitationJason);
+//                            PlayScreenView.setModeToPlayers();
+////                            System.out.println("the Other Player Is " + OtherPlayer);
+////                            System.out.println("the Other Player id  " + OtherPlayerId);
+//                            PlayScreenView.setToGuest();
+//                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
+//                            try {
+//                                Parent root = fxmlLoader.load();
+//                                Scene scene = new Scene(root, 800, 500);
+//                                Stage stage = (Stage) computer.getScene().getWindow();
+//                                stage.setScene(scene);
+//                            } catch (IOException ex) {
+//                                ex.printStackTrace();
+//                            }
+//                        }
+//                        if (alert.getResult() == decline) {//decline request
+//                            declineInvitation(invitationJason);
+//                        }
+////////////////////////////////////////////////////////////////////////////////////////
                     }
                 });
             } else {
