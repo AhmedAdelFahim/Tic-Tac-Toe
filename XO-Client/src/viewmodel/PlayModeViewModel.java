@@ -60,7 +60,9 @@ public class PlayModeViewModel {
         ClientSideHandler.getInstance().sendGameMove(Utils.toString(map));
         return true;
     }
-    
+     public static void getOnlinePlayersRequest(){
+        ClientSideHandler.getInstance().getOnlinePlayersRequest();
+    }
    
    
 }
