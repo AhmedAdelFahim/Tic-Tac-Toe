@@ -8,6 +8,9 @@ package ui;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,6 +27,7 @@ import com.google.gson.JsonParser;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import utils.Constant;
+import viewmodel.LogInViewModel;
 import viewmodel.SignUpViewModel;
 
 import java.io.DataInputStream;
@@ -61,23 +65,46 @@ public class SignUpView implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Font.loadFont(getClass().getResource("../res/font/Bangers.ttf").toExternalForm(),28);
-        SignUpViewModel.toPlayScreenFlagProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayMode.fxml"));
-                try {
-                    Parent root = fxmlLoader.load();
-                    Scene scene = new Scene(root);
-                    Stage stage = (Stage) firstName.getScene().getWindow();
-                    stage.setScene(scene);
-                    stage.setTitle("Tic Tac Toe");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
+        addListener();
+    }
 
-                System.out.println("FFF");
+    private void addListener(){
+
+        ChangeListener<Boolean> x = new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (newValue && !oldValue) {
+
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayMode.fxml"));
+                        System.out.println(Thread.currentThread().getName());
+                        Parent root = fxmlLoader.load();
+                        Scene scene = new Scene(root);
+                        Stage stage = (Stage) registerButton.getScene().getWindow();
+
+                        stage.setScene(scene);
+                        stage.setTitle("Tic Tac Toe");
+                        // LogInViewModel.toPlayScreenFlagProperty().removeListener();
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else if(!newValue && !oldValue){
+
+
+                    System.out.println("FFF");
+                }
+                SignUpViewModel.setToPlayScreenFlag(false);
+                SignUpViewModel.toPlayScreenFlagProperty().removeListener(this);
             }
-        });
+        };
+        SignUpViewModel.toPlayScreenFlagProperty().addListener(x);
+/*
+        LogInViewModel.toPlayScreenFlagProperty().addListener((observable, oldValue, newValue) -> {
+//            System.out.println(newValue);
+
+
+        });*/
     }
 
     @FXML

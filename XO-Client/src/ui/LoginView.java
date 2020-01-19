@@ -15,6 +15,10 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,6 +35,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import utils.Constant;
 import viewmodel.LogInViewModel;
+import viewmodel.SignUpViewModel;
 
 /**
  *
@@ -60,26 +65,48 @@ public class LoginView implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Font.loadFont(getClass().getResource("../res/font/Bangers.ttf").toExternalForm(),28);
         //headerLabel.setStyle("-fx-font-family: Bangers");
-        LogInViewModel.toPlayScreenFlagProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println(newValue);
-            if (newValue) {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayMode.fxml"));
-                try {
-                    Parent root = fxmlLoader.load();
-                    Scene scene = new Scene(root);
-                    Stage stage = (Stage) signUpButton.getScene().getWindow();
-                    stage.setScene(scene);
-                    stage.setTitle("Tic Tac Toe");
 
-                } catch (IOException e) {
-                    e.printStackTrace();
+        addListener();
+
+    }
+
+    private void addListener(){
+
+        ChangeListener<Boolean> x = new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (newValue && !oldValue) {
+
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayMode.fxml"));
+                        System.out.println(Thread.currentThread().getName());
+                        Parent root = fxmlLoader.load();
+                        Scene scene = new Scene(root);
+                        Stage stage = (Stage) logInButton.getScene().getWindow();
+
+                        stage.setScene(scene);
+                        stage.setTitle("Tic Tac Toe");
+                       // LogInViewModel.toPlayScreenFlagProperty().removeListener();
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else if(!newValue && !oldValue){
+
+                    loginResult.setText("Login Failed");
+                    System.out.println("FFF");
                 }
-            } else {
-
-                System.out.println("FFF");
+                LogInViewModel.setToPlayScreenFlag(false);
+                LogInViewModel.toPlayScreenFlagProperty().removeListener(this);
             }
-        });
+        };
+        LogInViewModel.toPlayScreenFlagProperty().addListener(x);
+/*
+        LogInViewModel.toPlayScreenFlagProperty().addListener((observable, oldValue, newValue) -> {
+//            System.out.println(newValue);
 
+
+        });*/
     }
 
     @FXML

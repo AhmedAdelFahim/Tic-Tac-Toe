@@ -17,36 +17,17 @@ public class Server {
     private ServerSocket serverSocket;
     private static Hashtable<Integer,PlayerHandler> onlinePlayersHandler;
     public static Hashtable<Integer,Player> onlinePlayersData;
-    public ArrayList<String> onlineTest ;
-    /*public Server() {
-        try {
-            serverSocket = new ServerSocket(5000);
-            onlinePlayersHandler = new Hashtable<>();
-            onlinePlayersData = new Hashtable<>();
-            while (true) {
-                Socket socket = serverSocket.accept();
-                new PlayerHandler(socket);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }*/
+    //public ArrayList<String> onlineTest ;
 
     public  void startServer() {
         try {
             serverSocket = new ServerSocket(5000);
            // onlinePlayers = new ArrayList<>();
-            onlineTest = new ArrayList<>();
+           // onlineTest = new ArrayList<>();
             onlinePlayersHandler = new Hashtable<>();
             onlinePlayersData = new Hashtable<>();
-            onlineTest= new ArrayList<>();
-            onlineTest.add("this");
-            onlineTest.add("array");
-            onlineTest.add("is");
-            onlineTest.add("from");
-            onlineTest.add("the");
-            onlineTest.add("server");
+
+
             while (true) {
                 Socket socket = serverSocket.accept();
                 new PlayerHandler(socket);
