@@ -27,7 +27,7 @@ public class App extends Application {
     public static Stage CurrentStage;
     @Override
     public void start(Stage stage) throws Exception {
-        stage.initStyle(StageStyle.UNDECORATED);
+        stage.initStyle(StageStyle.DECORATED);
         CurrentStage = stage;
         Parent root = FXMLLoader.load(getClass().getResource("open.fxml"));
 
