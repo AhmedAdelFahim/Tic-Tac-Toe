@@ -25,7 +25,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="pos_1" mnemonicParsing="false" onAction="#Pso_1_Handeler" prefHeight="74.0" prefWidth="163.0" style="-fx-background-color: #f2f2f2;" text="_" textFill="#e13a24">
+            <Button fx:id="pos_1" mnemonicParsing="false" onAction="#Pso_1_Handeler" prefHeight="74.0" prefWidth="163.0" style="-fx-background-color: #f2f2f2; -fx-font-family: 'Comic Sans MS'; -fx-font-size: 35;" text="_" textFill="#e13a24">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
@@ -33,7 +33,7 @@
                   <Font name="Tahoma Bold" size="41.0" />
                </font>
             </Button>
-            <Button fx:id="pos_4" mnemonicParsing="false" onAction="#Pso_4_Handeler" prefHeight="74.0" prefWidth="163.0" style="-fx-background-color: #f2f2f2;" text="_" GridPane.rowIndex="1">
+            <Button fx:id="pos_4" mnemonicParsing="false" onAction="#Pso_4_Handeler" prefHeight="74.0" prefWidth="163.0" style="-fx-background-color: #f2f2f2; -fx-font-family: 'Comic Sans MS'; -fx-font-size: 35;" text="_" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
@@ -41,7 +41,7 @@
                   <Font name="Tahoma Bold" size="40.0" />
                </font>
             </Button>
-            <Button fx:id="pos_7" mnemonicParsing="false" onAction="#Pso_7_Handeler" prefHeight="74.0" prefWidth="163.0" style="-fx-background-color: #f2f2f2;" text="_" GridPane.rowIndex="2">
+            <Button fx:id="pos_7" mnemonicParsing="false" onAction="#Pso_7_Handeler" prefHeight="74.0" prefWidth="163.0" style="-fx-background-color: #f2f2f2; -fx-font-family: 'Comic Sans MS'; -fx-font-size: 35;" text="_" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
@@ -49,7 +49,7 @@
                   <Font name="Tahoma Bold" size="40.0" />
                </font>
             </Button>
-            <Button fx:id="pos_2" mnemonicParsing="false" onAction="#Pso_2_Handeler" prefHeight="79.0" prefWidth="157.0" style="-fx-background-color: #f2f2f2;" text="_" textFill="#cd0909" GridPane.columnIndex="1">
+            <Button fx:id="pos_2" mnemonicParsing="false" onAction="#Pso_2_Handeler" prefHeight="79.0" prefWidth="157.0" style="-fx-background-color: #f2f2f2; -fx-font-family: 'Comic Sans MS'; -fx-font-size: 35;" text="_" textFill="#cd0909" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
@@ -57,7 +57,7 @@
                   <Font name="Tahoma Bold" size="40.0" />
                </font>
             </Button>
-            <Button fx:id="pos_5" mnemonicParsing="false" onAction="#Pso_5_Handeler" prefHeight="74.0" prefWidth="163.0" style="-fx-background-color: #f2f2f2;" text="_" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button fx:id="pos_5" mnemonicParsing="false" onAction="#Pso_5_Handeler" prefHeight="74.0" prefWidth="163.0" style="-fx-background-color: #f2f2f2; -fx-font-family: 'Comic Sans MS'; -fx-font-size: 35;" text="_" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
@@ -65,7 +65,7 @@
                   <Font name="Tahoma Bold" size="40.0" />
                </font>
             </Button>
-            <Button fx:id="pos_8" mnemonicParsing="false" onAction="#Pso_8_Handeler" prefHeight="74.0" prefWidth="163.0" style="-fx-background-color: #f2f2f2;" text="_" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Button fx:id="pos_8" mnemonicParsing="false" onAction="#Pso_8_Handeler" prefHeight="74.0" prefWidth="163.0" style="-fx-background-color: #f2f2f2; -fx-font-family: 'Comic Sans MS'; -fx-font-size: 35;" text="_" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
@@ -73,7 +73,7 @@
                   <Font name="Tahoma Bold" size="40.0" />
                </font>
             </Button>
-            <Button fx:id="pos_3" mnemonicParsing="false" onAction="#Pso_3_Handeler" prefHeight="74.0" prefWidth="163.0" style="-fx-background-color: #f2f2f2;" text="_" GridPane.columnIndex="2">
+            <Button fx:id="pos_3" mnemonicParsing="false" onAction="#Pso_3_Handeler" prefHeight="74.0" prefWidth="163.0" style="-fx-background-color: #f2f2f2; -fx-font-family: 'Comic Sans MS'; -fx-font-size: 35;" text="_" GridPane.columnIndex="2">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
@@ -81,7 +81,7 @@
                   <Font name="Tahoma Bold" size="40.0" />
                </font>
             </Button>
-            <Button fx:id="pos_6" mnemonicParsing="false" onAction="#Pso_6_Handeler" prefHeight="74.0" prefWidth="158.0" style="-fx-background-color: #f2f2f2;" text="_" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button fx:id="pos_6" mnemonicParsing="false" onAction="#Pso_6_Handeler" prefHeight="74.0" prefWidth="158.0" style="-fx-background-color: #f2f2f2; -fx-font-family: 'Comic Sans MS'; -fx-font-size: 35;" text="_" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
@@ -89,7 +89,7 @@
                   <Font name="Tahoma Bold" size="40.0" />
                </font>
             </Button>
-            <Button fx:id="pos_9" mnemonicParsing="false" onAction="#Pso_9_Handeler" prefHeight="71.0" prefWidth="157.0" style="-fx-background-color: #f2f2f2;" text="_" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <Button fx:id="pos_9"  mnemonicParsing="false" onAction="#Pso_9_Handeler" prefHeight="71.0" prefWidth="157.0" style="-fx-background-color: #f2f2f2; -fx-font-family: 'Comic Sans MS'; -fx-font-size: 35;" text="_" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
