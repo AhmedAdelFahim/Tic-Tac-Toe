@@ -258,6 +258,12 @@ public class ClientSideHandler {
         printStream.println(json);
     }
 
+    public void getOnlinePlayersRequest(){
+        HashMap<String,Object> map = new HashMap<>();
+        map.put(Constant.REQUEST_TYPE,Constant.ONLINE_PLAYERS_REQUSEST);
+        printStream.println(Utils.toString(map));
+    }
+
     private void destroy() {
         try {
             handler.stop();

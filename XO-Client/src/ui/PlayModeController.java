@@ -82,6 +82,7 @@ public class PlayModeController implements Initializable {
                 }
             }
         });
+        PlayModeViewModel.getOnlinePlayersRequest();
         InvitationViewModel.toDeclinedInvitationFlag().addListener((observable, declinedFlagOldValue, declinedFlagNewValue) -> {
             if (declinedFlagNewValue) {
                 Platform.runLater(new Runnable() {

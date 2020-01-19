@@ -38,6 +38,8 @@ public class Constant {
     public static final String MOVE_POSTION = "move_position";
     public static final String GAME_DATA_KEY = "game_data";
      public static final int SAVED_GAMES = 60;
+
+    public static final int ONLINE_PLAYERS_REQUSEST = 41;
     
 }
 

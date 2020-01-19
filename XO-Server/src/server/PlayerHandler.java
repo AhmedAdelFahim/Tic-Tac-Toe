@@ -150,6 +150,9 @@ public class PlayerHandler extends Thread {
                         JsonObject gamesData = DBQueries.getSavedGamesFromDataBase(jsonObject.get(Constant.SENDER_ID_KEY).toString());
                         sendSavedGames(jsonObject, gamesData);
                         break;
+                    case Constant.ONLINE_PLAYERS_REQUSEST:
+                        Server.broadcastOnlinePlayers();
+                        break;
                     default:
                         System.out.println("default case");
                         break;

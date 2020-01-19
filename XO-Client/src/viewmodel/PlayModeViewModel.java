@@ -69,5 +69,9 @@ public class PlayModeViewModel {
         ClientSideHandler.getInstance().handelSavedGames(Utils.toString(map));
         return true;
     }
+
+    public static void getOnlinePlayersRequest(){
+        ClientSideHandler.getInstance().getOnlinePlayersRequest();
+    }
    
 }

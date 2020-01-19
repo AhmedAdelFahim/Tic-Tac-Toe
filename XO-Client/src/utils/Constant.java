@@ -51,4 +51,6 @@ public class Constant {
     public static final String HOST_ID = "host_id";
     public static final String GUEST_ID = "guest_id";
 
+    public static final int ONLINE_PLAYERS_REQUSEST = 41;
+
 }
