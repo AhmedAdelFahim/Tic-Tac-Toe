@@ -53,4 +53,6 @@ public class Constant {
     
    public static final String LOAD_GAME = "load_game";
 
+    public static final int ONLINE_PLAYERS_REQUSEST = 41;
+
 }

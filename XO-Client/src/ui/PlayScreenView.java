@@ -30,6 +30,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.ClientSideHandler;
 import model.Player;
@@ -43,6 +44,7 @@ import viewmodel.PlayModeViewModel;
 public class PlayScreenView implements Initializable {
 
     public model.Player currentPlayer;
+
 
     @FXML
     private Label label;
@@ -136,7 +138,7 @@ public class PlayScreenView implements Initializable {
     private static Mode mode;
     private static double level = 0;
     boolean CanPlay = false;
-
+    Font xoFont;
     public void initGameBoard() {
         board.reset();
         ClientSideHandler.updateStatus(Constant.BUSY_STATUS);
@@ -150,12 +152,14 @@ public class PlayScreenView implements Initializable {
         System.out.println(state.toString());
         userCharacter.setText(state.toString());
         opponentCharacter.setText((state== Board.State.X?Board.State.O:Board.State.X).toString());
+         xoFont = new Font("COMIC",65);
         System.out.println(level);
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 int finalJ = j;
                 int finalI = i;
                 BoardCells[finalI][finalJ].setDisable(false);
+                //BoardCells[finalI][finalJ].setStyle("-fx-font-family: 'Comic Sans MS'; -fx-font-size: 35");
                 BoardCells[finalI][finalJ].setText("");
                 BoardCells[i][j].setOnAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -226,6 +230,7 @@ public class PlayScreenView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Font.loadFont(getClass().getResource("../res/font/comici.ttf").toExternalForm(),28);
         currentPlayer = ClientSideHandler.getInstance().getCurrentPlayer();
         board = new Board();
         initGameBoard();

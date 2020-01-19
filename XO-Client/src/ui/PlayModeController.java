@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -39,6 +41,8 @@ import model.Player;
 //import org.controlsfx.control.Notifications;
 import utils.Constant;
 import viewmodel.*;
+
+import javax.swing.event.ChangeEvent;
 
 /**
  *
@@ -82,6 +86,7 @@ public class PlayModeController implements Initializable {
                 }
             }
         });
+        PlayModeViewModel.getOnlinePlayersRequest();
         InvitationViewModel.toDeclinedInvitationFlag().addListener((observable, declinedFlagOldValue, declinedFlagNewValue) -> {
             if (declinedFlagNewValue) {
                 Platform.runLater(new Runnable() {
@@ -215,26 +220,39 @@ public class PlayModeController implements Initializable {
                 System.out.println("FFF");
             }
         });
-        LogoutViewModel.toSignUpFlagProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("open.fxml"));
-                        try {
-                            Parent root = fxmlLoader.load();
-                            Scene scene = new Scene(root);
-                            Stage stage = (Stage) onlineList.getScene().getWindow();
-                            stage.setScene(scene);
-                            stage.setTitle("Tic Tac Toe");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+        addListener();
+    }
 
-            }
-        });
+    private void addListener(){
+       ChangeListener<Boolean> x = new ChangeListener<Boolean>() {
+           @Override
+           public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+               System.out.println(oldValue+"   "+newValue);
+               if (newValue && !oldValue)  {
+                   Platform.runLater(new Runnable() {
+                       @Override
+                       public void run() {
+                           FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("open.fxml"));
+                           try {
+                               Parent root = fxmlLoader.load();
+                               Scene scene = new Scene(root);
+                               Stage stage = (Stage) onlineList.getScene().getWindow();
+                               stage.setScene(scene);
+                               stage.setTitle("Tic Tac Toe");
+                           } catch (IOException e) {
+                               e.printStackTrace();
+                           }
+                       }
+                   });
+
+               } else if(!newValue && !oldValue)
+               {
+               }
+               LogoutViewModel.toSignUpFlagProperty().removeListener(this);
+               LogoutViewModel.setToSignUpFlag(false);
+           }
+       };
+       LogoutViewModel.toSignUpFlagProperty().addListener(x);
     }
 
     @FXML
@@ -277,6 +295,7 @@ public class PlayModeController implements Initializable {
 
     public void handleLogoutAction(ActionEvent actionEvent) {
 
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         HashMap<String, Object> map = new HashMap<>();
         map.put(Constant.USER_NAME_KEY, ClientSideHandler.getInstance().getCurrentPlayer().getUserName());
         map.put(Constant.REQUEST_TYPE, Constant.LOGOUT);
