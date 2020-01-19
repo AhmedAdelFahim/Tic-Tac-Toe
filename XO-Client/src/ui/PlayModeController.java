@@ -36,7 +36,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.ClientSideHandler;
 import model.Player;
-import org.controlsfx.control.Notifications;
+//import org.controlsfx.control.Notifications;
 import utils.Constant;
 import viewmodel.*;
 
@@ -288,7 +288,7 @@ public class PlayModeController implements Initializable {
         HashMap<String, Object> map = new HashMap<>();
         map.put(Constant.SENDER_ID_KEY, ClientSideHandler.getInstance().getCurrentPlayer().getId());
         map.put(Constant.REQUEST_TYPE, Constant.SAVED_GAMES);
-        PlayModeViewModel.getSavedGames(map);
+        SavedGamesViewModel.getSavedGames(map);
     }
     
     

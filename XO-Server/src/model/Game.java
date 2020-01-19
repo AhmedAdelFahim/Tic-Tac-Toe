@@ -8,9 +8,10 @@ public class Game {
     private int id;
     private int hostId;
     private int guestID;
+    private String userName;
     private String gameBoard;
 
-    public Game(int id, int hostId, int guestID,String gameBoard ) {
+    public Game(int id, int hostId, int guestID, String gameBoard) {
         this.id = id;
         this.hostId = hostId;
         this.guestID = guestID;
@@ -18,11 +19,17 @@ public class Game {
 
     }
 
+    public Game(int id, String userName, String gameBoard) {
+        this.id = id;
+        this.userName = userName;
+        this.gameBoard = gameBoard;
+
+    }
+
     @Override
     public String toString() {
         return "{" + saved_game.ID + " = " + id
-                + " , " + saved_game.HOST_ID + " = " + hostId
-                + " , " + saved_game.GUEST_ID + " = " + guestID
-                +" , " + saved_game.GAME_BOARD + " = " + gameBoard + "}";
+                + " , " + player.USER_NAME + " = " + userName
+                + " , " + saved_game.GAME_BOARD + " = " + gameBoard + "}";
     }
 }

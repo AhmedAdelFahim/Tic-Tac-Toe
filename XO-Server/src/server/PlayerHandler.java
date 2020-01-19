@@ -179,7 +179,8 @@ public class PlayerHandler extends Thread {
 
         Player currentPlayer = Server.getOnlinePlayersData(Integer.parseInt(jsonRequest.get(Constant.SENDER_ID_KEY).toString()));
         PlayerHandler currentPlayerHandeler = Server.getOnlinePlayerHandler(currentPlayer.getId());
-        System.err.println(jsonGames);
+        System.err.println("PlayerHandler");
+         System.err.println(jsonGames);
         currentPlayerHandeler.printStream.println(jsonGames);
     }
 }

@@ -13,7 +13,6 @@ import utils.Utils;
 
 public class PlayModeViewModel {
     private static ObservableList<Player> onlinePlayers ;
-    private static ObservableList<Game> savedGames ;
 
     public static ObservableList<Player> getOnlinePlayers() {
         onlinePlayers = FXCollections.observableArrayList();
@@ -21,11 +20,7 @@ public class PlayModeViewModel {
         return onlinePlayers;
     }
     
-     public static ObservableList<Game> getSavedGames() {
-        savedGames = FXCollections.observableArrayList();
-        //onlinePlayers.add(new Player("aaa",12));
-        return savedGames;
-    }
+   
 
     public static void addOnlinePlayer(JsonArray onlinePlayersJson){
       Platform.runLater(new Runnable() {
@@ -44,6 +39,8 @@ public class PlayModeViewModel {
         });
 
     }
+    
+    
     
     public static boolean sendInvitation(HashMap map){
         ClientSideHandler.getInstance().handelInvitation(Utils.toString(map));
@@ -64,10 +61,6 @@ public class PlayModeViewModel {
         return true;
     }
     
-    public static boolean getSavedGames(HashMap map){
-        System.out.println(map);
-        ClientSideHandler.getInstance().handelSavedGames(Utils.toString(map));
-        return true;
-    }
+   
    
 }

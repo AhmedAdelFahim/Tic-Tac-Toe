@@ -50,5 +50,7 @@ public class Constant {
     public static final String ID = "id";
     public static final String HOST_ID = "host_id";
     public static final String GUEST_ID = "guest_id";
+    
+   public static final String LOAD_GAME = "load_game";
 
 }

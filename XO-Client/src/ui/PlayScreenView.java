@@ -124,7 +124,7 @@ public class PlayScreenView implements Initializable {
     private void Pso_9_Handeler(ActionEvent event) {
     }
 
-    Board board;
+    static Board board;
 
     public enum Mode {Player, AI}
     public enum Player {Host,Guest}
@@ -348,6 +348,10 @@ public class PlayScreenView implements Initializable {
         }
     }
 
+    public static void resuemGame(Board myBoard){
+        board = myBoard;
+    }
+    
     @FXML
     private void gameStatus(MouseEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

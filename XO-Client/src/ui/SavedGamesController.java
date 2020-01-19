@@ -26,6 +26,7 @@ import model.Game;
 import utils.Constant;
 import viewmodel.LogoutViewModel;
 import viewmodel.PlayModeViewModel;
+import viewmodel.SavedGamesViewModel;
 
 /**
  * FXML Controller class
@@ -34,13 +35,12 @@ import viewmodel.PlayModeViewModel;
  */
 public class SavedGamesController implements Initializable {
 
-   public static JsonObject savedGamesJson;
 //    @FXML
 //    private ListView<?> listPlayer;
     @FXML
     private Button backButtton;
     @FXML
-    private Button savedButton;
+    private Button logoutbutton;
     @FXML
     private ListView<Game> savedGamesList;
     
@@ -48,7 +48,7 @@ public class SavedGamesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        savedGamesList.setCellFactory(new GameCellFactory());
-       savedGamesList.setItems(PlayModeViewModel.getSavedGames());
+       savedGamesList.setItems(SavedGamesViewModel.getSavedGames());
     }    
 
 
@@ -60,7 +60,7 @@ public class SavedGamesController implements Initializable {
 
             Parent root = (Parent) fxmlLoader.load();
             Scene sceneDashboard = new Scene(root);
-            Stage stage = (Stage) savedButton.getScene().getWindow();
+            Stage stage = (Stage) logoutbutton.getScene().getWindow();
             stage.setScene(sceneDashboard);
             stage.setTitle("Tic Tac Toe");
             stage.show();
@@ -71,6 +71,7 @@ public class SavedGamesController implements Initializable {
 
     @FXML
     private void handleLogoutAction(ActionEvent event) {
+        System.out.println("LOOGING OUT >>>>>>");
         HashMap<String, Object> map = new HashMap<>();
         map.put(Constant.USER_NAME_KEY, ClientSideHandler.getInstance().getCurrentPlayer().getUserName());
         map.put(Constant.REQUEST_TYPE, Constant.LOGOUT);

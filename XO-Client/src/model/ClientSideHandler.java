@@ -26,8 +26,10 @@ import ui.PlayScreenView;
 import ui.SavedGamesController;
 
 import viewmodel.InvitationViewModel;
+import viewmodel.SavedGamesViewModel;
 
 public class ClientSideHandler {
+
     private static BufferedReader dataInputStream;
     private static PrintStream printStream;
     private static Socket socket;
@@ -56,13 +58,11 @@ public class ClientSideHandler {
                 return true;
             }
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }
         return false;
     }
-
 
     public boolean logIn(String json) {
         try {
@@ -77,7 +77,6 @@ public class ClientSideHandler {
                 currentPlayer = getCurrentPlayerData(jsonObject);
                 return true;
             }
-
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -120,72 +119,60 @@ public class ClientSideHandler {
                         String json = dataInputStream.readLine();
                         JsonObject jsonObject = Utils.toJson(json);
                         System.out.println(json);
-                        if (jsonObject.has(Constant.REQUEST_TYPE) &&
-                                Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.ONLINE_PLAYERS_DATA) {
+                        if (jsonObject.has(Constant.REQUEST_TYPE)
+                                && Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.ONLINE_PLAYERS_DATA) {
                             JsonArray onlinePlayers = jsonObject.getAsJsonArray(Constant.ONLINE_PLAYER_DATA_KEY);
                             PlayModeViewModel.addOnlinePlayer(onlinePlayers);
-                        }
-
-                        else if (jsonObject.has(Constant.REQUEST_TYPE) &&
-                                Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.INVITE) {
-                            PlayModeController.OtherPlayer=jsonObject.get(Constant.SENDER_NAME_KEY).toString();
-                            PlayModeController.OtherPlayerId=jsonObject.get(Constant.SENDER_ID_KEY).toString();
+                        } else if (jsonObject.has(Constant.REQUEST_TYPE)
+                                && Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.INVITE) {
+                            PlayModeController.OtherPlayer = jsonObject.get(Constant.SENDER_NAME_KEY).toString();
+                            PlayModeController.OtherPlayerId = jsonObject.get(Constant.SENDER_ID_KEY).toString();
                             System.out.println("NEW INVITATION FROM" + PlayModeController.OtherPlayer);
                             InvitationViewModel.handleInvitation(jsonObject);
-                        }
-
-                        else if (jsonObject.has(Constant.REQUEST_TYPE) &&
-                                Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.ACCEPT_INVITATION) {
+                        } else if (jsonObject.has(Constant.REQUEST_TYPE)
+                                && Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.ACCEPT_INVITATION) {
                             PlayModeController.OtherPlayer = jsonObject.get(Constant.SENDER_NAME_KEY).toString();
-                            PlayModeController.OtherPlayerId=jsonObject.get(Constant.SENDER_ID_KEY).toString();
+                            PlayModeController.OtherPlayerId = jsonObject.get(Constant.SENDER_ID_KEY).toString();
                             System.out.println("the Other Player Is " + PlayModeController.OtherPlayer);
                             PlayScreenView.setModeToPlayers();
                             PlayScreenView.setToHost();
                             System.out.println(App.CurrentStage);
-                          Platform.runLater(new Runnable() {
-                              @Override
-                              public void run() {
-                                  FXMLLoader fxmlLoader = new FXMLLoader(PlayModeController.class.getResource("PlayScreen.fxml"));
-                                  try {
-                                      Parent root = fxmlLoader.load();
-                                      Scene scene = new Scene(root, 800, 500);
-                                      Stage stage = App.CurrentStage;
-                                      System.out.println(stage);
-                                      stage.setScene(scene);
-                                  } catch (IOException ex) {
-                                      ex.printStackTrace();
-                                  }
-                              }
-                          });
-
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    FXMLLoader fxmlLoader = new FXMLLoader(PlayModeController.class.getResource("PlayScreen.fxml"));
+                                    try {
+                                        Parent root = fxmlLoader.load();
+                                        Scene scene = new Scene(root, 800, 500);
+                                        Stage stage = App.CurrentStage;
+                                        System.out.println(stage);
+                                        stage.setScene(scene);
+                                    } catch (IOException ex) {
+                                        ex.printStackTrace();
+                                    }
+                                }
+                            });
 
                             System.out.println("ACCEPTED INVITATION");
                             System.out.println(jsonObject);
-                        }
-
-                        else if (jsonObject.has(Constant.REQUEST_TYPE) &&
-                                Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.DECLINE_INVITATION) {
+                        } else if (jsonObject.has(Constant.REQUEST_TYPE)
+                                && Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.DECLINE_INVITATION) {
                             System.out.println("Declined INVITATION");
+                            PlayModeController.OtherPlayer = jsonObject.get(Constant.SENDER_NAME_KEY).toString();
                             InvitationViewModel.declineInvitation(jsonObject);
-                        }
+                        } else if (jsonObject.has(Constant.REQUEST_TYPE)
+                                && Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.GAME_MOVE) {
+                            OtherPlayerMove = jsonObject.get(Constant.MOVE_POSTION).getAsInt();
+                        } else if (jsonObject.has(Constant.REQUEST_TYPE)
+                                && Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.SAVED_GAMES) {
+//                           System.out.println(jsonObject);
+                            System.out.println("this is saved games");
 
-                        else if (jsonObject.has(Constant.REQUEST_TYPE) &&
-                                Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.GAME_MOVE) {
-                                OtherPlayerMove = jsonObject.get(Constant.MOVE_POSTION).getAsInt();
-                        }
-                            
-                        else if (jsonObject.has(Constant.REQUEST_TYPE) &&
-                                Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.SAVED_GAMES) {
-//                                System.out.println(jsonObject);
-                            SavedGamesController.savedGamesJson =jsonObject;
-                        }
-
-
-
-                        else if (jsonObject.has(Constant.REQUEST_TYPE) &&
-                                Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.LOGOUT_RESPONSE) {
-                            if (jsonObject.has(Constant.STATUS_CODE_KEY) &&
-                                    Integer.parseInt(jsonObject.get(Constant.STATUS_CODE_KEY).toString()) == Constant.STATUS_CODE_SUCCESSED) {
+                            SavedGamesViewModel.savedGames(jsonObject.getAsJsonArray(Constant.GAME_DATA_KEY));
+                        } else if (jsonObject.has(Constant.REQUEST_TYPE)
+                                && Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.LOGOUT_RESPONSE) {
+                            if (jsonObject.has(Constant.STATUS_CODE_KEY)
+                                    && Integer.parseInt(jsonObject.get(Constant.STATUS_CODE_KEY).toString()) == Constant.STATUS_CODE_SUCCESSED) {
                                 LogoutViewModel.setToSignUpFlag(true);
                                 destroy();
                             } else {
@@ -201,8 +188,6 @@ public class ClientSideHandler {
 
         handler.start();
     }
-
-
 
     private Player getCurrentPlayerData(JsonObject playerDataJsonObject) {
         int id = Integer.parseInt(playerDataJsonObject.get("player_data").getAsJsonObject().get(Constant.ID_KEY).toString());
@@ -224,7 +209,7 @@ public class ClientSideHandler {
         }
         return true;
     }
-    
+
     public boolean handelSavedGames(String json) {
         try {
             printStream.println(json);
@@ -233,8 +218,7 @@ public class ClientSideHandler {
         }
         return true;
     }
-    
-    
+
     public boolean sendGameMove(String json) {
         System.out.println(json);
         try {
@@ -245,12 +229,11 @@ public class ClientSideHandler {
         return true;
     }
 
-
-    public int getOtherPlayerMove(){
+    public int getOtherPlayerMove() {
         return OtherPlayerMove;
     }
 
-    public void setOtherPlayerMove(){
+    public void setOtherPlayerMove() {
         OtherPlayerMove = -1;
     }
 

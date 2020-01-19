@@ -10,6 +10,7 @@ import utils.Utils;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
 import model.Game;
@@ -126,7 +127,7 @@ public class DBQueries {
         String userName = jsonObject.get(Tables.player.USER_NAME).toString();
         String password = jsonObject.get(Tables.player.PASSWORD).toString();
         Player player = null;
-        
+
         try {
             PreparedStatement selectPlayer = DBConnection.getInstance().prepareStatement("SELECT * FROM player WHERE user_name = ?");
             selectPlayer.setString(1, userName);
@@ -183,36 +184,30 @@ public class DBQueries {
 
     public static JsonObject getSavedGamesFromDataBase(String logedUserId) {
         HashMap<String, Object> gamesJson = new HashMap<>();
+        ArrayList<Game> gamesJsonArray = new ArrayList<>();
+
+        gamesJson.put(Constant.REQUEST_TYPE, Constant.SAVED_GAMES);
+
         Game game = null;
         try {
-            PreparedStatement savedGames = DBConnection.getInstance().prepareStatement("SELECT * FROM saved_game WHERE host_id = ? OR guest_id = ? ");
+            PreparedStatement savedGames = DBConnection.getInstance().prepareStatement("SELECT saved_game.id,game_board,user_name FROM saved_game,player WHERE saved_game.host_id = ? and player.id=saved_game.host_id ");
             savedGames.setString(1, logedUserId);
-            savedGames.setString(2, logedUserId);
 
             ResultSet resultSet = savedGames.executeQuery();
 
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 int gameId = resultSet.getInt(Tables.saved_game.ID);
-                int hostID = resultSet.getInt(Tables.saved_game.HOST_ID);
-                int guestID = resultSet.getInt(Tables.saved_game.GUEST_ID);
+                String userName = resultSet.getString(Tables.player.USER_NAME);
                 String gameBoard = resultSet.getString(Tables.saved_game.GAME_BOARD);
-                
-               game = new Game(gameId , hostID, guestID, gameBoard);
-               gamesJson.put(Constant.GAME_DATA_KEY, game);
-                
 
-            } else {
-                System.err.println("No Saved Games");
+                game = new Game(gameId, userName, gameBoard);
+                gamesJsonArray.add(game);
             }
-            
+
+            gamesJson.put(Constant.GAME_DATA_KEY, gamesJsonArray);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return Utils.toJson(gamesJson);
     }
 }
-
-
-
-
-

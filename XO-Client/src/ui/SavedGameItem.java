@@ -17,6 +17,7 @@ import viewmodel.PlayModeViewModel;
 
 import java.io.IOException;
 import java.util.HashMap;
+import viewmodel.LogInViewModel;
 
 public class SavedGameItem extends ListCell<Game> {
 
@@ -29,13 +30,9 @@ public class SavedGameItem extends ListCell<Game> {
     @FXML
     private Button continueGame;
 
-
-
     public SavedGameItem() {
         loadFXML();
     }
-
-  
 
     private void loadFXML() {
         try {
@@ -43,8 +40,7 @@ public class SavedGameItem extends ListCell<Game> {
             loader.setController(this);
             loader.setRoot(this);
             loader.load();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -55,18 +51,25 @@ public class SavedGameItem extends ListCell<Game> {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                if(empty) {
-            setText(null);
-            setContentDisplay(ContentDisplay.TEXT_ONLY);
-                }
-                else {
+                if (empty) {
+                    setText(null);
+                    setContentDisplay(ContentDisplay.TEXT_ONLY);
+                } else {
 
-                   //hName.setText(item.get);
-                   //gName.setText(item.get);
+                    hName.setText(item.getUserName());
+                    gName.setText("Computer");
                     continueGame.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent event) {
-                            System.out.println("AAA");
+                            PlayScreenView.setModeToAI();
+//                            PlayScreenView.resuemGame(item.getGameBoard());
+                            HashMap<String, Object> map = new HashMap<>();
+                            map.put(Constant.REQUEST_TYPE, Constant.LOAD_GAME);
+                            map.put(Constant.ID_KEY, item.getId());
+                            map.put(Constant.USER_NAME_KEY, item.getUserName());
+                            map.put(Constant.GAME_BOARD, item.getGameBoard());
+                            System.out.println(map.toString());
+                            LogInViewModel.logIn(map);
                         }
                     });
                     setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
