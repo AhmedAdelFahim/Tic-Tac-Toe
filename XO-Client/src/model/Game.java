@@ -19,6 +19,38 @@ public class Game {
 
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getHostId() {
+        return hostId;
+    }
+
+    public void setHostId(int hostId) {
+        this.hostId = hostId;
+    }
+
+    public int getGuestID() {
+        return guestID;
+    }
+
+    public void setGuestID(int guestID) {
+        this.guestID = guestID;
+    }
+
+    public String getGameBoard() {
+        return gameBoard;
+    }
+
+    public void setGameBoard(String gameBoard) {
+        this.gameBoard = gameBoard;
+    }
+
     @Override
     public String toString() {
         return "{" + Constant.ID + " = " + id
