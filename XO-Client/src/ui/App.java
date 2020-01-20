@@ -28,6 +28,10 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.initStyle(StageStyle.DECORATED);
+
+        String sboard = "X--------";
+        PlayScreenView.resumeGame(sboard);
+        System.out.println(PlayScreenView.board);
         CurrentStage = stage;
         Parent root = FXMLLoader.load(getClass().getResource("open.fxml"));
 

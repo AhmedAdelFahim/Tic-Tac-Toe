@@ -25,7 +25,7 @@ public class SavedGamesViewModel {
             @Override
             public void run() {
                 savedGames.clear();
-                System.err.println(savedGamesJson.get(0).getAsJsonObject());
+//                System.err.println(savedGamesJson.get(0).getAsJsonObject());
                 for (int i = 0; i < savedGamesJson.size(); ++i) {
                     Game game = Game.prepareGameData(savedGamesJson.get(i).getAsJsonObject());
                     savedGames.add(game);

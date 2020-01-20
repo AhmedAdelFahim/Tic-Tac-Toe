@@ -65,24 +65,27 @@ public class SavedGameItem extends ListCell<Game> {
                         @Override
                         public void handle(ActionEvent event) {
                             PlayScreenView.setModeToAI();
-                            PlayScreenView.resumeGame(item.getGameBoard());
+                            String str = item.getGameBoard();
+                            str = str.substring(0, str.length() - 1);
+                            str = str.substring(0, 0);
+                            System.out.println(str);
+                            PlayScreenView.resumeGame(str);
                             FXMLLoader fxmlLoader = new FXMLLoader(PlayModeController.class.getResource("PlayScreen.fxml"));
                             try {
                                 Parent root = fxmlLoader.load();
                                 Scene scene = new Scene(root, 800, 500);
-                                Stage stage = App.CurrentStage;
-                                System.out.println(stage);
+                                Stage stage = (Stage) hName.getScene().getWindow();
                                 stage.setScene(scene);
                             } catch (IOException ex) {
                                 ex.printStackTrace();
                             }
-                            HashMap<String, Object> map = new HashMap<>();
+                           /* HashMap<String, Object> map = new HashMap<>();
                             map.put(Constant.REQUEST_TYPE, Constant.LOAD_GAME);
                             map.put(Constant.ID_KEY, item.getId());
                             map.put(Constant.USER_NAME_KEY, item.getUserName());
                             map.put(Constant.GAME_BOARD, item.getGameBoard());
                             System.out.println(map.toString());
-                            LogInViewModel.logIn(map);
+                            LogInViewModel.logIn(map);*/
                         }
                     });
                     setContentDisplay(ContentDisplay.GRAPHIC_ONLY);

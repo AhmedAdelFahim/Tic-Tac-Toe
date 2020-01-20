@@ -368,6 +368,7 @@ public class PlayScreenView implements Initializable {
     }
 
     public static void resumeGame(String StringBoard){
+        System.out.println(StringBoard.length());
         board = new Board();
 
         char[] myBoard = new char[StringBoard.length()];
