@@ -7,18 +7,13 @@ package ui;
 
 import ArtificialIntelligence.Algorithms;
 import TicTacToe.Board;
-import com.google.gson.JsonObject;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -33,9 +28,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.ClientSideHandler;
-import model.Player;
 import utils.Constant;
-import viewmodel.InvitationViewModel;
 import viewmodel.PlayModeViewModel;
 
 /**
@@ -152,7 +145,7 @@ public class PlayScreenView implements Initializable {
         System.out.println(state.toString());
         userCharacter.setText(state.toString());
         opponentCharacter.setText((state== Board.State.X?Board.State.O:Board.State.X).toString());
-         xoFont = new Font("COMIC",65);
+        xoFont = new Font("COMIC",65);
         System.out.println(level);
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -271,17 +264,17 @@ public class PlayScreenView implements Initializable {
 
                             if (board.getTurn() != state) {
                                 System.out.println("hello its other player turn");
-                               if(ClientSideHandler.getInstance().getOtherPlayerMove()!=-1){
-                                   System.out.println("other player player");
-                                   board.move(ClientSideHandler.getInstance().getOtherPlayerMove());
-                                   Platform.runLater(new Runnable() {
-                                       @Override
-                                       public void run() {
-                                           printGameBoard();
-                                       }
-                                   });
-                                   ClientSideHandler.getInstance().setOtherPlayerMove();
-                               }
+                                if(ClientSideHandler.getInstance().getOtherPlayerMove()!=-1){
+                                    System.out.println("other player player");
+                                    board.move(ClientSideHandler.getInstance().getOtherPlayerMove());
+                                    Platform.runLater(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            printGameBoard();
+                                        }
+                                    });
+                                    ClientSideHandler.getInstance().setOtherPlayerMove();
+                                }
                             }
                             else {
                                 CanPlay = true;
@@ -387,13 +380,13 @@ public class PlayScreenView implements Initializable {
 
     public void sendGameMove(int movePos) {
 
-                HashMap<String, Object> map = new HashMap<>();
-                map.put(Constant.REQUEST_TYPE, Constant.GAME_MOVE);
-                map.put(Constant.SENDER_ID_KEY, currentPlayer.getId());
-                map.put(Constant.RECIEVER_ID_KEY, PlayModeController.OtherPlayerId);
-                map.put(Constant.MOVE_POSTION, movePos);
-                PlayModeViewModel.gameMove(map);
-                System.err.println(map);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(Constant.REQUEST_TYPE, Constant.GAME_MOVE);
+        map.put(Constant.SENDER_ID_KEY, currentPlayer.getId());
+        map.put(Constant.RECIEVER_ID_KEY, PlayModeController.OtherPlayerId);
+        map.put(Constant.MOVE_POSTION, movePos);
+        PlayModeViewModel.gameMove(map);
+        System.err.println(map);
 
     }
 }

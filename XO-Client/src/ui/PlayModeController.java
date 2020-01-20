@@ -38,11 +38,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.ClientSideHandler;
 import model.Player;
-//import org.controlsfx.control.Notifications;
 import utils.Constant;
 import viewmodel.*;
 
-import javax.swing.event.ChangeEvent;
 
 /**
  *
@@ -69,6 +67,7 @@ public class PlayModeController implements Initializable {
     private Label noOnlinePlayers;
 
 
+    private ChangeListener logoutListener;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -149,6 +148,7 @@ public class PlayModeController implements Initializable {
                                 PlayScreenView.setToGuest();
                                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
                                 try {
+                                    removeListeners();
                                     Parent root = fxmlLoader.load();
                                     Scene scene = new Scene(root);
                                     Stage stage = (Stage) computer.getScene().getWindow();
@@ -184,75 +184,49 @@ public class PlayModeController implements Initializable {
                         dialog.setTitle("Invitation");
                         dialog.setScene(dialogScene);
                         dialog.show();
-
-                        ////////////////////////////////////////////////////////
-//                        ButtonType accept = new ButtonType("Accept", ButtonBar.ButtonData.OK_DONE);
-//                        ButtonType decline = new ButtonType("Decline", ButtonBar.ButtonData.CANCEL_CLOSE);
-//                        Alert alert = new Alert(Alert.AlertType.WARNING,
-//                                "player" + OtherPlayer + "want to play", accept, decline);
-//                        alert.setTitle("Invitation");
-//                        alert.setHeaderText(null);
-//                        alert.showAndWait();
-//                        alert.getResult();
-//                        if (alert.getResult() == accept) {//accept request
-//                            acceptInvitation(invitationJason);
-//                            PlayScreenView.setModeToPlayers();
-////                            System.out.println("the Other Player Is " + OtherPlayer);
-////                            System.out.println("the Other Player id  " + OtherPlayerId);
-//                            PlayScreenView.setToGuest();
-//                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
-//                            try {
-//                                Parent root = fxmlLoader.load();
-//                                Scene scene = new Scene(root, 800, 500);
-//                                Stage stage = (Stage) computer.getScene().getWindow();
-//                                stage.setScene(scene);
-//                            } catch (IOException ex) {
-//                                ex.printStackTrace();
-//                            }
-//                        }
-//                        if (alert.getResult() == decline) {//decline request
-//                            declineInvitation(invitationJason);
-//                        }
-////////////////////////////////////////////////////////////////////////////////////////
                     }
                 });
             } else {
                 System.out.println("FFF");
             }
         });
-        addListener();
+        addListeners();
     }
 
-    private void addListener(){
-       ChangeListener<Boolean> x = new ChangeListener<Boolean>() {
-           @Override
-           public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-               System.out.println(oldValue+"   "+newValue);
-               if (newValue && !oldValue)  {
-                   Platform.runLater(new Runnable() {
-                       @Override
-                       public void run() {
-                           FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("open.fxml"));
-                           try {
-                               Parent root = fxmlLoader.load();
-                               Scene scene = new Scene(root);
-                               Stage stage = (Stage) onlineList.getScene().getWindow();
-                               stage.setScene(scene);
-                               stage.setTitle("Tic Tac Toe");
-                           } catch (IOException e) {
-                               e.printStackTrace();
-                           }
-                       }
-                   });
+    private void addListeners(){
+        logoutListener = new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                System.out.println(oldValue+"   "+newValue);
+                if (newValue && !oldValue)  {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("open.fxml"));
+                            try {
+                                Parent root = fxmlLoader.load();
+                                Scene scene = new Scene(root);
+                                Stage stage = (Stage) onlineList.getScene().getWindow();
+                                stage.setScene(scene);
+                                stage.setTitle("Tic Tac Toe");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
 
-               } else if(!newValue && !oldValue)
-               {
-               }
-               LogoutViewModel.toSignUpFlagProperty().removeListener(this);
-               LogoutViewModel.setToSignUpFlag(false);
-           }
-       };
-       LogoutViewModel.toSignUpFlagProperty().addListener(x);
+                } else if(!newValue && !oldValue)
+                {
+                }
+                LogoutViewModel.toSignUpFlagProperty().removeListener(this);
+                LogoutViewModel.setToSignUpFlag(false);
+            }
+        };
+       LogoutViewModel.toSignUpFlagProperty().addListener(logoutListener);
+    }
+
+    private void removeListeners(){
+        LogoutViewModel.toSignUpFlagProperty().removeListener(logoutListener);
     }
 
     @FXML
@@ -260,6 +234,7 @@ public class PlayModeController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Level.fxml"));
         PlayScreenView.setModeToAI();
         try {
+            removeListeners();
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
             Stage stage = (Stage) computer.getScene().getWindow();
@@ -294,8 +269,6 @@ public class PlayModeController implements Initializable {
     }
 
     public void handleLogoutAction(ActionEvent actionEvent) {
-
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         HashMap<String, Object> map = new HashMap<>();
         map.put(Constant.USER_NAME_KEY, ClientSideHandler.getInstance().getCurrentPlayer().getUserName());
         map.put(Constant.REQUEST_TYPE, Constant.LOGOUT);
@@ -309,12 +282,12 @@ public class PlayModeController implements Initializable {
         map.put(Constant.REQUEST_TYPE, Constant.SAVED_GAMES);
         SavedGamesViewModel.getSavedGames(map);
     }
-    
-    
+
     @FXML
     private void handleSaveAction(ActionEvent event) {
         try {
             getSavedGames(event);
+            removeListeners();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("savedGames.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             Scene sceneDashboard = new Scene(root);

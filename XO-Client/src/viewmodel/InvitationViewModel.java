@@ -3,12 +3,8 @@ package viewmodel;
 import com.google.gson.JsonObject;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import model.ClientSideHandler;
-import utils.Utils;
 
-import java.util.HashMap;
 import ui.PlayModeController;
-import utils.Constant;
 
 public class InvitationViewModel {
     private static final BooleanProperty currentInviteScreenflag = new SimpleBooleanProperty();

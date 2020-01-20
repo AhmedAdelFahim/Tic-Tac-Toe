@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b9db6a1-96c0-4a5a-90c8-d040483635ca" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/res/font/COMIC.TTF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/font/comici.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/COMIC.TTF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/PlayScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/PlayScreen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/LoginView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/LoginView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/PlayModeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/PlayModeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ui/PlayScreenView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/PlayScreenView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/viewmodel/InvitationViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/viewmodel/InvitationViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/viewmodel/LogInViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/viewmodel/LogInViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/viewmodel/PlayModeViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/viewmodel/PlayModeViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/viewmodel/SignUpViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/viewmodel/SignUpViewModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,6 +112,7 @@
       <workItem from="1579375724436" duration="10152000" />
       <workItem from="1579442372332" duration="14027000" />
       <workItem from="1579456899576" duration="510000" />
+      <workItem from="1579522611673" duration="2178000" />
     </task>
     <servers />
   </component>
@@ -138,46 +141,46 @@
       <screen x="0" y="24" width="1366" height="716" />
     </state>
     <state x="537" y="140" width="281" height="481" key="#com.intellij.ide.util.MemberChooser/0.24.1366.716@0.24.1366.716" timestamp="1579454870372" />
-    <state width="1324" height="144" key="GridCell.Tab.0.bottom" timestamp="1579457355271">
+    <state width="1324" height="144" key="GridCell.Tab.0.bottom" timestamp="1579524797021">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state width="1324" height="144" key="GridCell.Tab.0.bottom/0.24.1366.716@0.24.1366.716" timestamp="1579457355271" />
-    <state width="1324" height="144" key="GridCell.Tab.0.center" timestamp="1579457355271">
+    <state width="1324" height="144" key="GridCell.Tab.0.bottom/0.24.1366.716@0.24.1366.716" timestamp="1579524797021" />
+    <state width="1324" height="144" key="GridCell.Tab.0.center" timestamp="1579524797020">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state width="1324" height="144" key="GridCell.Tab.0.center/0.24.1366.716@0.24.1366.716" timestamp="1579457355271" />
-    <state width="1324" height="144" key="GridCell.Tab.0.left" timestamp="1579457355270">
+    <state width="1324" height="144" key="GridCell.Tab.0.center/0.24.1366.716@0.24.1366.716" timestamp="1579524797020" />
+    <state width="1324" height="144" key="GridCell.Tab.0.left" timestamp="1579524797015">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state width="1324" height="144" key="GridCell.Tab.0.left/0.24.1366.716@0.24.1366.716" timestamp="1579457355270" />
-    <state width="1324" height="144" key="GridCell.Tab.0.right" timestamp="1579457355271">
+    <state width="1324" height="144" key="GridCell.Tab.0.left/0.24.1366.716@0.24.1366.716" timestamp="1579524797015" />
+    <state width="1324" height="144" key="GridCell.Tab.0.right" timestamp="1579524797020">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state width="1324" height="144" key="GridCell.Tab.0.right/0.24.1366.716@0.24.1366.716" timestamp="1579457355271" />
-    <state x="127" y="80" width="1092" height="600" key="MergeDialog" timestamp="1579385532136">
+    <state width="1324" height="144" key="GridCell.Tab.0.right/0.24.1366.716@0.24.1366.716" timestamp="1579524797020" />
+    <state x="127" y="80" width="1092" height="600" key="MergeDialog" timestamp="1579522794156">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state x="127" y="80" width="1092" height="600" key="MergeDialog/0.24.1366.716@0.24.1366.716" timestamp="1579385532136" />
-    <state x="458" y="162" width="439" height="437" key="MultipleFileMergeDialog" timestamp="1579385532139">
+    <state x="127" y="80" width="1092" height="600" key="MergeDialog/0.24.1366.716@0.24.1366.716" timestamp="1579522794156" />
+    <state x="458" y="162" width="439" height="437" key="MultipleFileMergeDialog" timestamp="1579522805827">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state x="458" y="162" width="439" height="437" key="MultipleFileMergeDialog/0.24.1366.716@0.24.1366.716" timestamp="1579385532139" />
+    <state x="458" y="162" width="439" height="437" key="MultipleFileMergeDialog/0.24.1366.716@0.24.1366.716" timestamp="1579522805827" />
     <state x="294" y="61" width="768" height="639" key="SettingsEditor" timestamp="1579376015327">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
     <state x="294" y="61" width="768" height="639" key="SettingsEditor/0.24.1366.716@0.24.1366.716" timestamp="1579376015327" />
-    <state x="418" y="248" key="com.intellij.ide.util.TipDialog" timestamp="1579347368886">
+    <state x="418" y="248" key="com.intellij.ide.util.TipDialog" timestamp="1579522620549">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state x="418" y="248" key="com.intellij.ide.util.TipDialog/0.24.1366.716@0.24.1366.716" timestamp="1579347368885" />
+    <state x="418" y="248" key="com.intellij.ide.util.TipDialog/0.24.1366.716@0.24.1366.716" timestamp="1579522620549" />
     <state x="411" y="291" width="524" height="177" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1579375905980">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
     <state x="411" y="291" width="524" height="177" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.24.1366.716@0.24.1366.716" timestamp="1579375905980" />
-    <state x="507" y="317" width="341" height="127" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1579385648962">
+    <state x="507" y="317" width="341" height="127" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1579522712125">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state x="507" y="317" width="341" height="127" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.24.1366.716@0.24.1366.716" timestamp="1579385648962" />
+    <state x="507" y="317" width="341" height="127" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.24.1366.716@0.24.1366.716" timestamp="1579522712125" />
     <state x="118" y="28" width="1119" height="705" key="new project wizard" timestamp="1579380058903">
       <screen x="0" y="24" width="1366" height="716" />
     </state>

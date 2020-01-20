@@ -66,41 +66,49 @@ public class LoginView implements Initializable {
         Font.loadFont(getClass().getResource("../res/font/Bangers.ttf").toExternalForm(),28);
         //headerLabel.setStyle("-fx-font-family: Bangers");
 
-        addListener();
+        addListeners();
 
     }
 
-    private void addListener(){
+    private void addListeners(){
 
-        ChangeListener<Boolean> x = new ChangeListener<Boolean>() {
+
+        LogInViewModel.toPlayScreenFlagProperty().addListener(new ChangeListener<Number>() {
             @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (newValue && !oldValue) {
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                System.out.println(oldValue +" "+newValue);
+                if (newValue.intValue() == 1) {
 
                     try {
                         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayMode.fxml"));
-                        System.out.println(Thread.currentThread().getName());
+                        ///System.out.println(Thread.currentThread().getName());
                         Parent root = fxmlLoader.load();
                         Scene scene = new Scene(root);
                         Stage stage = (Stage) logInButton.getScene().getWindow();
 
                         stage.setScene(scene);
                         stage.setTitle("Tic Tac Toe");
-                       // LogInViewModel.toPlayScreenFlagProperty().removeListener();
+                        // LogInViewModel.toPlayScreenFlagProperty().removeListener();
 
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                } else if(!newValue && !oldValue){
+                } else if(newValue.intValue() == 0){
 
                     loginResult.setText("Login Failed");
                     System.out.println("FFF");
                 }
-                LogInViewModel.setToPlayScreenFlag(false);
+                LogInViewModel.setToPlayScreenFlag(-1);
                 LogInViewModel.toPlayScreenFlagProperty().removeListener(this);
             }
-        };
-        LogInViewModel.toPlayScreenFlagProperty().addListener(x);
+        });
+
+        LogInViewModel.toPlayScreenFlagProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+
+            }
+        });
 /*
         LogInViewModel.toPlayScreenFlagProperty().addListener((observable, oldValue, newValue) -> {
 //            System.out.println(newValue);

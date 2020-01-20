@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 import model.ClientSideHandler;
 import model.Game;
 import model.Player;
-import ui.PlayScreenView;
 import utils.Utils;
 
 public class PlayModeViewModel {
@@ -32,7 +31,6 @@ public class PlayModeViewModel {
                     if(player.getId() == ClientSideHandler.getInstance().getCurrentPlayer().getId())
                         continue;
                     onlinePlayers.add(player);
-
                 }
 
             }
