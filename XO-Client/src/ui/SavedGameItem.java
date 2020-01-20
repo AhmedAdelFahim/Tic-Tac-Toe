@@ -65,11 +65,14 @@ public class SavedGameItem extends ListCell<Game> {
                         @Override
                         public void handle(ActionEvent event) {
                             PlayScreenView.setModeToAI();
+                            PlayScreenView.setNewGame(false);
+                            System.out.println(item.getGameBoard());
                             String str = item.getGameBoard();
-                            str = str.substring(0, str.length() - 1);
-                            str = str.substring(0, 0);
-                            System.out.println(str);
+                            str = str.substring(1,str.length()-1);
+
                             PlayScreenView.resumeGame(str);
+                            PlayScreenView.setLevel(500);
+                            System.out.println(PlayScreenView.board);
                             FXMLLoader fxmlLoader = new FXMLLoader(PlayModeController.class.getResource("PlayScreen.fxml"));
                             try {
                                 Parent root = fxmlLoader.load();

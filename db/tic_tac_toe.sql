@@ -51,8 +51,8 @@ CREATE TABLE IF NOT EXISTS `saved_game` (
 -- Dumping data for table tic_tac_toe.saved_game: ~2 rows (approximately)
 /*!40000 ALTER TABLE `saved_game` DISABLE KEYS */;
 INSERT INTO `saved_game` (`id`, `host_id`, `guest_id`, `game_board`) VALUES
-	(5, 1, -1, '"---------"'),
-	(6, 1, -1, '"---------"'),
+	(5, 1, -1, '"XXX------"'),
+	(6, 1, -1, '"---OOO---"'),
 	(7, 1, -1, '"---------"');
 /*!40000 ALTER TABLE `saved_game` ENABLE KEYS */;
 

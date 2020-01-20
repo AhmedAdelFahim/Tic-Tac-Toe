@@ -29,7 +29,7 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
         stage.initStyle(StageStyle.DECORATED);
 
-        String sboard = "X--------";
+        String sboard = "XXX----OO";
         PlayScreenView.resumeGame(sboard);
         System.out.println(PlayScreenView.board);
         CurrentStage = stage;

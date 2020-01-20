@@ -87,6 +87,7 @@ public class PlayScreenView implements Initializable {
 
 
 
+
     @FXML
     private void Pso_1_Handeler(ActionEvent event) {
 
@@ -136,8 +137,12 @@ public class PlayScreenView implements Initializable {
     private static double level = 0;
     boolean CanPlay = false;
 
+    static boolean NewGame = true;
+
     public void initGameBoard() {
-        board.reset();
+        if(NewGame)
+            board.reset();
+
         ClientSideHandler.updateStatus(Constant.BUSY_STATUS);
         BoardCells = new Button[][]{{pos_1, pos_2, pos_3}, {pos_4, pos_5, pos_6}, {pos_7, pos_8, pos_9}};
         userNameTop.setText(PlayerName);
@@ -163,6 +168,7 @@ public class PlayScreenView implements Initializable {
                                 sendGameMove(finalI*3+finalJ);
 
                             CanPlay = false;
+                            System.out.println(board.getTurn());
                         }
 
 
@@ -211,6 +217,7 @@ public class PlayScreenView implements Initializable {
     }
 
     public static void setModeToPlayers() {
+        setNewGame(true);
         mode = Mode.Player;
         PlayerName = PlayModeController.currentPlayer.getUserName();
         OpponentPlayerName = PlayModeController.OtherPlayer;
@@ -222,9 +229,13 @@ public class PlayScreenView implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         currentPlayer = ClientSideHandler.getInstance().getCurrentPlayer();
-        board = new Board();
+        if(NewGame)
+            board = new Board();
+
         initGameBoard();
+
         play();
+        System.out.println(board);
 
     }
 
@@ -253,7 +264,11 @@ public class PlayScreenView implements Initializable {
                                     CanPlay = true;
                                     break;
                                 case O:
+                                    System.out.println("fdasfdsf");
+                                    System.out.println(level);
+                                    System.out.println(board);
                                     Algorithms.miniMax(board, level);
+                                    System.out.println(board);
                                     break;
                             }
                             break;
@@ -367,27 +382,26 @@ public class PlayScreenView implements Initializable {
 
     }
 
+    public static void setNewGame(boolean game){
+        NewGame = game;
+    }
+
     public static void resumeGame(String StringBoard){
         System.out.println(StringBoard.length());
         board = new Board();
-
+        board.reset();
         char[] myBoard = new char[StringBoard.length()];
 
         for (int i = 0; i < StringBoard.length(); i++) {
             myBoard[i] = StringBoard.charAt(i);
         }
 
-        Board.State s;
         for (int i = 0; i < myBoard.length; i++) {
             if(myBoard[i]== 'X')
-                s = Board.State.X;
+                board.move(i);
             else if(myBoard[i]== 'O')
-                s = Board.State.O;
-            else
-                s = Board.State.Blank;
+                board.move(i);
 
-
-            board.toArray()[i%3][i/3] = s;
         }
 
 
