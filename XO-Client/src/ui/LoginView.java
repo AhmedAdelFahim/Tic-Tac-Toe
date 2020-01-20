@@ -94,7 +94,9 @@ public class LoginView implements Initializable {
                         e.printStackTrace();
                     }
                 } else if(newValue.intValue() == 0){
+
                     loginResult.setText("Login Failed");
+                    System.out.println("FFF");
                 }
                 LogInViewModel.setToPlayScreenFlag(-1);
                 LogInViewModel.toPlayScreenFlagProperty().removeListener(this);

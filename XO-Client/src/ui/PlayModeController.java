@@ -41,12 +41,12 @@ import model.Player;
 import utils.Constant;
 import viewmodel.*;
 
-
 /**
  *
  * @author eg
  */
 public class PlayModeController implements Initializable {
+
     public static Player currentPlayer;
     public static String OtherPlayer;
     public static String OtherPlayerId;
@@ -66,47 +66,46 @@ public class PlayModeController implements Initializable {
     @FXML
     private Label noOnlinePlayers;
 
-
     private ChangeListener logoutListener;
+    private ChangeListener declinedInvitationListener;
+    private ChangeListener currentInvitationListener;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Font.loadFont(getClass().getResource("../res/font/Bangers.ttf").toExternalForm(),28);
+        Font.loadFont(getClass().getResource("../res/font/Bangers.ttf").toExternalForm(), 28);
         currentPlayer = ClientSideHandler.getInstance().getCurrentPlayer();
         onlineList.setCellFactory(new PlayerCellFactory());
         onlineList.setItems(PlayModeViewModel.getOnlinePlayers());
         onlineList.getItems().addListener(new ListChangeListener<Player>() {
             @Override
             public void onChanged(Change<? extends Player> c) {
-                if(c.getList().size()>0){
+                if (c.getList().size() > 0) {
                     noOnlinePlayers.setVisible(false);
-                } else if(c.getList().size()==0){
+                } else if (c.getList().size() == 0) {
                     noOnlinePlayers.setVisible(true);
                 }
             }
         });
         PlayModeViewModel.getOnlinePlayersRequest();
-        InvitationViewModel.toDeclinedInvitationFlag().addListener((observable, declinedFlagOldValue, declinedFlagNewValue) -> {
-            if (declinedFlagNewValue) {
+        
+        /*InvitationViewModel.toDeclinedInvitationFlag().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+            if (newValue.intValue() == 1) {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-//                        Alert alert = new Alert(Alert.AlertType.INFORMATION,
-//                                "player" + OtherPlayer + "declined your invitation to play");
-//                        alert.setTitle("Invitation Declined");
-//                        alert.setHeaderText(null);
-//                        alert.showAndWait();
-//                        alert.getResult();
                         final Stage dialog = new Stage();
                         dialog.initModality(Modality.APPLICATION_MODAL);//he must reply first
                         VBox dialogVbox = new VBox(20);
-                        dialogVbox.getChildren().add(new Text("player "+OtherPlayer+" declined your invitation to play"));
+                        dialogVbox.getChildren().add(new Text("player " + OtherPlayer + " declined your invitation to play"));
                         HBox hbButtons = new HBox();
                         Button accept = new Button();
                         accept.setText("ok");
                         accept.setOnAction(new EventHandler<ActionEvent>() {
                             public void handle(ActionEvent event) {
                                 dialog.close();
+
+                               
+
                             }
                         });
 
@@ -125,9 +124,14 @@ public class PlayModeController implements Initializable {
             } else {
                 System.out.println("FFF");
             }
+
+            InvitationViewModel.resetDeclinedInvitationFlag();
+
         });
-        InvitationViewModel.tocurrentInviteScreenflagProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
+        
+        
+        InvitationViewModel.tocurrentInviteScreenflagProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+            if (newValue.intValue() == 1) {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
@@ -136,13 +140,14 @@ public class PlayModeController implements Initializable {
                         final Stage dialog = new Stage();
                         dialog.initModality(Modality.APPLICATION_MODAL);//he must reply first
                         VBox dialogVbox = new VBox(20);
-                        dialogVbox.getChildren().add(new Text("player "+OtherPlayer+" want to play with you"));
+                        dialogVbox.getChildren().add(new Text("player " + OtherPlayer + " want to play with you"));
                         HBox hbButtons = new HBox();
 
                         Button accept = new Button();
                         accept.setText("Accept");
                         accept.setOnAction(new EventHandler<ActionEvent>() {
                             public void handle(ActionEvent event) {
+                                 InvitationViewModel.resetCurrentInviteScreenflag();
                                 acceptInvitation(invitationJason);
                                 PlayScreenView.setModeToPlayers();
                                 PlayScreenView.setToGuest();
@@ -189,16 +194,124 @@ public class PlayModeController implements Initializable {
             } else {
                 System.out.println("FFF");
             }
-        });
+            InvitationViewModel.resetCurrentInviteScreenflag();
+        });*/
         addListeners();
     }
 
-    private void addListeners(){
+    private void addListeners() {
+        
+        declinedInvitationListener = new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue){
+                if (newValue.intValue() == 1) {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        final Stage dialog = new Stage();
+                        dialog.initModality(Modality.APPLICATION_MODAL);//he must reply first
+                        VBox dialogVbox = new VBox(20);
+                        dialogVbox.getChildren().add(new Text("player " + OtherPlayer + " declined your invitation to play"));
+                        HBox hbButtons = new HBox();
+                        Button accept = new Button();
+                        accept.setText("ok");
+                        accept.setOnAction(new EventHandler<ActionEvent>() {
+                            public void handle(ActionEvent event) {
+                                dialog.close();
+
+                               
+
+                            }
+                        });
+
+                        hbButtons.getChildren().add(accept);
+                        hbButtons.setAlignment(Pos.CENTER_RIGHT);
+                        BorderPane root = new BorderPane();
+                        root.setPadding(new Insets(10)); // space between elements and window border
+                        root.setCenter(dialogVbox);
+                        root.setBottom(hbButtons);
+                        Scene dialogScene = new Scene(root, 300, 100);
+                        dialog.setTitle("Invitation Declined");
+                        dialog.setScene(dialogScene);
+                        dialog.show();
+                    }
+                });
+            } else {
+                System.out.println("FFF");
+            }
+            }};
+        currentInvitationListener = new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue){
+                if (newValue.intValue() == 1) {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        ////////////////////////////////////////////////////////////////////////
+                        final Stage dialog = new Stage();
+                        dialog.initModality(Modality.APPLICATION_MODAL);//he must reply first
+                        VBox dialogVbox = new VBox(20);
+                        dialogVbox.getChildren().add(new Text("player " + OtherPlayer + " want to play with you"));
+                        HBox hbButtons = new HBox();
+
+                        Button accept = new Button();
+                        accept.setText("Accept");
+                        accept.setOnAction(new EventHandler<ActionEvent>() {
+                            public void handle(ActionEvent event) {
+                                InvitationViewModel.resetCurrentInviteScreenflag();
+                                acceptInvitation(invitationJason);
+                                PlayScreenView.setModeToPlayers();
+                                PlayScreenView.setToGuest();
+                                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
+                                try {
+                                    removeListeners();
+                                    Parent root = fxmlLoader.load();
+                                    Scene scene = new Scene(root);
+                                    Stage stage = (Stage) computer.getScene().getWindow();
+                                    stage.setScene(scene);
+                                    stage.setTitle("Tic Tac Toe");
+                                } catch (IOException ex) {
+                                    ex.printStackTrace();
+                                }
+
+                                dialog.close();
+                            }
+                        });
+                        hbButtons.getChildren().add(accept);
+                        hbButtons.setAlignment(Pos.CENTER_RIGHT);
+
+                        Button decline = new Button();
+                        decline.setText("Decline");
+                        decline.setOnAction(new EventHandler<ActionEvent>() {
+                            public void handle(ActionEvent event) {
+                                System.out.println("Scrape button pressed.");
+                                declineInvitation(invitationJason);
+                                dialog.close();
+                            }
+                        });
+                        hbButtons.getChildren().add(decline);
+                        hbButtons.setAlignment(Pos.CENTER_RIGHT);
+
+                        BorderPane root = new BorderPane();
+                        root.setPadding(new Insets(10)); // space between elements and window border
+                        root.setCenter(dialogVbox);
+                        root.setBottom(hbButtons);
+                        Scene dialogScene = new Scene(root, 300, 100);
+                        dialog.setTitle("Invitation");
+                        dialog.setScene(dialogScene);
+                        dialog.show();
+                    }
+                });
+            } else {
+                System.out.println("FFF");
+            }
+            }};
         logoutListener = new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                System.out.println(oldValue+"   "+newValue);
-                if (newValue && !oldValue)  {
+                System.out.println(oldValue + "   " + newValue);
+                if (newValue && !oldValue) {
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
@@ -215,18 +328,21 @@ public class PlayModeController implements Initializable {
                         }
                     });
 
-                } else if(!newValue && !oldValue)
-                {
+                } else if (!newValue && !oldValue) {
                 }
                 LogoutViewModel.toSignUpFlagProperty().removeListener(this);
                 LogoutViewModel.setToSignUpFlag(false);
             }
         };
-       LogoutViewModel.toSignUpFlagProperty().addListener(logoutListener);
+        LogoutViewModel.toSignUpFlagProperty().addListener(logoutListener);
+        InvitationViewModel.toDeclinedInvitationFlag().addListener(declinedInvitationListener);
+        InvitationViewModel.tocurrentInviteScreenflagProperty().addListener(currentInvitationListener);
     }
 
-    private void removeListeners(){
+    private void removeListeners() {
         LogoutViewModel.toSignUpFlagProperty().removeListener(logoutListener);
+        InvitationViewModel.toDeclinedInvitationFlag().removeListener(declinedInvitationListener);
+        InvitationViewModel.tocurrentInviteScreenflagProperty().removeListener(currentInvitationListener);
     }
 
     @FXML
@@ -255,6 +371,7 @@ public class PlayModeController implements Initializable {
         map.put(Constant.RECIEVER_ID_KEY, jsonInvitation.get(Constant.SENDER_ID_KEY));
         map.put(Constant.RECIEVER_NAME_KEY, jsonInvitation.get(Constant.SENDER_NAME_KEY));
         PlayModeViewModel.acceptInvitation(map);
+        InvitationViewModel.resetCurrentInviteScreenflag();
     }
 
     void declineInvitation(JsonObject jsonInvitation) {

@@ -9,9 +9,11 @@ import utils.Utils;
 import java.util.HashMap;
 
 public class LogInViewModel {
+//    private static  BooleanProperty toPlayScreenFlag = new SimpleBooleanProperty();
     private static IntegerProperty toPlayScreenFlag = new SimpleIntegerProperty(-1);
     public static void logIn(HashMap<String,Object> map){
 
+        //System.out.println(toPlayScreenFlag);
         if(ClientSideHandler.getInstance().logIn(Utils.toString(map)))
         {
             toPlayScreenFlag.setValue(1);               // 1 > succeeded

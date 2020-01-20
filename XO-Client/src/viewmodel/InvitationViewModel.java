@@ -2,39 +2,42 @@ package viewmodel;
 
 import com.google.gson.JsonObject;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 import ui.PlayModeController;
 
 public class InvitationViewModel {
-    private static final BooleanProperty currentInviteScreenflag = new SimpleBooleanProperty();
-    private static final BooleanProperty declinedInvitationFlag = new SimpleBooleanProperty();
+     private static IntegerProperty currentInviteScreenflag = new SimpleIntegerProperty(-1);
+      private static IntegerProperty declinedInvitationFlag = new SimpleIntegerProperty(-1);
+      
     public static void handleInvitation(JsonObject jsonObject) {
-        currentInviteScreenflag.setValue(Boolean.TRUE);  
+        currentInviteScreenflag.setValue(1);  
         PlayModeController.invitationJason =jsonObject;
     }
    
     
-    public static BooleanProperty tocurrentInviteScreenflagProperty() {
+    public static IntegerProperty tocurrentInviteScreenflagProperty() {
         return currentInviteScreenflag;
     }
      public static void resetCurrentInviteScreenflag() {
-         currentInviteScreenflag.setValue(Boolean.FALSE);  
+         currentInviteScreenflag.setValue(-1);  
     }
      
       public static void declineInvitation(JsonObject jsonObject) {
-        declinedInvitationFlag.setValue(Boolean.TRUE);  
+        declinedInvitationFlag.setValue(1);  
     }
-    public static BooleanProperty toDeclinedInvitationFlag() {
+    public static IntegerProperty toDeclinedInvitationFlag() {
         return declinedInvitationFlag;
     }
     public static void resetDeclinedInvitationFlag() {
-         declinedInvitationFlag.setValue(Boolean.FALSE);  
+         declinedInvitationFlag.setValue(-1);  
     }
    
   
     
-    public static boolean iscurrentInviteScreenflag() {
+    public static int iscurrentInviteScreenflag() {
         return currentInviteScreenflag.get();
     }
     
