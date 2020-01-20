@@ -13,6 +13,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,32 +46,52 @@ public class LevelController implements Initializable {
     @FXML
     private Button backButton;
 
+    private ChangeListener logoutListener;
+
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Font.loadFont(getClass().getResource("../res/font/Bangers.ttf").toExternalForm(),28);
-        LogoutViewModel.toSignUpFlagProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("open.fxml"));
-                        try {
-                            Parent root = fxmlLoader.load();
-                            Scene scene = new Scene(root);
-                            Stage stage = (Stage) logoutButton.getScene().getWindow();
-                            stage.setScene(scene);
-                            stage.setTitle("Tic Tac Toe");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+        addListeners();
+    }
 
+    private void addListeners(){
+        logoutListener = new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                System.out.println(oldValue+"   "+newValue);
+                if (newValue && !oldValue)  {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("open.fxml"));
+                            try {
+                                Parent root = fxmlLoader.load();
+                                Scene scene = new Scene(root);
+                                Stage stage = (Stage) logoutButton.getScene().getWindow();
+                                stage.setScene(scene);
+                                stage.setTitle("Tic Tac Toe");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    });
+
+                } else if(!newValue && !oldValue)
+                {
+                }
+                LogoutViewModel.toSignUpFlagProperty().removeListener(this);
+                LogoutViewModel.setToSignUpFlag(false);
             }
-        });
+        };
+        LogoutViewModel.toSignUpFlagProperty().addListener(logoutListener);
+    }
+    private void removeListeners(){
+        LogoutViewModel.toSignUpFlagProperty().removeListener(logoutListener);
     }
 
     @FXML
@@ -77,6 +99,7 @@ public class LevelController implements Initializable {
         PlayScreenView.setLevel(1);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
         try {
+            removeListeners();
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
             Stage stage = (Stage) hardButton.getScene().getWindow();
@@ -93,6 +116,7 @@ public class LevelController implements Initializable {
         PlayScreenView.setLevel(500);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
         try {
+            removeListeners();
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
             Stage stage = (Stage) hardButton.getScene().getWindow();
@@ -105,9 +129,11 @@ public class LevelController implements Initializable {
 
     @FXML
     private void handleHardButton(ActionEvent event) {
+
         PlayScreenView.setLevel(Double.POSITIVE_INFINITY);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
         try {
+            removeListeners();
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
             Stage stage = (Stage) hardButton.getScene().getWindow();
@@ -129,6 +155,7 @@ public class LevelController implements Initializable {
     @FXML
     private void handleBackButtonAction(ActionEvent event) {
         try {
+            removeListeners();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayMode.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             Scene sceneDashboard = new Scene(root);
