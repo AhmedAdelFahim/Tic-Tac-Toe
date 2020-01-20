@@ -52,6 +52,9 @@ public class Constant {
     public static final String GUEST_ID = "guest_id";
     
    public static final String LOAD_GAME = "load_game";
+    public static final int DELETE_GAME = 404;
+    public static final String GAME_ID = "game_id";
+
 
     public static final int ONLINE_PLAYERS_REQUSEST = 41;
 

@@ -45,5 +45,9 @@ public class SavedGamesViewModel {
         ClientSideHandler.getInstance().handelSavedGames(Utils.toString(map));
         return true;
     }
+    public static boolean deleteSavedGame(HashMap map){
+        ClientSideHandler.getInstance().deleteSavedGames(Utils.toString(map));
+        return true;
+    }
    
 }

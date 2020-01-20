@@ -220,6 +220,15 @@ public class ClientSideHandler {
         return true;
     }
 
+    public boolean deleteSavedGames(String json) {
+        try {
+            printStream.println(json);
+        } catch (Exception ex) {
+            Logger.getLogger(ClientSideHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+    }
+
     public boolean sendGameMove(String json) {
         System.out.println(json);
         try {

@@ -271,7 +271,6 @@ public class PlayScreenView implements Initializable {
                             CanPlay = true;
                             break;
                         case O:
-                            System.out.println("fdasfdsf");
                             System.out.println(level);
                             System.out.println(board);
                             Algorithms.miniMax(board, level);
@@ -320,7 +319,7 @@ public class PlayScreenView implements Initializable {
                             @Override
                             public void run() {
                                 printGameBoard();
-                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                                 alert.setTitle(msg);
                                 alert.setHeaderText(msg);
 

@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 import model.ClientSideHandler;
 import model.Game;
 import utils.Constant;
+import viewmodel.InvitationViewModel;
 import viewmodel.LogoutViewModel;
 import viewmodel.PlayModeViewModel;
 import viewmodel.SavedGamesViewModel;
@@ -77,5 +78,10 @@ public class SavedGamesController implements Initializable {
         map.put(Constant.REQUEST_TYPE, Constant.LOGOUT);
         LogoutViewModel.logout(map); 
     }
-    
+
+
+
+
+
+
 }

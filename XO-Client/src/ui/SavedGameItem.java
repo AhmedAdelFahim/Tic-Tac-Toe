@@ -5,10 +5,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
+import javafx.stage.Stage;
 import model.ClientSideHandler;
 import model.Game;
 import model.Player;
@@ -18,6 +21,7 @@ import viewmodel.PlayModeViewModel;
 import java.io.IOException;
 import java.util.HashMap;
 import viewmodel.LogInViewModel;
+import viewmodel.SavedGamesViewModel;
 
 public class SavedGameItem extends ListCell<Game> {
 
@@ -66,6 +70,7 @@ public class SavedGameItem extends ListCell<Game> {
                             System.out.println(item.getGameBoard());
                             String str = item.getGameBoard();
                             str = str.substring(1,str.length()-1);
+                            deleteSavedGame(item.getId());
 
                             PlayScreenView.resumeGame(str);
                             PlayScreenView.setLevel(500);
@@ -79,13 +84,7 @@ public class SavedGameItem extends ListCell<Game> {
                             } catch (IOException ex) {
                                 ex.printStackTrace();
                             }
-                           /* HashMap<String, Object> map = new HashMap<>();
-                            map.put(Constant.REQUEST_TYPE, Constant.LOAD_GAME);
-                            map.put(Constant.ID_KEY, item.getId());
-                            map.put(Constant.USER_NAME_KEY, item.getUserName());
-                            map.put(Constant.GAME_BOARD, item.getGameBoard());
-                            System.out.println(map.toString());
-                            LogInViewModel.logIn(map);*/
+
                         }
                     });
                     setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
@@ -93,5 +92,13 @@ public class SavedGameItem extends ListCell<Game> {
             }
         });
 
+    }
+
+
+    void deleteSavedGame(int gameId) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(Constant.REQUEST_TYPE, Constant.DELETE_GAME);
+        map.put(Constant.GAME_ID, gameId);
+        SavedGamesViewModel.deleteSavedGame(map);
     }
 }

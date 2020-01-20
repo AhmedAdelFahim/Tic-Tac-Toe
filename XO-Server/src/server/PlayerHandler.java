@@ -87,7 +87,7 @@ public class PlayerHandler extends Thread {
         while (true) {
             try {
                 String json = dataInputStream.readLine();
-                //System.out.println(json);
+
                 JsonObject jsonObject = Utils.toJson(json);
                 switch (Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString())) {
                     case Constant.LOGOUT:
@@ -152,6 +152,10 @@ public class PlayerHandler extends Thread {
                         break;
                     case Constant.ONLINE_PLAYERS_REQUSEST:
                         Server.broadcastOnlinePlayers();
+                        break;
+
+                    case Constant.DELETE_GAME:
+                        DBQueries.deleteGame(jsonObject.get(Constant.GAME_ID).getAsInt());
                         break;
                     default:
                         System.out.println("default case");

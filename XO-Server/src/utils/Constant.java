@@ -39,8 +39,11 @@ public class Constant {
     public static final String GAME_DATA_KEY = "game_data";
      public static final int SAVED_GAMES = 60;
      public static final String LOAD_GAME = "load_game";
+    public static final int DELETE_GAME = 404;
+    public static final String GAME_ID = "game_id";
 
     public static final int ONLINE_PLAYERS_REQUSEST = 41;
-    
+
+
 }
 

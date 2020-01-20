@@ -175,6 +175,14 @@ public class DBQueries {
         preparedStatement.executeUpdate();
     }
 
+
+    public static void deleteGame(int id) throws SQLException {
+        PreparedStatement preparedStatement = DBConnection.getInstance().
+                prepareStatement("DELETE FROM saved_game WHERE id = ?");
+        preparedStatement.setInt(1, id);
+        preparedStatement.executeUpdate();
+    }
+
     public static void changeStatus(int id, int status) throws SQLException {
         PreparedStatement preparedStatement = DBConnection.getInstance().prepareStatement("UPDATE player SET " + Tables.player.STATUE + " = " + Tables.player.SCORE + " = ?  WHERE " + Tables.player.ID + " = ?");
         preparedStatement.setInt(1, status);
