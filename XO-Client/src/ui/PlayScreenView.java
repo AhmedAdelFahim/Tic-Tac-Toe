@@ -394,4 +394,30 @@ public class PlayScreenView implements Initializable {
         System.err.println(map);
 
     }
+
+    public static void resumeGame(String StringBoard){
+        System.out.println(StringBoard.length());
+        board = new Board();
+
+        char[] myBoard = new char[StringBoard.length()];
+
+        for (int i = 0; i < StringBoard.length(); i++) {
+            myBoard[i] = StringBoard.charAt(i);
+        }
+
+        Board.State s;
+        for (int i = 0; i < myBoard.length; i++) {
+            if(myBoard[i]== 'X')
+                s = Board.State.X;
+            else if(myBoard[i]== 'O')
+                s = Board.State.O;
+            else
+                s = Board.State.Blank;
+
+
+            board.toArray()[i%3][i/3] = s;
+        }
+
+
+    }
 }
