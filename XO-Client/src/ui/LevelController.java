@@ -146,6 +146,7 @@ public class LevelController implements Initializable {
 
     @FXML
     private void handleLogoutButton(ActionEvent event) {
+
         HashMap<String, Object> map = new HashMap<>();
         map.put(Constant.USER_NAME_KEY, ClientSideHandler.getInstance().getCurrentPlayer().getUserName());
         map.put(Constant.REQUEST_TYPE, Constant.LOGOUT);
