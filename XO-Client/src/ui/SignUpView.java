@@ -60,6 +60,8 @@ public class SignUpView implements Initializable {
     @FXML
     private Label TicTacToe;
 
+    private ChangeListener signUpListener;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Font.loadFont(getClass().getResource("../res/font/Bangers.ttf").toExternalForm(),28);
@@ -68,10 +70,10 @@ public class SignUpView implements Initializable {
 
     private void addListener(){
 
-        ChangeListener<Boolean> x = new ChangeListener<Boolean>() {
+        signUpListener = new ChangeListener<Number>() {
             @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (newValue && !oldValue) {
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                if (newValue.intValue() == 1) {
 
                     try {
                         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayMode.fxml"));
@@ -79,30 +81,27 @@ public class SignUpView implements Initializable {
                         Parent root = fxmlLoader.load();
                         Scene scene = new Scene(root);
                         Stage stage = (Stage) registerButton.getScene().getWindow();
-
                         stage.setScene(scene);
                         stage.setTitle("Tic Tac Toe");
-                        // LogInViewModel.toPlayScreenFlagProperty().removeListener();
 
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                } else if(!newValue && !oldValue){
+                } else if(newValue.intValue() == 0){
 
 
                     System.out.println("FFF");
                 }
-                SignUpViewModel.setToPlayScreenFlag(false);
+                SignUpViewModel.setToPlayScreenFlag(-1);
                 SignUpViewModel.toPlayScreenFlagProperty().removeListener(this);
             }
         };
-        SignUpViewModel.toPlayScreenFlagProperty().addListener(x);
-/*
-        LogInViewModel.toPlayScreenFlagProperty().addListener((observable, oldValue, newValue) -> {
-//            System.out.println(newValue);
+        SignUpViewModel.toPlayScreenFlagProperty().addListener(signUpListener);
 
+    }
 
-        });*/
+    private void removeListeners() {
+        SignUpViewModel.toPlayScreenFlagProperty().removeListener(signUpListener);
     }
 
     @FXML
