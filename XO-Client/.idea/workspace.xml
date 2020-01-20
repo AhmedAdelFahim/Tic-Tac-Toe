@@ -3,10 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="9b9db6a1-96c0-4a5a-90c8-d040483635ca" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/PlayScreenView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/PlayScreenView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/ClientSideHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/ClientSideHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/LevelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/LevelController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/PlayModeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/PlayModeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ui/SavedGameItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/SavedGameItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/viewmodel/SavedGamesViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/viewmodel/SavedGamesViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/SignUpView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/SignUpView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/savedGames.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/savedGames.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/viewmodel/SignUpViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/viewmodel/SignUpViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../XO-Server/src/server/PlayerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../XO-Server/src/server/PlayerHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +114,7 @@
       <workItem from="1579442372332" duration="14027000" />
       <workItem from="1579456899576" duration="510000" />
       <workItem from="1579522611673" duration="8059000" />
-      <workItem from="1579534810036" duration="413000" />
+      <workItem from="1579534810036" duration="6454000" />
     </task>
     <servers />
   </component>
@@ -139,22 +143,22 @@
       <screen x="0" y="24" width="1366" height="716" />
     </state>
     <state x="537" y="140" width="281" height="481" key="#com.intellij.ide.util.MemberChooser/0.24.1366.716@0.24.1366.716" timestamp="1579454870372" />
-    <state width="1324" height="144" key="GridCell.Tab.0.bottom" timestamp="1579535231173">
+    <state width="1324" height="144" key="GridCell.Tab.0.bottom" timestamp="1579544494445">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state width="1324" height="144" key="GridCell.Tab.0.bottom/0.24.1366.716@0.24.1366.716" timestamp="1579535231173" />
-    <state width="1324" height="144" key="GridCell.Tab.0.center" timestamp="1579535231172">
+    <state width="1324" height="144" key="GridCell.Tab.0.bottom/0.24.1366.716@0.24.1366.716" timestamp="1579544494445" />
+    <state width="1324" height="144" key="GridCell.Tab.0.center" timestamp="1579544494445">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state width="1324" height="144" key="GridCell.Tab.0.center/0.24.1366.716@0.24.1366.716" timestamp="1579535231172" />
-    <state width="1324" height="144" key="GridCell.Tab.0.left" timestamp="1579535231172">
+    <state width="1324" height="144" key="GridCell.Tab.0.center/0.24.1366.716@0.24.1366.716" timestamp="1579544494445" />
+    <state width="1324" height="144" key="GridCell.Tab.0.left" timestamp="1579544494444">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state width="1324" height="144" key="GridCell.Tab.0.left/0.24.1366.716@0.24.1366.716" timestamp="1579535231172" />
-    <state width="1324" height="144" key="GridCell.Tab.0.right" timestamp="1579535231173">
+    <state width="1324" height="144" key="GridCell.Tab.0.left/0.24.1366.716@0.24.1366.716" timestamp="1579544494444" />
+    <state width="1324" height="144" key="GridCell.Tab.0.right" timestamp="1579544494445">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state width="1324" height="144" key="GridCell.Tab.0.right/0.24.1366.716@0.24.1366.716" timestamp="1579535231173" />
+    <state width="1324" height="144" key="GridCell.Tab.0.right/0.24.1366.716@0.24.1366.716" timestamp="1579544494445" />
     <state width="1324" height="219" key="GridCell.Tab.1.bottom" timestamp="1579532279301">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
@@ -191,10 +195,10 @@
       <screen x="0" y="24" width="1366" height="716" />
     </state>
     <state x="411" y="291" width="524" height="177" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.24.1366.716@0.24.1366.716" timestamp="1579375905980" />
-    <state x="507" y="317" width="341" height="127" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1579535373310">
+    <state x="507" y="317" width="341" height="127" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1579535858718">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state x="507" y="317" width="341" height="127" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.24.1366.716@0.24.1366.716" timestamp="1579535373310" />
+    <state x="507" y="317" width="341" height="127" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.24.1366.716@0.24.1366.716" timestamp="1579535858718" />
     <state x="406" y="38" width="554" height="687" key="find.popup" timestamp="1579534362413">
       <screen x="0" y="24" width="1366" height="716" />
     </state>

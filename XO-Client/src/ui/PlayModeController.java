@@ -87,115 +87,7 @@ public class PlayModeController implements Initializable {
             }
         });
         PlayModeViewModel.getOnlinePlayersRequest();
-        
-        /*InvitationViewModel.toDeclinedInvitationFlag().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
-            if (newValue.intValue() == 1) {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        final Stage dialog = new Stage();
-                        dialog.initModality(Modality.APPLICATION_MODAL);//he must reply first
-                        VBox dialogVbox = new VBox(20);
-                        dialogVbox.getChildren().add(new Text("player " + OtherPlayer + " declined your invitation to play"));
-                        HBox hbButtons = new HBox();
-                        Button accept = new Button();
-                        accept.setText("ok");
-                        accept.setOnAction(new EventHandler<ActionEvent>() {
-                            public void handle(ActionEvent event) {
-                                dialog.close();
 
-                               
-
-                            }
-                        });
-
-                        hbButtons.getChildren().add(accept);
-                        hbButtons.setAlignment(Pos.CENTER_RIGHT);
-                        BorderPane root = new BorderPane();
-                        root.setPadding(new Insets(10)); // space between elements and window border
-                        root.setCenter(dialogVbox);
-                        root.setBottom(hbButtons);
-                        Scene dialogScene = new Scene(root, 300, 100);
-                        dialog.setTitle("Invitation Declined");
-                        dialog.setScene(dialogScene);
-                        dialog.show();
-                    }
-                });
-            } else {
-                System.out.println("FFF");
-            }
-
-            InvitationViewModel.resetDeclinedInvitationFlag();
-
-        });
-        
-        
-        InvitationViewModel.tocurrentInviteScreenflagProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
-            if (newValue.intValue() == 1) {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        ////////////////////////////////////////////////////////////////////////
-                        final Stage dialog = new Stage();
-                        dialog.initModality(Modality.APPLICATION_MODAL);//he must reply first
-                        VBox dialogVbox = new VBox(20);
-                        dialogVbox.getChildren().add(new Text("player " + OtherPlayer + " want to play with you"));
-                        HBox hbButtons = new HBox();
-
-                        Button accept = new Button();
-                        accept.setText("Accept");
-                        accept.setOnAction(new EventHandler<ActionEvent>() {
-                            public void handle(ActionEvent event) {
-                                 InvitationViewModel.resetCurrentInviteScreenflag();
-                                acceptInvitation(invitationJason);
-                                PlayScreenView.setModeToPlayers();
-                                PlayScreenView.setToGuest();
-                                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayScreen.fxml"));
-                                try {
-                                    removeListeners();
-                                    Parent root = fxmlLoader.load();
-                                    Scene scene = new Scene(root);
-                                    Stage stage = (Stage) computer.getScene().getWindow();
-                                    stage.setScene(scene);
-                                    stage.setTitle("Tic Tac Toe");
-                                } catch (IOException ex) {
-                                    ex.printStackTrace();
-                                }
-
-                                dialog.close();
-                            }
-                        });
-                        hbButtons.getChildren().add(accept);
-                        hbButtons.setAlignment(Pos.CENTER_RIGHT);
-
-                        Button decline = new Button();
-                        decline.setText("Decline");
-                        decline.setOnAction(new EventHandler<ActionEvent>() {
-                            public void handle(ActionEvent event) {
-                                System.out.println("Scrape button pressed.");
-                                declineInvitation(invitationJason);
-                                dialog.close();
-                            }
-                        });
-                        hbButtons.getChildren().add(decline);
-                        hbButtons.setAlignment(Pos.CENTER_RIGHT);
-
-                        BorderPane root = new BorderPane();
-                        root.setPadding(new Insets(10)); // space between elements and window border
-                        root.setCenter(dialogVbox);
-                        root.setBottom(hbButtons);
-                        Scene dialogScene = new Scene(root, 300, 100);
-                        dialog.setTitle("Invitation");
-                        dialog.setScene(dialogScene);
-                        dialog.show();
-                    }
-                });
-            } else {
-                System.out.println("FFF");
-            }
-            InvitationViewModel.resetCurrentInviteScreenflag();
-        });*/
         addListeners();
     }
 
@@ -219,7 +111,8 @@ public class PlayModeController implements Initializable {
                             public void handle(ActionEvent event) {
                                 dialog.close();
 
-                               
+                               InvitationViewModel.resetDeclinedInvitationFlag();
+                               InvitationViewModel.resetCurrentInviteScreenflag();
 
                             }
                         });
@@ -243,12 +136,13 @@ public class PlayModeController implements Initializable {
         currentInvitationListener = new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue){
+                System.out.println(oldValue+" AAA "+newValue);
                 if (newValue.intValue() == 1) {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
 
-                        ////////////////////////////////////////////////////////////////////////
+                        System.out.println(oldValue+" BBB "+newValue);
                         final Stage dialog = new Stage();
                         dialog.initModality(Modality.APPLICATION_MODAL);//he must reply first
                         VBox dialogVbox = new VBox(20);
@@ -259,7 +153,6 @@ public class PlayModeController implements Initializable {
                         accept.setText("Accept");
                         accept.setOnAction(new EventHandler<ActionEvent>() {
                             public void handle(ActionEvent event) {
-                                InvitationViewModel.resetCurrentInviteScreenflag();
                                 acceptInvitation(invitationJason);
                                 PlayScreenView.setModeToPlayers();
                                 PlayScreenView.setToGuest();
@@ -274,6 +167,8 @@ public class PlayModeController implements Initializable {
                                 } catch (IOException ex) {
                                     ex.printStackTrace();
                                 }
+                                InvitationViewModel.resetDeclinedInvitationFlag();
+                                InvitationViewModel.resetCurrentInviteScreenflag();
 
                                 dialog.close();
                             }
@@ -288,6 +183,8 @@ public class PlayModeController implements Initializable {
                                 System.out.println("Scrape button pressed.");
                                 declineInvitation(invitationJason);
                                 dialog.close();
+                                InvitationViewModel.resetDeclinedInvitationFlag();
+                                InvitationViewModel.resetCurrentInviteScreenflag();
                             }
                         });
                         hbButtons.getChildren().add(decline);

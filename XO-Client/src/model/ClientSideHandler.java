@@ -17,6 +17,7 @@ import viewmodel.LogoutViewModel;
 import viewmodel.PlayModeViewModel;
 
 import java.io.*;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -55,8 +56,13 @@ public class ClientSideHandler {
             JsonObject jsonObject = Utils.toJson(dataInputStream.readLine());
             if (jsonObject.has(Constant.STATUS_CODE_KEY) && Integer.parseInt(jsonObject.get(Constant.STATUS_CODE_KEY).toString()) == Constant.STATUS_CODE_SUCCESSED) {
                 handler();
+                currentPlayer = getCurrentPlayerData(jsonObject);
                 return true;
             }
+
+        } catch (ConnectException e){
+            System.out.println(e.getMessage());
+            return false;
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -127,7 +133,7 @@ public class ClientSideHandler {
                                 && Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.INVITE) {
                             PlayModeController.OtherPlayer = jsonObject.get(Constant.SENDER_NAME_KEY).toString();
                             PlayModeController.OtherPlayerId = jsonObject.get(Constant.SENDER_ID_KEY).toString();
-                            System.out.println("NEW INVITATION FROM" + PlayModeController.OtherPlayer);
+                            System.out.println("NEW INVITATION FROM00000000000000000000000000000000000000000000000000" + PlayModeController.OtherPlayer);
                             InvitationViewModel.handleInvitation(jsonObject);
                         } else if (jsonObject.has(Constant.REQUEST_TYPE)
                                 && Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.ACCEPT_INVITATION) {

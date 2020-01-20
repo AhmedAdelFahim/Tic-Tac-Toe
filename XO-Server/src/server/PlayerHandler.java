@@ -128,7 +128,8 @@ public class PlayerHandler extends Thread {
                         System.out.println("updated successfully");
                         break;
                     case Constant.INVITE:
-                        System.out.println(" INVITE");
+                        System.out.println("INVITE");
+                        System.out.println(jsonObject.toString());
                         sendInvitationRequestToSpecificPlayer(jsonObject);
                         break;
 
