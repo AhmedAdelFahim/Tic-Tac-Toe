@@ -131,6 +131,7 @@ public class ClientSideHandler {
                             InvitationViewModel.handleInvitation(jsonObject);
                         } else if (jsonObject.has(Constant.REQUEST_TYPE)
                                 && Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.ACCEPT_INVITATION) {
+                            InvitationViewModel.resetCurrentInviteScreenflag();
                             PlayModeController.OtherPlayer = jsonObject.get(Constant.SENDER_NAME_KEY).toString();
                             PlayModeController.OtherPlayerId = jsonObject.get(Constant.SENDER_ID_KEY).toString();
                             System.out.println("the Other Player Is " + PlayModeController.OtherPlayer);

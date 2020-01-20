@@ -7,18 +7,13 @@ package ui;
 
 import ArtificialIntelligence.Algorithms;
 import TicTacToe.Board;
-import com.google.gson.JsonObject;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -30,9 +25,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.ClientSideHandler;
-import model.Player;
 import utils.Constant;
 import viewmodel.InvitationViewModel;
 import viewmodel.PlayModeViewModel;
@@ -85,9 +80,6 @@ public class PlayScreenView implements Initializable {
     @FXML
     private FontAwesomeIconView list;
 
-
-
-
     @FXML
     private void Pso_1_Handeler(ActionEvent event) {
 
@@ -126,8 +118,15 @@ public class PlayScreenView implements Initializable {
     }
 
     static Board board;
-    public enum Mode {Player, AI}
-    public enum Player {Host,Guest}
+
+    public enum Mode {
+        Player, AI
+    }
+
+    public enum Player {
+        Host, Guest
+    }
+
     public static String PlayerName;
     public static String OpponentPlayerName;
     private static Player player = Player.Host;
@@ -139,38 +138,46 @@ public class PlayScreenView implements Initializable {
 
     static boolean NewGame = true;
 
+    Font xoFont;
+
     public void initGameBoard() {
-        if(NewGame)
+        if (NewGame)
             board.reset();
 
         ClientSideHandler.updateStatus(Constant.BUSY_STATUS);
-        BoardCells = new Button[][]{{pos_1, pos_2, pos_3}, {pos_4, pos_5, pos_6}, {pos_7, pos_8, pos_9}};
+        BoardCells = new Button[][] { { pos_1, pos_2, pos_3 }, { pos_4, pos_5, pos_6 }, { pos_7, pos_8, pos_9 } };
+        System.out.println(PlayerName);
+        System.out.println(OpponentPlayerName);
         userNameTop.setText(PlayerName);
         userNameBottom.setText(PlayerName);
         opponentUserName.setText(OpponentPlayerName);
         setState();
+        System.out.println(state.toString());
         userCharacter.setText(state.toString());
-        opponentCharacter.setText((state== Board.State.X?Board.State.O:Board.State.X).toString());
+        opponentCharacter.setText((state == Board.State.X ? Board.State.O : Board.State.X).toString());
+        xoFont = new Font("COMIC", 65);
+        System.out.println(level);
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 int finalJ = j;
                 int finalI = i;
                 BoardCells[finalI][finalJ].setDisable(false);
+                // BoardCells[finalI][finalJ].setStyle("-fx-font-family: 'Comic Sans MS';
+                // -fx-font-size: 35");
                 BoardCells[finalI][finalJ].setText("");
                 BoardCells[i][j].setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
                         if (CanPlay) {
                             BoardCells[finalI][finalJ].setText(board.getTurn().toString());
-//                            convert from 2d array  to 1d
-                            board.move(finalI*3+finalJ);
-                            if(mode==Mode.Player)
-                                sendGameMove(finalI*3+finalJ);
+                            // convert from 2d array to 1d
+                            board.move(finalI * 3 + finalJ);
+                            if (mode == Mode.Player)
+                                sendGameMove(finalI * 3 + finalJ);
 
                             CanPlay = false;
                             System.out.println(board.getTurn());
                         }
-
 
                     }
                 });
@@ -191,20 +198,19 @@ public class PlayScreenView implements Initializable {
         }
     }
 
-    public static void setToHost(){
+    public static void setToHost() {
         player = Player.Host;
     }
 
-    public static void setToGuest(){
+    public static void setToGuest() {
         player = Player.Guest;
     }
 
     public void setState() {
-        if(player == Player.Host){
+        if (player == Player.Host) {
             state = Board.State.X;
             CanPlay = true;
-        }
-        else {
+        } else {
             state = Board.State.O;
             CanPlay = false;
         }
@@ -222,14 +228,16 @@ public class PlayScreenView implements Initializable {
         PlayerName = PlayModeController.currentPlayer.getUserName();
         OpponentPlayerName = PlayModeController.OtherPlayer;
     }
+
     public static void setLevel(double myLevel) {
         level = myLevel;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Font.loadFont(getClass().getResource("../res/font/comici.ttf").toExternalForm(), 28);
         currentPlayer = ClientSideHandler.getInstance().getCurrentPlayer();
-        if(NewGame)
+        if (NewGame)
             board = new Board();
 
         initGameBoard();
@@ -238,7 +246,6 @@ public class PlayScreenView implements Initializable {
         System.out.println(board);
 
     }
-
 
     public void play() {
         new Thread(new Runnable() {
@@ -258,38 +265,39 @@ public class PlayScreenView implements Initializable {
                     }
 
                     switch (mode) {
-                        case AI:
-                            switch (board.getTurn()) {
-                                case X:
-                                    CanPlay = true;
-                                    break;
-                                case O:
-                                    System.out.println("fdasfdsf");
-                                    System.out.println(level);
-                                    System.out.println(board);
-                                    Algorithms.miniMax(board, level);
-                                    System.out.println(board);
-                                    break;
-                            }
+                    case AI:
+                        switch (board.getTurn()) {
+                        case X:
+                            CanPlay = true;
                             break;
-                        case Player:
+                        case O:
+                            System.out.println("fdasfdsf");
+                            System.out.println(level);
+                            System.out.println(board);
+                            Algorithms.miniMax(board, level);
+                            System.out.println(board);
+                            break;
+                        }
+                        break;
+                    case Player:
 
-                            if (board.getTurn() != state) {
-                                if(ClientSideHandler.getInstance().getOtherPlayerMove()!=-1){
-                                    board.move(ClientSideHandler.getInstance().getOtherPlayerMove());
-                                    Platform.runLater(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            printGameBoard();
-                                        }
-                                    });
-                                    ClientSideHandler.getInstance().setOtherPlayerMove();
-                                }
+                        if (board.getTurn() != state) {
+                            System.out.println("hello its other player turn");
+                            if (ClientSideHandler.getInstance().getOtherPlayerMove() != -1) {
+                                System.out.println("other player player");
+                                board.move(ClientSideHandler.getInstance().getOtherPlayerMove());
+                                Platform.runLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        printGameBoard();
+                                    }
+                                });
+                                ClientSideHandler.getInstance().setOtherPlayerMove();
                             }
-                            else {
-                                CanPlay = true;
-                            }
-                            break;
+                        } else {
+                            CanPlay = true;
+                        }
+                        break;
                     }
 
                     if (board.isGameOver()) {
@@ -297,6 +305,7 @@ public class PlayScreenView implements Initializable {
                         int status = board.getWinner() == state ? 1 : 0;
                         if (status > 0) {
                             ClientSideHandler.getInstance().updateScore();
+                            System.out.println("score updated successfully");
                         }
                         String msg;
                         if (board.getWinner() == state) {
@@ -315,8 +324,24 @@ public class PlayScreenView implements Initializable {
                                 alert.setTitle(msg);
                                 alert.setHeaderText(msg);
 
+                                ButtonType okBtn = new ButtonType("OK");
+
+                                alert.getButtonTypes().setAll(okBtn);
                                 alert.showAndWait();
+                                InvitationViewModel.resetCurrentInviteScreenflag();
+                                InvitationViewModel.resetDeclinedInvitationFlag();
                                 goHome();
+
+                                // Optional<ButtonType> result = alert.showAndWait();
+                                // if (result.get() == YesBtn) {
+                                // board.reset();
+                                // System.out.println(board);
+                                // initGameBoard();
+                                // play();
+                                // } else if (result.get() == NoBtn) {
+                                // goHome();
+                                // }
+
                             }
                         });
                         if (!CanPlay) {
@@ -340,6 +365,10 @@ public class PlayScreenView implements Initializable {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public static void resuemGame(Board myBoard) {
+        board = myBoard;
     }
 
     @FXML
@@ -382,11 +411,11 @@ public class PlayScreenView implements Initializable {
 
     }
 
-    public static void setNewGame(boolean game){
+    public static void setNewGame(boolean game) {
         NewGame = game;
     }
 
-    public static void resumeGame(String StringBoard){
+    public static void resumeGame(String StringBoard) {
         System.out.println(StringBoard.length());
         board = new Board();
         board.reset();
@@ -397,13 +426,12 @@ public class PlayScreenView implements Initializable {
         }
 
         for (int i = 0; i < myBoard.length; i++) {
-            if(myBoard[i]== 'X')
+            if (myBoard[i] == 'X')
                 board.move(i);
-            else if(myBoard[i]== 'O')
+            else if (myBoard[i] == 'O')
                 board.move(i);
 
         }
-
 
     }
 }
