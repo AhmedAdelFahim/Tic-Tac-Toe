@@ -331,21 +331,10 @@ public class PlayScreenView implements Initializable {
                                 InvitationViewModel.resetDeclinedInvitationFlag();
                                 goHome();
 
-                                // Optional<ButtonType> result = alert.showAndWait();
-                                // if (result.get() == YesBtn) {
-                                // board.reset();
-                                // System.out.println(board);
-                                // initGameBoard();
-                                // play();
-                                // } else if (result.get() == NoBtn) {
-                                // goHome();
-                                // }
-
                             }
                         });
-                        if (!CanPlay) {
                             break;
-                        }
+
                     }
 
                 }
