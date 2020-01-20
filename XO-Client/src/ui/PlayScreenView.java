@@ -7,13 +7,18 @@ package ui;
 
 import ArtificialIntelligence.Algorithms;
 import TicTacToe.Board;
+import com.google.gson.JsonObject;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -25,10 +30,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.ClientSideHandler;
+import model.Player;
 import utils.Constant;
+import viewmodel.InvitationViewModel;
 import viewmodel.PlayModeViewModel;
 
 /**
@@ -37,7 +43,6 @@ import viewmodel.PlayModeViewModel;
 public class PlayScreenView implements Initializable {
 
     public model.Player currentPlayer;
-
 
     @FXML
     private Label label;
@@ -120,7 +125,6 @@ public class PlayScreenView implements Initializable {
     }
 
     static Board board;
-
     public enum Mode {Player, AI}
     public enum Player {Host,Guest}
     public static String PlayerName;
@@ -131,28 +135,22 @@ public class PlayScreenView implements Initializable {
     private static Mode mode;
     private static double level = 0;
     boolean CanPlay = false;
-    Font xoFont;
+
     public void initGameBoard() {
         board.reset();
         ClientSideHandler.updateStatus(Constant.BUSY_STATUS);
         BoardCells = new Button[][]{{pos_1, pos_2, pos_3}, {pos_4, pos_5, pos_6}, {pos_7, pos_8, pos_9}};
-        System.out.println(PlayerName);
-        System.out.println(OpponentPlayerName);
         userNameTop.setText(PlayerName);
         userNameBottom.setText(PlayerName);
         opponentUserName.setText(OpponentPlayerName);
         setState();
-        System.out.println(state.toString());
         userCharacter.setText(state.toString());
         opponentCharacter.setText((state== Board.State.X?Board.State.O:Board.State.X).toString());
-        xoFont = new Font("COMIC",65);
-        System.out.println(level);
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 int finalJ = j;
                 int finalI = i;
                 BoardCells[finalI][finalJ].setDisable(false);
-                //BoardCells[finalI][finalJ].setStyle("-fx-font-family: 'Comic Sans MS'; -fx-font-size: 35");
                 BoardCells[finalI][finalJ].setText("");
                 BoardCells[i][j].setOnAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -223,7 +221,6 @@ public class PlayScreenView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Font.loadFont(getClass().getResource("../res/font/comici.ttf").toExternalForm(),28);
         currentPlayer = ClientSideHandler.getInstance().getCurrentPlayer();
         board = new Board();
         initGameBoard();
@@ -263,9 +260,7 @@ public class PlayScreenView implements Initializable {
                         case Player:
 
                             if (board.getTurn() != state) {
-                                System.out.println("hello its other player turn");
                                 if(ClientSideHandler.getInstance().getOtherPlayerMove()!=-1){
-                                    System.out.println("other player player");
                                     board.move(ClientSideHandler.getInstance().getOtherPlayerMove());
                                     Platform.runLater(new Runnable() {
                                         @Override
@@ -287,7 +282,6 @@ public class PlayScreenView implements Initializable {
                         int status = board.getWinner() == state ? 1 : 0;
                         if (status > 0) {
                             ClientSideHandler.getInstance().updateScore();
-                            System.out.println("score updated successfully");
                         }
                         String msg;
                         if (board.getWinner() == state) {
@@ -302,25 +296,12 @@ public class PlayScreenView implements Initializable {
                             @Override
                             public void run() {
                                 printGameBoard();
-                                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
                                 alert.setTitle(msg);
-                                alert.setHeaderText(msg + " Would you like to try again ?");
+                                alert.setHeaderText(msg);
 
-                                ButtonType YesBtn = new ButtonType("Yes");
-                                ButtonType NoBtn = new ButtonType("No");
-
-                                alert.getButtonTypes().setAll(YesBtn, NoBtn);
-
-                                Optional<ButtonType> result = alert.showAndWait();
-                                if (result.get() == YesBtn) {
-                                    board.reset();
-                                    System.out.println(board);
-                                    initGameBoard();
-                                    play();
-                                } else if (result.get() == NoBtn) {
-                                    goHome();
-                                }
-
+                                alert.showAndWait();
+                                goHome();
                             }
                         });
                         if (!CanPlay) {
@@ -346,10 +327,6 @@ public class PlayScreenView implements Initializable {
         }
     }
 
-    public static void resuemGame(Board myBoard){
-        board = myBoard;
-    }
-    
     @FXML
     private void gameStatus(MouseEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -387,6 +364,31 @@ public class PlayScreenView implements Initializable {
         map.put(Constant.MOVE_POSTION, movePos);
         PlayModeViewModel.gameMove(map);
         System.err.println(map);
+
+    }
+
+    public static void resumeGame(String StringBoard){
+        board = new Board();
+
+        char[] myBoard = new char[StringBoard.length()];
+
+        for (int i = 0; i < StringBoard.length(); i++) {
+            myBoard[i] = StringBoard.charAt(i);
+        }
+
+        Board.State s;
+        for (int i = 0; i < myBoard.length; i++) {
+            if(myBoard[i]== 'X')
+                s = Board.State.X;
+            else if(myBoard[i]== 'O')
+                s = Board.State.O;
+            else
+                s = Board.State.Blank;
+
+
+            board.toArray()[i%3][i/3] = s;
+        }
+
 
     }
 }

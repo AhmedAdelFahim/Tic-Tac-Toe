@@ -5,10 +5,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
+import javafx.stage.Stage;
 import model.ClientSideHandler;
 import model.Game;
 import model.Player;
@@ -62,7 +65,17 @@ public class SavedGameItem extends ListCell<Game> {
                         @Override
                         public void handle(ActionEvent event) {
                             PlayScreenView.setModeToAI();
-//                            PlayScreenView.resuemGame(item.getGameBoard());
+                            PlayScreenView.resumeGame(item.getGameBoard());
+                            FXMLLoader fxmlLoader = new FXMLLoader(PlayModeController.class.getResource("PlayScreen.fxml"));
+                            try {
+                                Parent root = fxmlLoader.load();
+                                Scene scene = new Scene(root, 800, 500);
+                                Stage stage = App.CurrentStage;
+                                System.out.println(stage);
+                                stage.setScene(scene);
+                            } catch (IOException ex) {
+                                ex.printStackTrace();
+                            }
                             HashMap<String, Object> map = new HashMap<>();
                             map.put(Constant.REQUEST_TYPE, Constant.LOAD_GAME);
                             map.put(Constant.ID_KEY, item.getId());
