@@ -235,7 +235,7 @@ public class PlayScreenView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Font.loadFont(getClass().getResource("../res/font/comici.ttf").toExternalForm(), 28);
+        Font.loadFont(getClass().getResource("/font/comici.ttf").toExternalForm(), 28);
         currentPlayer = ClientSideHandler.getInstance().getCurrentPlayer();
         if (NewGame)
             board = new Board();

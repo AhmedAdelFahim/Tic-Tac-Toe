@@ -78,6 +78,15 @@ public class PlayerHandler extends Thread {
         printStream.println(json);
     }
 
+    public void sendServerSleep(String json) {
+        try {
+            DBQueries.changeStatus(host_id,Constant.OFFLINE_STATUS);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        printStream.println(json);
+    }
+
     public int getPlayerId() {
         return host_id;
     }

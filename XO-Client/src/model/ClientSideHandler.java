@@ -84,6 +84,10 @@ public class ClientSideHandler {
                 return true;
             }
 
+        } catch (ConnectException e){
+            System.out.println(e.getMessage());
+            return false;
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -133,7 +137,6 @@ public class ClientSideHandler {
                                 && Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.INVITE) {
                             PlayModeController.OtherPlayer = jsonObject.get(Constant.SENDER_NAME_KEY).toString();
                             PlayModeController.OtherPlayerId = jsonObject.get(Constant.SENDER_ID_KEY).toString();
-                            System.out.println("NEW INVITATION FROM00000000000000000000000000000000000000000000000000" + PlayModeController.OtherPlayer);
                             InvitationViewModel.handleInvitation(jsonObject);
                         } else if (jsonObject.has(Constant.REQUEST_TYPE)
                                 && Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.ACCEPT_INVITATION) {
@@ -160,11 +163,9 @@ public class ClientSideHandler {
                                 }
                             });
 
-                            System.out.println("ACCEPTED INVITATION");
-                            System.out.println(jsonObject);
+
                         } else if (jsonObject.has(Constant.REQUEST_TYPE)
                                 && Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.DECLINE_INVITATION) {
-                            System.out.println("Declined INVITATION");
                             PlayModeController.OtherPlayer = jsonObject.get(Constant.SENDER_NAME_KEY).toString();
                             InvitationViewModel.declineInvitation(jsonObject);
                         } else if (jsonObject.has(Constant.REQUEST_TYPE)
@@ -172,8 +173,6 @@ public class ClientSideHandler {
                             OtherPlayerMove = jsonObject.get(Constant.MOVE_POSTION).getAsInt();
                         } else if (jsonObject.has(Constant.REQUEST_TYPE)
                                 && Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.SAVED_GAMES) {
-//                           System.out.println(jsonObject);
-                            System.out.println("this is saved games");
 
                             SavedGamesViewModel.savedGames(jsonObject.getAsJsonArray(Constant.GAME_DATA_KEY));
                         } else if (jsonObject.has(Constant.REQUEST_TYPE)
@@ -185,6 +184,10 @@ public class ClientSideHandler {
                             } else {
                                 LogoutViewModel.setToSignUpFlag(false);
                             }
+                        } else if (jsonObject.has(Constant.REQUEST_TYPE)
+                                && Integer.parseInt(jsonObject.get(Constant.REQUEST_TYPE).toString()) == Constant.SERVER_SLEEP) {
+                                LogoutViewModel.setToSignUpFlag(true);
+                                destroy();
                         }
                     } catch (IOException e) {
                         e.printStackTrace();

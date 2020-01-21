@@ -40,7 +40,7 @@ public class SavedGameItem extends ListCell<Game> {
 
     private void loadFXML() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../res/layout/saved_games_item.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/saved_games_item.fxml"));
             loader.setController(this);
             loader.setRoot(this);
             loader.load();

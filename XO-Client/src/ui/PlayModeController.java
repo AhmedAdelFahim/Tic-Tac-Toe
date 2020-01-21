@@ -72,7 +72,7 @@ public class PlayModeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Font.loadFont(getClass().getResource("../res/font/Bangers.ttf").toExternalForm(), 28);
+        //Font.loadFont(getClass().getResource("/font/Bangers.ttf").toExternalForm(), 28);
         currentPlayer = ClientSideHandler.getInstance().getCurrentPlayer();
         onlineList.setCellFactory(new PlayerCellFactory());
         onlineList.setItems(PlayModeViewModel.getOnlinePlayers());
@@ -130,19 +130,17 @@ public class PlayModeController implements Initializable {
                     }
                 });
             } else {
-                System.out.println("FFF");
+//                System.out.println("FFF");
             }
             }};
         currentInvitationListener = new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue){
-                System.out.println(oldValue+" AAA "+newValue);
                 if (newValue.intValue() == 1) {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
 
-                        System.out.println(oldValue+" BBB "+newValue);
                         final Stage dialog = new Stage();
                         dialog.initModality(Modality.APPLICATION_MODAL);//he must reply first
                         VBox dialogVbox = new VBox(20);
@@ -207,7 +205,6 @@ public class PlayModeController implements Initializable {
         logoutListener = new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                System.out.println(oldValue + "   " + newValue);
                 if (newValue && !oldValue) {
                     Platform.runLater(new Runnable() {
                         @Override

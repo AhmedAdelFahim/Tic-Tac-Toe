@@ -36,7 +36,7 @@ public class OnlinePlayerItem extends ListCell<Player> {
 
     private void loadFXML() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../res/layout/online_player_item.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/online_player_item.fxml"));
             loader.setController(this);
             loader.setRoot(this);
             loader.load();

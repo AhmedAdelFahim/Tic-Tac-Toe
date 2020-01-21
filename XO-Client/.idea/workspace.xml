@@ -1,16 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="XO-Client:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="9b9db6a1-96c0-4a5a-90c8-d040483635ca" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../XO-Server/src/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/ClientSideHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/ClientSideHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/font/Bangers.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/font/Bangers.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/font/COMIC.TTF" beforeDir="false" afterPath="$PROJECT_DIR$/src/font/COMIC.TTF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/font/comici.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/font/comici.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/layout/online_player_item.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/online_player_item.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/layout/saved_games_item.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/saved_games_item.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ui/LevelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/LevelController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/LoginView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/LoginView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/OnlinePlayerItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/OnlinePlayerItem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ui/PlayModeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/PlayModeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/PlayScreenView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/PlayScreenView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ui/SavedGameItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/SavedGameItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/SavedGamesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/SavedGamesController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ui/SignUpView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/SignUpView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/savedGames.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/savedGames.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/viewmodel/SignUpViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/viewmodel/SignUpViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Constant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/viewmodel/LogInViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/viewmodel/LogInViewModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../XO-Server/src/server/PlayerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../XO-Server/src/server/PlayerHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../XO-Server/src/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/../XO-Server/src/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../XO-Server/src/utils/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/../XO-Server/src/utils/Constant.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,11 +63,14 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/res/font" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/res/font" />
       <recent name="$PROJECT_DIR$/src/ui" />
@@ -114,7 +135,8 @@
       <workItem from="1579442372332" duration="14027000" />
       <workItem from="1579456899576" duration="510000" />
       <workItem from="1579522611673" duration="8059000" />
-      <workItem from="1579534810036" duration="6454000" />
+      <workItem from="1579534810036" duration="7196000" />
+      <workItem from="1579587677868" duration="4868000" />
     </task>
     <servers />
   </component>
@@ -143,22 +165,26 @@
       <screen x="0" y="24" width="1366" height="716" />
     </state>
     <state x="537" y="140" width="281" height="481" key="#com.intellij.ide.util.MemberChooser/0.24.1366.716@0.24.1366.716" timestamp="1579454870372" />
-    <state width="1324" height="144" key="GridCell.Tab.0.bottom" timestamp="1579544494445">
+    <state x="476" y="182" width="394" height="395" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1579591002686">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state width="1324" height="144" key="GridCell.Tab.0.bottom/0.24.1366.716@0.24.1366.716" timestamp="1579544494445" />
-    <state width="1324" height="144" key="GridCell.Tab.0.center" timestamp="1579544494445">
+    <state x="476" y="182" width="394" height="395" key="#com.intellij.ide.util.TreeClassChooserDialog/0.24.1366.716@0.24.1366.716" timestamp="1579591002686" />
+    <state width="1324" height="144" key="GridCell.Tab.0.bottom" timestamp="1579591975013">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state width="1324" height="144" key="GridCell.Tab.0.center/0.24.1366.716@0.24.1366.716" timestamp="1579544494445" />
-    <state width="1324" height="144" key="GridCell.Tab.0.left" timestamp="1579544494444">
+    <state width="1324" height="144" key="GridCell.Tab.0.bottom/0.24.1366.716@0.24.1366.716" timestamp="1579591975013" />
+    <state width="1324" height="144" key="GridCell.Tab.0.center" timestamp="1579591975011">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state width="1324" height="144" key="GridCell.Tab.0.left/0.24.1366.716@0.24.1366.716" timestamp="1579544494444" />
-    <state width="1324" height="144" key="GridCell.Tab.0.right" timestamp="1579544494445">
+    <state width="1324" height="144" key="GridCell.Tab.0.center/0.24.1366.716@0.24.1366.716" timestamp="1579591975011" />
+    <state width="1324" height="144" key="GridCell.Tab.0.left" timestamp="1579591975010">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state width="1324" height="144" key="GridCell.Tab.0.right/0.24.1366.716@0.24.1366.716" timestamp="1579544494445" />
+    <state width="1324" height="144" key="GridCell.Tab.0.left/0.24.1366.716@0.24.1366.716" timestamp="1579591975010" />
+    <state width="1324" height="144" key="GridCell.Tab.0.right" timestamp="1579591975011">
+      <screen x="0" y="24" width="1366" height="716" />
+    </state>
+    <state width="1324" height="144" key="GridCell.Tab.0.right/0.24.1366.716@0.24.1366.716" timestamp="1579591975011" />
     <state width="1324" height="219" key="GridCell.Tab.1.bottom" timestamp="1579532279301">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
@@ -183,10 +209,10 @@
       <screen x="0" y="24" width="1366" height="716" />
     </state>
     <state x="458" y="162" width="439" height="437" key="MultipleFileMergeDialog/0.24.1366.716@0.24.1366.716" timestamp="1579522805827" />
-    <state x="294" y="61" width="768" height="639" key="SettingsEditor" timestamp="1579376015327">
+    <state x="294" y="61" width="768" height="639" key="SettingsEditor" timestamp="1579591611856">
       <screen x="0" y="24" width="1366" height="716" />
     </state>
-    <state x="294" y="61" width="768" height="639" key="SettingsEditor/0.24.1366.716@0.24.1366.716" timestamp="1579376015327" />
+    <state x="294" y="61" width="768" height="639" key="SettingsEditor/0.24.1366.716@0.24.1366.716" timestamp="1579591611856" />
     <state x="418" y="248" key="com.intellij.ide.util.TipDialog" timestamp="1579522620549">
       <screen x="0" y="24" width="1366" height="716" />
     </state>

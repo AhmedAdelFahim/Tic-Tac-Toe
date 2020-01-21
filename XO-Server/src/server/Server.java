@@ -38,6 +38,9 @@ public class Server {
     }
 
     public  void closeServer() throws IOException {
+        broadcastServerSleep();
+        onlinePlayersData.clear();
+        onlinePlayersHandler.clear();
         serverSocket.close();
     }
     
@@ -81,6 +84,20 @@ public class Server {
     
     public static void removeOnlinePlayersData(int playerId) {
         onlinePlayersData.remove(playerId);
+    }
+
+    public static void broadcastServerSleep(){
+        //System.out.println("Broadcast");
+        HashMap<String,Object> map = new HashMap<>();
+        map.put(Constant.REQUEST_TYPE,Constant.SERVER_SLEEP);
+
+        onlinePlayersHandler.forEach(new BiConsumer<Integer, PlayerHandler>() {
+            @Override
+            public void accept(Integer integer, PlayerHandler playerHandler) {
+                    playerHandler.sendServerSleep(Utils.toString(map));
+            }
+        });
+
     }
 
     public static void broadcastOnlinePlayers(){

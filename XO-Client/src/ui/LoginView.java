@@ -59,11 +59,11 @@ public class LoginView implements Initializable {
     @FXML
     private Button signUpButton;
 
-
+    private ChangeListener loginListener;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Font.loadFont(getClass().getResource("../res/font/Bangers.ttf").toExternalForm(),28);
+        Font.loadFont(getClass().getResource("/font/Bangers.ttf").toExternalForm(),28);
         //headerLabel.setStyle("-fx-font-family: Bangers");
 
         addListeners();
@@ -72,14 +72,14 @@ public class LoginView implements Initializable {
 
     private void addListeners(){
 
-
-        LogInViewModel.toPlayScreenFlagProperty().addListener(new ChangeListener<Number>() {
+        loginListener = new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 System.out.println(oldValue +" "+newValue);
                 if (newValue.intValue() == 1) {
 
                     try {
+                        removeListener();
                         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayMode.fxml"));
                         ///System.out.println(Thread.currentThread().getName());
                         Parent root = fxmlLoader.load();
@@ -96,19 +96,15 @@ public class LoginView implements Initializable {
                 } else if(newValue.intValue() == 0){
 
                     loginResult.setText("Login Failed");
-                    System.out.println("FFF");
                 }
                 LogInViewModel.setToPlayScreenFlag(-1);
-                LogInViewModel.toPlayScreenFlagProperty().removeListener(this);
+                //LogInViewModel.toPlayScreenFlagProperty().removeListener(this);
             }
-        });
+        };
 
-        LogInViewModel.toPlayScreenFlagProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+        LogInViewModel.toPlayScreenFlagProperty().addListener(loginListener);
 
-            }
-        });
+
 /*
         LogInViewModel.toPlayScreenFlagProperty().addListener((observable, oldValue, newValue) -> {
 //            System.out.println(newValue);
@@ -117,16 +113,20 @@ public class LoginView implements Initializable {
         });*/
     }
 
+    private void removeListener(){
+        LogInViewModel.toPlayScreenFlagProperty().removeListener(loginListener);
+    }
+
     @FXML
     private void handleSignUp(ActionEvent event) {
         try {
-            System.out.println("Go To SignUp Page..");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("SignUpView.fxml"));
             Stage stage = (Stage) signUpButton.getScene().getWindow();
             Scene scene = new Scene(loader.load());
             stage.setScene(scene);
             stage.setTitle("Tic Tac Toe");
-            System.out.println("Logged In Successfully");
+            removeListener();
+
         } catch (IOException ex) {
             Logger.getLogger(LoginView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -134,6 +134,7 @@ public class LoginView implements Initializable {
 
     @FXML
     private void handleLogIn(ActionEvent event) {
+        LogInViewModel.setToPlayScreenFlag(-1);
         int logInStatus = 1;
         userName = userNameTextField.getText();
         passWord = passwordField.getText();

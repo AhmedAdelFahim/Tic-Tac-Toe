@@ -54,7 +54,7 @@ public class LevelController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Font.loadFont(getClass().getResource("../res/font/Bangers.ttf").toExternalForm(),28);
+        Font.loadFont(getClass().getResource("/font/Bangers.ttf").toExternalForm(),28);
         addListeners();
     }
 

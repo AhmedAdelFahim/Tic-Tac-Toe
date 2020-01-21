@@ -13,7 +13,7 @@ public class LogInViewModel {
     private static IntegerProperty toPlayScreenFlag = new SimpleIntegerProperty(-1);
     public static void logIn(HashMap<String,Object> map){
 
-        //System.out.println(toPlayScreenFlag);
+        System.out.println("bbb " +toPlayScreenFlag);
         if(ClientSideHandler.getInstance().logIn(Utils.toString(map)))
         {
             toPlayScreenFlag.setValue(1);               // 1 > succeeded
@@ -21,7 +21,7 @@ public class LogInViewModel {
         else {
             toPlayScreenFlag.setValue(0);               // 0 > failed
         }
-        //System.out.println(toPlayScreenFlag);
+        System.out.println("aaa " +toPlayScreenFlag);
     }
 
     public static int isToPlayScreenFlag() {

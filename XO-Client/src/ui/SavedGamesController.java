@@ -72,7 +72,6 @@ public class SavedGamesController implements Initializable {
 
     @FXML
     private void handleLogoutAction(ActionEvent event) {
-        System.out.println("LOOGING OUT >>>>>>");
         HashMap<String, Object> map = new HashMap<>();
         map.put(Constant.USER_NAME_KEY, ClientSideHandler.getInstance().getCurrentPlayer().getUserName());
         map.put(Constant.REQUEST_TYPE, Constant.LOGOUT);
